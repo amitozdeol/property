@@ -1,0 +1,6 @@
+@import '~buefy/dist/buefy.css';
+
+.nav-link{
+    color: white;
+    text-decoration: none;
+}
