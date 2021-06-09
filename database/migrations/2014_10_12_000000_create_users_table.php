@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
                         ->unique()
                         ->nullable()
                         ->default(null);
+            $table->boolean('admin')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

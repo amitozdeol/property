@@ -1,5 +1,22 @@
 <template>
-  <h1>Property</h1>
+    <div>
+        <h1 class="is-size-1">Property</h1>
+        <h1 class="is-size-1">Property</h1>
+        <h1 class="is-size-1">Property</h1>
+        <h1 class="is-size-1">Property</h1>
+        <h1 class="is-size-1">Property</h1>
+        <h1 class="is-size-1">Property</h1>
+        <h1 class="is-size-1">Property</h1>
+        <h1 class="is-size-1">Property</h1>
+        <h1 class="is-size-1">Property</h1>
+        <h1 class="is-size-1">Property</h1>
+        <h1 class="is-size-1">Property</h1>
+        <h1 class="is-size-1">Property</h1>
+        <h1 class="is-size-1">Property</h1>
+        <h1 class="is-size-1">Property</h1>
+        <h1 class="is-size-1">Property</h1>
+        <h1 class="is-size-1">Property</h1>
+    </div>
 </template>
 
 <script>

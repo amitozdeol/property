@@ -2,7 +2,7 @@
     <div class="sidebar-page">
         <section class="sidebar-layout">
             <b-sidebar position="static" mobile="reduce" :expand-on-hover="false" :reduce="false" :fullheight="true"
-                type="is-light" open>
+                type="is-info" open>
                 <div class="p-1">
                     <b-menu class="is-custom-mobile">
                         <b-menu-list label="Menu">
@@ -17,7 +17,7 @@
                 </div>
             </b-sidebar>
 
-            <div class="p-1">
+            <div class="pt-1 px-3">
                 <router-view></router-view>
             </div>
         </section>
