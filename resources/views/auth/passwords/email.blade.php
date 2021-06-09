@@ -7,14 +7,14 @@
         <div class="container">
             @if (session('status'))
                 <div class="columns is-centered">
-                    <div class="notification column is-success is-5-tablet is-4-desktop is-3-widescreen">
+                    <div class="notification column is-success is-5-tablet is-4-desktop">
                         <button class="delete"></button>
                         {{ session('status') }}
                     </div>
                 </div>
             @endif
             <div class="columns is-centered">
-                <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+                <div class="column is-5-tablet is-4-desktop">
                     <form method="POST" action="{{ route('password.email') }}" class="box">
                         @csrf
 

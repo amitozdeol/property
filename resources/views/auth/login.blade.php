@@ -6,7 +6,7 @@
     <div class="hero-body">
         <div class="container">
             <div class="columns is-centered">
-                <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+                <div class="column is-5-tablet is-4-desktop">
                     <form method="POST" action="{{ route('login') }}" class="box">
                         @csrf
                         <h1 class="title has-text-black">Login</h1>
@@ -40,7 +40,7 @@
                             </button>
 
                             @if (Route::has('password.request'))
-                                <a class="has-text-grey" href="{{ route('password.request') }}">
+                                <a class="has-text-grey has-text-right" href="{{ route('password.request') }}">
                                     {{ __('Forgot Your Password?') }}
                                 </a>
                             @endif

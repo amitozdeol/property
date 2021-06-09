@@ -1,8 +1,11 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Import Bulma's core
+@import "~bulma/sass/utilities/_all";
 
 // Variables
-@import 'variables';
+@import '_variables';
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+// Import Bulma and Buefy styles
+@import "~bulma";
+@import "~buefy/src/scss/buefy";
+

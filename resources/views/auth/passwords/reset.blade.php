@@ -6,7 +6,7 @@
     <div class="hero-body">
         <div class="container">
             <div class="columns is-centered">
-                <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+                <div class="column is-5-tablet is-4-desktop">
                     <form method="POST" action="{{ route('password.update') }}" class="box">
                         @csrf
                         <input type="hidden" name="token" value="{{ $token }}">
