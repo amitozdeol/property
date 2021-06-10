@@ -7,6 +7,8 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="api-base-url" content="{{ url('/api') }}" />
+    <meta name="api-base-token" content="{{ auth()->user()->api_token }}" />
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -24,46 +26,48 @@
 
 <body>
     <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-            <a class="navbar-item" href="/dashboard">
-                <img src="/favicon/android-chrome-192x192.png"> <span class="ml-1">PROPERTY</span>
-            </a>
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/dashboard">
+                    <img src="/favicon/android-chrome-192x192.png"> <span class="ml-1">PROPERTY</span>
+                </a>
 
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
-                data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
-        </div>
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                    data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
 
-        <div id="navbarBasicExample" class="navbar-menu">
+            <div id="navbarBasicExample" class="navbar-menu">
 
-            <div class="navbar-end">
-                <div class="navbar-item">
-                    @auth
-                        <span class="mr-2">{{ Auth::user()->name }}</span>
-                    @endauth
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        @auth
+                            <span class="mr-2">{{ Auth::user()->name }}</span>
+                        @endauth
 
-                    <div class="buttons">
-                        @guest
-                            <a class="button is-primary" href="{{ route('login') }}">
-                                <strong>{{ __('Login') }}</strong>
-                            </a>
-                            @if (Route::has('register'))
-                                <a class="button is-light" href="{{ route('register') }}">
-                                    {{ __('Register') }}
+                        <div class="buttons">
+                            @guest
+                                <a class="button is-primary" href="{{ route('login') }}">
+                                    <strong>{{ __('Login') }}</strong>
                                 </a>
-                            @endif
-                        @else
-                            <a class="button is-light" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        @endguest
+                                @if (Route::has('register'))
+                                    <a class="button is-light" href="{{ route('register') }}">
+                                        {{ __('Register') }}
+                                    </a>
+                                @endif
+                            @else
+                                <a class="button is-light" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            @endguest
+                        </div>
                     </div>
                 </div>
             </div>

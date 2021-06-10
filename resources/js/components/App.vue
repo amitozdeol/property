@@ -17,7 +17,7 @@
                 </div>
             </b-sidebar>
 
-            <div class="pt-1 px-3">
+            <div class="pt-1 px-3 container">
                 <router-view></router-view>
             </div>
         </section>
