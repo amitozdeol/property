@@ -26,7 +26,24 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
+        $vd = $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+            'zip' => 'required|max:999999|integer',
+        ]);
 
+        $property = new Property();
+        $property->name = $vd['name'];
+        $property->address = $vd['address'];
+        $property->city = $vd['city'];
+        $property->state = $vd['state'];
+        $property->zip = $vd['zip'];
+        $property->user_id = Auth::guard('api')->id();
+        $property->save();
+
+        return response()->json($property, 201);
     }
 
     /**

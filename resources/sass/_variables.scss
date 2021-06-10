@@ -7,7 +7,7 @@ $info: #E3EFE0;
 $info-light: findLightColor($info);
 $info-dark: findDarkColor($info);
 $info-invert: findColorInvert($info);
-$navbar-background-color: #E3EFE0;
+$navbar-background-color: $primary;
 
 // Setup $colors to use as bulma classes (e.g. 'is-twitter')
 $colors: mergeColorMaps(
@@ -75,3 +75,5 @@ $link-focus-border: $primary;
 
 $sidebar-box-shadow: none;
 $sidebar-width: 200px;
+
+$skeleton-background: linear-gradient(90deg, #b7c4b4 25%, rgb(0, 128, 128) 50%, #b7c4b4 75%);

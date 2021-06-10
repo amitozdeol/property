@@ -2,7 +2,7 @@
 
 @section('content')
 
-<section class="hero is-primary is-fullheight">
+<section class="hero is-info is-fullheight">
     <div class="hero-body">
         <div class="container">
             @if (session('status'))

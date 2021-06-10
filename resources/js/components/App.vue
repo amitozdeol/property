@@ -1,9 +1,9 @@
 <template>
-    <div class="sidebar-page">
+    <div class="sidebar-page has-background-info">
         <section class="sidebar-layout">
             <b-sidebar position="static" mobile="reduce" :expand-on-hover="false" :reduce="false" :fullheight="true"
                 type="is-info" open>
-                <div class="p-1">
+                <div class="px-1 pt-2">
                     <b-menu class="is-custom-mobile">
                         <b-menu-list label="Menu">
                             <b-menu-item icon="information-outline" label="Property" tag="router-link" to="/property" :active="$route.name=='property'" ></b-menu-item>
@@ -17,7 +17,7 @@
                 </div>
             </b-sidebar>
 
-            <div class="pt-1 px-3 container">
+            <div class="p-3 container">
                 <router-view></router-view>
             </div>
         </section>

@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="api-base-url" content="{{ url('/api') }}" />
-    <meta name="api-base-token" content="{{ auth()->user()->api_token }}" />
+    <meta name="api-base-token" content="{{ auth()->user()->api_token ?? '' }}" />
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -28,11 +28,11 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="container">
             <div class="navbar-brand">
-                <a class="navbar-item" href="/dashboard">
+                <a class="navbar-item has-text-white" href="/dashboard">
                     <img src="/favicon/android-chrome-192x192.png"> <span class="ml-1">PROPERTY</span>
                 </a>
 
-                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                <a role="button" class="navbar-burger has-text-white" aria-label="menu" aria-expanded="false"
                     data-target="navbarBasicExample">
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
@@ -45,7 +45,7 @@
                 <div class="navbar-end">
                     <div class="navbar-item">
                         @auth
-                            <span class="mr-2">{{ Auth::user()->name }}</span>
+                            <span class="mr-2 has-text-white">{{ Auth::user()->name }}</span>
                         @endauth
 
                         <div class="buttons">

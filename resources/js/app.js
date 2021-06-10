@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import { Sidebar, Menu, Field, Switch, Select, Skeleton } from 'buefy';
+import { Sidebar, Menu, Field, Switch, Select, Skeleton, Button, Input } from 'buefy';
 import router from './routes';
 
-[Sidebar, Menu, Field, Switch, Select, Skeleton].forEach((x) => Vue.use(x));
+[Sidebar, Menu, Field, Switch, Select, Skeleton, Button, Input].forEach((x) => Vue.use(x));
 
 Vue.component('app', require('./components/App.vue').default);
 
@@ -15,6 +15,13 @@ Vue.filter('formatDate', function(value) {
         let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
         return `${da}-${mo}-${ye}`;
     }
+});
+
+//capitalize text
+Vue.filter('capitalize', function (value) {
+    if (!value) return ''
+    value = value.toString()
+    return value.charAt(0).toUpperCase() + value.slice(1)
 });
 
 const app = new Vue({

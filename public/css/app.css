@@ -4635,7 +4635,7 @@ button.dropdown-item.is-active {
 }
 
 .navbar {
-  background-color: #E3EFE0;
+  background-color: #008080;
   min-height: 3.25rem;
   position: relative;
   z-index: 30;
@@ -5407,7 +5407,7 @@ a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-i
   }
 
   .navbar-menu {
-    background-color: #E3EFE0;
+    background-color: #008080;
     box-shadow: 0 8px 16px rgba(10, 10, 10, 0.1);
     padding: 0.5rem 0;
   }
@@ -12904,7 +12904,7 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   width: 100%;
 }
 .b-skeleton > .b-skeleton-item {
-  background: linear-gradient(90deg, #dbdbdb 25%, rgba(219, 219, 219, 0.5) 50%, #dbdbdb 75%);
+  background: linear-gradient(90deg, #b7c4b4 25%, teal 50%, #b7c4b4 75%);
   background-size: 400% 100%;
   width: 100%;
 }
@@ -15520,4 +15520,10 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 }
 .navbar {
   box-shadow: 0px 0px 7px 0px #008080;
+}
+
+.page-header {
+  border-bottom: 2px double #363636;
+  margin-bottom: 2rem !important;
+  padding-bottom: 1rem;
 }
