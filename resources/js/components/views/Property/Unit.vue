@@ -8,8 +8,8 @@
         </header>
         <div class="card-content">
             <div class="content">
-                <b-field label="Number/Name" :type="{'is-danger': (error.name)}" :message="error.name || ''">
-                    <b-input placeholder="Number/Name" v-model="unit.name" type="text" max="200" required></b-input>
+                <b-field label="Number/Name" :type="{'is-danger': (error.unit)}" :message="error.unit || ''">
+                    <b-input placeholder="Number/Name" v-model="unit.unit" type="text" max="200" required></b-input>
                 </b-field>
                 <b-field label="Size(Optional)" :type="{'is-danger': (error.size)}" :message="error.size">
                     <b-input placeholder="sq. ft." type="number" v-model.number="unit.size" min="1" max="999999">
@@ -42,7 +42,6 @@
         },
         methods:{
             destroy(){
-                console.log("sss");
                 this.$emit('destroy', this.index);
             }
         }

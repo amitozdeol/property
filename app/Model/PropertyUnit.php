@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
-class Property extends Model
+class PropertyUnit extends Model
 {
     /**
      * The table associated with the model.
@@ -15,4 +15,11 @@ class Property extends Model
      * @var string
      */
     protected $table = 'property_unit';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['unit', 'size', 'address'];
 }

@@ -17,6 +17,7 @@ class CreatePropertyUnitTable extends Migration
             $table->id();
             $table->integer('property_id');
             $table->string('unit', 100);
+            $table->integer('size');
             $table->string('address', 1000);
             $table->timestamps();
         });

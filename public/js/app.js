@@ -2007,7 +2007,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         zip: null
       },
       units: [{
-        name: null,
+        unit: null,
         size: null,
         address: null
       }],
@@ -2327,7 +2327,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     destroy: function destroy() {
-      console.log("sss");
       this.$emit('destroy', this.index);
     }
   }
@@ -7773,8 +7772,8 @@ var render = function() {
             {
               attrs: {
                 label: "Number/Name",
-                type: { "is-danger": _vm.error.name },
-                message: _vm.error.name || ""
+                type: { "is-danger": _vm.error.unit },
+                message: _vm.error.unit || ""
               }
             },
             [
@@ -7786,11 +7785,11 @@ var render = function() {
                   required: ""
                 },
                 model: {
-                  value: _vm.unit.name,
+                  value: _vm.unit.unit,
                   callback: function($$v) {
-                    _vm.$set(_vm.unit, "name", $$v)
+                    _vm.$set(_vm.unit, "unit", $$v)
                   },
-                  expression: "unit.name"
+                  expression: "unit.unit"
                 }
               })
             ],

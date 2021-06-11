@@ -62,7 +62,7 @@
                     state: null,
                     zip: null
                 },
-                units: [{name: null, size: null, address: null}],
+                units: [{unit: null, size: null, address: null}],
                 error: {units: []},
                 is_loading: false
             }

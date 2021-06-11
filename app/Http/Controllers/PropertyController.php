@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\Property;
+use App\Model\PropertyUnit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,7 +34,7 @@ class PropertyController extends Controller
             'state' => 'required',
             'zip' => 'required|max:999999|integer',
             'units' => 'required|array',
-            'units.*.name' => 'required|string',
+            'units.*.unit' => 'required|string',
             'units.*.size' => 'sometimes|integer',
             'units.*.address' => 'required|string'
         ]);
@@ -47,6 +48,14 @@ class PropertyController extends Controller
         $property->user_id = Auth::guard('api')->id();
         $property->save();
 
+        $units = [];
+        foreach ($vd['units'] as $key => $value) {
+            $value = (array) $value;
+            $value['property_id'] = $property->id;
+            $units[] = new PropertyUnit((array)$value);
+        }
+
+        $property->units()->saveMany($units);
         return response()->json($property, 201);
     }
 
