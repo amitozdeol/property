@@ -1915,9 +1915,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['title', 'subtitle', 'buttonLink'],
+  props: ['title', 'subtitle', 'buttonLink', 'breadcrumb'],
   name: 'Header'
 });
 
@@ -2039,7 +2038,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 if (!_this.is_validated) {
-                  _context.next = 12;
+                  _context.next = 13;
                   break;
                 }
 
@@ -2050,23 +2049,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 5:
                 res = _context.sent;
-                _context.next = 11;
+
+                _this.$router.push({
+                  name: 'property'
+                });
+
+                _context.next = 12;
                 break;
 
-              case 8:
-                _context.prev = 8;
+              case 9:
+                _context.prev = 9;
                 _context.t0 = _context["catch"](2);
                 _this.error = (_err$response = _context.t0.response) === null || _err$response === void 0 ? void 0 : (_err$response$data = _err$response.data) === null || _err$response$data === void 0 ? void 0 : _err$response$data.errors;
 
-              case 11:
+              case 12:
                 _this.is_loading = false;
 
-              case 12:
+              case 13:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[2, 8]]);
+        }, _callee, null, [[2, 9]]);
       }))();
     }
   }
@@ -2118,6 +2122,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2125,7 +2142,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       is_loading: true,
-      properties: []
+      properties: null
     };
   },
   components: {
@@ -5242,7 +5259,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".p-1 {\n  padding: 1em;\n}\n.sidebar-page {\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n  min-height: 100vh;\n}\n.sidebar-page .sidebar-layout {\n  display: flex;\n  flex-direction: row;\n  min-height: 100vh;\n}\n@media screen and (max-width: 768px) {\n.b-sidebar .sidebar-content.is-mini-mobile:not(.is-mini-expand) .menu-list li a span:nth-child(2), .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:not(:hover) .menu-list li a span:nth-child(2) {\n    display: none;\n}\n.b-sidebar .sidebar-content.is-mini-mobile:not(.is-mini-expand) .menu-list li ul, .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:not(:hover) .menu-list li ul {\n    padding-left: 0;\n}\n.b-sidebar .sidebar-content.is-mini-mobile:not(.is-mini-expand) .menu-list li ul li a, .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:not(:hover) .menu-list li ul li a {\n    display: inline-block;\n}\n.b-sidebar .sidebar-content.is-mini-mobile:not(.is-mini-expand) .menu-label:not(:last-child), .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:not(:hover) .menu-label:not(:last-child) {\n    margin-bottom: 0;\n}\n}\n.is-mini-expand .menu-list a {\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".p-1 {\n  padding: 1em;\n}\n.sidebar-page {\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n  min-height: 100vh;\n}\n.sidebar-page .sidebar-layout {\n  display: flex;\n  flex-direction: row;\n  min-height: 100vh;\n}\n@media screen and (max-width: 768px) {\n.b-sidebar {\n    box-shadow: 0px 0px 5px 1px teal;\n}\n.b-sidebar .sidebar-content.is-mini-mobile:not(.is-mini-expand) .menu-list li a span:nth-child(2), .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:not(:hover) .menu-list li a span:nth-child(2) {\n    display: none;\n}\n.b-sidebar .sidebar-content.is-mini-mobile:not(.is-mini-expand) .menu-list li ul, .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:not(:hover) .menu-list li ul {\n    padding-left: 0;\n}\n.b-sidebar .sidebar-content.is-mini-mobile:not(.is-mini-expand) .menu-list li ul li a, .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:not(:hover) .menu-list li ul li a {\n    display: inline-block;\n}\n.b-sidebar .sidebar-content.is-mini-mobile:not(.is-mini-expand) .menu-label:not(:last-child), .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:not(:hover) .menu-label:not(:last-child) {\n    margin-bottom: 0;\n}\n}\n.is-mini-expand .menu-list a {\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -6867,7 +6884,33 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c(
+      "nav",
+      { staticClass: "breadcrumb", attrs: { "aria-label": "breadcrumbs" } },
+      [
+        _c(
+          "ul",
+          _vm._l(_vm.breadcrumb, function(link, name, index) {
+            return _c(
+              "li",
+              {
+                key: index,
+                class: {
+                  "is-active": index === Object.keys(_vm.breadcrumb).length - 1
+                }
+              },
+              [
+                _c("router-link", { attrs: { to: link } }, [
+                  _vm._v(_vm._s(name))
+                ])
+              ],
+              1
+            )
+          }),
+          0
+        )
+      ]
+    ),
     _vm._v(" "),
     _c(
       "div",
@@ -6902,34 +6945,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "nav",
-      { staticClass: "breadcrumb", attrs: { "aria-label": "breadcrumbs" } },
-      [
-        _c("ul", [
-          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Bulma")])]),
-          _vm._v(" "),
-          _c("li", [
-            _c("a", { attrs: { href: "#" } }, [_vm._v("Documentation")])
-          ]),
-          _vm._v(" "),
-          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Components")])]),
-          _vm._v(" "),
-          _c("li", { staticClass: "is-active" }, [
-            _c("a", { attrs: { href: "#", "aria-current": "page" } }, [
-              _vm._v("Breadcrumb")
-            ])
-          ])
-        ])
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -6994,8 +7010,13 @@ var render = function() {
     [
       _c("Header", {
         attrs: {
-          title: "Add new property",
-          subtitle: "These are the propety you want to keep track of"
+          title: "Create new property",
+          subtitle: "These are the propety you want to keep track of",
+          breadcrumb: {
+            Dashboard: "/",
+            Property: "/property",
+            "Create Property": "/property/create"
+          }
         }
       }),
       _vm._v(" "),
@@ -7208,67 +7229,90 @@ var render = function() {
                 attrs: {
                   title: "Properties",
                   subtitle: "You can customize your property however you want",
-                  "button-link": "/property/create"
+                  "button-link": "/property/create",
+                  breadcrumb: { Dashboard: "/", Property: "/property" }
                 }
               }),
               _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "columns is-mobile mx-0 my-2 is-flex-wrap-wrap"
-                },
-                _vm._l(_vm.properties, function(property, index) {
-                  return _c(
-                    "div",
-                    {
-                      key: index,
-                      staticClass:
-                        "column is-full-mobile is-half-tablet is-one-third-widescreen is-one-quarter-fullhd"
-                    },
-                    [
-                      _c("div", { staticClass: "card" }, [
-                        _c("div", { staticClass: "card-content p-2" }, [
-                          _c("div", { staticClass: "content" }, [
-                            _c("p", { staticClass: "title is-5" }, [
-                              _vm._v(
-                                _vm._s(_vm._f("capitalize")(property.name))
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "time",
-                              {
-                                staticClass: "subtitle is-6",
-                                attrs: { datetime: property.created_at }
-                              },
-                              [
-                                _vm._v(
-                                  _vm._s(
-                                    _vm._f("formatDate")(property.created_at)
-                                  )
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c("p", [
-                              _vm._v(
-                                _vm._s(property.address) +
-                                  ", " +
-                                  _vm._s(property.city) +
-                                  ", " +
-                                  _vm._s(property.state) +
-                                  ", " +
-                                  _vm._s(property.zip)
-                              )
+              _vm.properties.length
+                ? _c("div", [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "columns is-mobile mx-0 my-2 is-flex-wrap-wrap"
+                      },
+                      _vm._l(_vm.properties, function(property, index) {
+                        return _c(
+                          "div",
+                          {
+                            key: index,
+                            staticClass:
+                              "column is-full-mobile is-half-tablet is-one-third-widescreen is-one-quarter-fullhd"
+                          },
+                          [
+                            _c("div", { staticClass: "card" }, [
+                              _c("div", { staticClass: "card-content p-2" }, [
+                                _c("div", { staticClass: "content" }, [
+                                  _c("p", { staticClass: "title is-5 mb-0" }, [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("capitalize")(property.name)
+                                      )
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "time",
+                                    {
+                                      staticClass:
+                                        "subtitle is-7 is-inline-block",
+                                      attrs: { datetime: property.created_at }
+                                    },
+                                    [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("formatDate")(
+                                            property.created_at
+                                          )
+                                        )
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("p", [
+                                    _vm._v(
+                                      _vm._s(property.address) +
+                                        ", " +
+                                        _vm._s(property.city) +
+                                        ", " +
+                                        _vm._s(property.state) +
+                                        ", " +
+                                        _vm._s(property.zip)
+                                    )
+                                  ])
+                                ])
+                              ])
                             ])
-                          ])
-                        ])
+                          ]
+                        )
+                      }),
+                      0
+                    )
+                  ])
+                : _c("section", { staticClass: "hero is-light" }, [
+                    _c("div", { staticClass: "hero-body" }, [
+                      _c("p", { staticClass: "title" }, [
+                        _vm._v("No property found")
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "subtitle" }, [
+                        _vm._v(
+                          "Click on add new button to create new properties"
+                        )
                       ])
-                    ]
-                  )
-                }),
-                0
-              )
+                    ])
+                  ])
             ],
             1
           )

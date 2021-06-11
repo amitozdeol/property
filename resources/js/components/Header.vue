@@ -2,10 +2,9 @@
     <div>
         <nav class="breadcrumb" aria-label="breadcrumbs">
             <ul>
-                <li><a href="#">Bulma</a></li>
-                <li><a href="#">Documentation</a></li>
-                <li><a href="#">Components</a></li>
-                <li class="is-active"><a href="#" aria-current="page">Breadcrumb</a></li>
+                <li v-for="(link, name, index) in breadcrumb" :key="index" :class="{'is-active' : (index === Object.keys(breadcrumb).length - 1)}">
+                    <router-link :to="link">{{name}}</router-link>
+                </li>
             </ul>
         </nav>
         <div class="page-header columns mx-0 my-2 is-justify-content-space-between">
@@ -20,7 +19,7 @@
 
 <script>
     export default {
-        props: ['title', 'subtitle', 'buttonLink'],
+        props: ['title', 'subtitle', 'buttonLink', 'breadcrumb'],
         name: 'Header'
     }
 </script>

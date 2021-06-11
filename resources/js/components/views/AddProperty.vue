@@ -1,6 +1,6 @@
 <template>
     <section>
-        <Header title="Add new property" subtitle="These are the propety you want to keep track of" />
+        <Header title="Create new property" subtitle="These are the propety you want to keep track of" :breadcrumb="{Dashboard: '/', Property: '/property', 'Create Property': '/property/create'}" />
 
         <div class="columns">
             <div class="column">
@@ -64,7 +64,8 @@
                 if (this.is_validated) {
                     this.is_loading = true;
                     try {
-                        const res = await axios.post('/property/store', this.input)
+                        const res = await axios.post('/property/store', this.input);
+                        this.$router.push({name: 'property'});
                     } catch (err) {
                         this.error = err.response?.data?.errors
                     }

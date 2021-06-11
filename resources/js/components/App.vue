@@ -50,6 +50,8 @@
 
     @media screen and (max-width: 768px) {
         .b-sidebar {
+            box-shadow: 0px 0px 5px 1px teal;
+
             .sidebar-content {
                 &.is-mini-mobile {
 
