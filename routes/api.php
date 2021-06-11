@@ -17,5 +17,6 @@ use App\Http\Controllers\PropertyController;
 
 Route::middleware('auth:api')->group(function () {
     Route::get('/property', [PropertyController::class, 'index']);
+    Route::get('/property/{id}', [PropertyController::class, 'show']);
     Route::post('/property/store', [PropertyController::class, 'store']);
 });

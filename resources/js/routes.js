@@ -1,14 +1,16 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Property from './components/views/Property';
-import AddProperty from './components/views/AddProperty';
+import Properties from './components/views/Property/Properties';
+import Property from './components/views/Property/Property';
+import AddProperty from './components/views/Property/AddProperty';
 import Tenant from './components/views/Tenant';
 
 Vue.use(VueRouter);
 
 const routes = [
-  { path: '/property', name: 'property', component: Property },
+  { path: '/property', name: 'property', component: Properties },
   { path: '/property/create', name: 'Create property', component: AddProperty },
+  { path: '/property/:id', component: Property },
   { path: '/tenant', name: 'tenant', component: Tenant },
 ];
 

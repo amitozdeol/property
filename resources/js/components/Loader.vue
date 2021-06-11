@@ -6,8 +6,3 @@
         <b-skeleton :animated="true"></b-skeleton>
     </section>
 </template>
-
-<script>
-    export default {
-    }
-</script>

@@ -2,8 +2,8 @@
     <div>
         <nav class="breadcrumb" aria-label="breadcrumbs">
             <ul>
-                <li v-for="(link, name, index) in breadcrumb" :key="index" :class="{'is-active' : (index === Object.keys(breadcrumb).length - 1)}">
-                    <router-link :to="link">{{name}}</router-link>
+                <li v-for="(value, index) in breadcrumb" :key="index" :class="{'is-active' : (index === breadcrumb.length - 1)}">
+                    <router-link :to="value.split(':')[1]">{{value.split(':')[0]}}</router-link>
                 </li>
             </ul>
         </nav>

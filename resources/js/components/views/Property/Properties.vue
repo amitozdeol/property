@@ -5,10 +5,10 @@
             <Header title="Properties"
                     subtitle="You can customize your property however you want"
                     button-link="/property/create"
-                    :breadcrumb="{Dashboard: '/', Property: '/property'}" />
+                    :breadcrumb="['Dashboard:/', 'Property:/property']" />
             <div v-if="properties.length">
                 <div class="columns is-mobile mx-0 my-2 is-flex-wrap-wrap">
-                    <div v-for="(property,index) in properties" :key="index"
+                    <router-link v-for="property in properties" :key="property.id" :to="'/property/'+property.id"
                         class="column is-full-mobile is-half-tablet is-one-third-widescreen is-one-quarter-fullhd">
                         <div class="card">
                             <div class="card-content p-2">
@@ -20,12 +20,12 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </router-link>
                 </div>
             </div>
             <section v-else class="hero is-light">
                 <div class="hero-body">
-                    <p class="title">No property found</p>
+                    <p class="title">No property founds</p>
                     <p class="subtitle">Click on add new button to create new properties</p>
                 </div>
             </section>
@@ -34,9 +34,9 @@
 </template>
 
 <script>
-    import Loader from '../Loader.vue';
-    import Header from '../Header.vue';
-    import axios from '../../axios';
+    import Loader from '../../Loader.vue';
+    import Header from '../../Header.vue';
+    import axios from './../../../axios';
 
     export default {
         data() {

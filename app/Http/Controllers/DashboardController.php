@@ -17,6 +17,16 @@ class DashboardController extends Controller
     }
 
     /**
+     * Show the marketing page
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function marketing()
+    {
+        return view('welcome');
+    }
+
+    /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable

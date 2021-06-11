@@ -32,6 +32,10 @@ class PropertyController extends Controller
             'city' => 'required',
             'state' => 'required',
             'zip' => 'required|max:999999|integer',
+            'units' => 'required|array',
+            'units.*.name' => 'required|string',
+            'units.*.size' => 'sometimes|integer',
+            'units.*.address' => 'required|string'
         ]);
 
         $property = new Property();
@@ -54,7 +58,7 @@ class PropertyController extends Controller
      */
     public function show($id)
     {
-        //
+        return Property::find($id)->load('tenants');
     }
 
     /**

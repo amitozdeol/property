@@ -2,8 +2,10 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Support\Arr;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
@@ -50,6 +52,32 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($exception instanceof ValidationException) {
+            return response()->json([
+                'code' => $exception->status,
+                'message' => $exception->getMessage(),
+                'errors' => $this->array_unflatten($exception->validator->errors()->toArray())
+                ], $exception->status);
+        }
         return parent::render($request, $exception);
+    }
+
+    /**
+     * Convert flatten collection (with dot notation) to multiple dimmensionals array
+     * @param  Collection $collection Collection to be flatten
+     * @return Array
+     */
+    function array_unflatten( $array ){
+        $output = array();
+        foreach ( $array as $key => $value )
+        {
+            Arr::set( $output, $key, $value );
+            if ( is_array( $value ) && ! strpos( $key, '.' ) ){
+                $nested = $this->array_unflatten( $value );
+                $output[$key] = $nested;
+            }
+        }
+
+        return $output;
     }
 }
