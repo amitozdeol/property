@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Tenant;
 use Illuminate\Http\Request;
 
 class TenantController extends Controller
@@ -24,7 +25,21 @@ class TenantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $vd = $request->validate([
+            'name' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+            'unit_id' => 'required',
+        ]);
+
+        $tenant = new Tenant();
+        $tenant->name = $vd['name'];
+        $tenant->email = $vd['email'];
+        $tenant->phone = $vd['phone'];
+        $tenant->property_unit_id = $vd['unit_id'];
+        $tenant->save();
+
+        return response()->json($tenant, 201);
     }
 
     /**

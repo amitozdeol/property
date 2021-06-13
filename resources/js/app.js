@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import { Sidebar, Menu, Field, Switch, Select, Skeleton, Button, Input } from 'buefy';
+import { Sidebar, Menu, Field, Switch, Select, Skeleton, Button, Input, Modal } from 'buefy';
 import router from './routes';
 
-[Sidebar, Menu, Field, Switch, Select, Skeleton, Button, Input].forEach((x) => Vue.use(x));
+[Sidebar, Menu, Field, Switch, Select, Skeleton, Button, Input, Modal].forEach((x) => Vue.use(x));
 
 Vue.component('app', require('./components/App.vue').default);
 

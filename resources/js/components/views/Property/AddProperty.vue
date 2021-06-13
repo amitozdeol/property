@@ -35,7 +35,7 @@
         </div>
         <div class="columns is-mobile mx-0 my-2 is-flex-wrap-wrap">
             <div v-for="(unit, index) in units" :key="index" class="column is-full-mobile is-half-tablet is-one-third-widescreen is-one-quarter-fullhd">
-                <Unit :unit="unit"
+                <AddUnit :unit="unit"
                     :index="index"
                     :address="`${input.address}, ${input.city}, ${input.state}, ${input.zip}`"
                     :error="typeof error.units[index] === 'undefined' ? {} : error.units[index]"
@@ -50,7 +50,7 @@
 <script>
     import axios from '../../../axios';
     import Header from '../../Header.vue';
-    import Unit from './Unit.vue';
+    import AddUnit from './AddUnit.vue';
 
     export default {
         data() {
@@ -74,7 +74,7 @@
         },
         components: {
             Header,
-            Unit
+            AddUnit
         },
         methods: {
             async submit() {
@@ -93,7 +93,7 @@
                 }
             },
             addUnit(){
-                this.units.push({name: null, size: null, address: null});
+                this.units.push({unit: null, size: null, address: null});
             },
             updateUnit(unit, index){
                 this.units[index] = unit;

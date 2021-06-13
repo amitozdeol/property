@@ -30,14 +30,6 @@ class Property extends Model
     }
 
     /**
-     * Get the tenant for the property
-     */
-    public function tenants()
-    {
-        return $this->hasMany(Tenant::class, 'property_id', 'id');
-    }
-
-    /**
      * Get the units for the property
      */
     public function units()

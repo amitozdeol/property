@@ -22,4 +22,13 @@ class PropertyUnit extends Model
      * @var array
      */
     protected $fillable = ['unit', 'size', 'address'];
+
+    /**
+     * Get the tenant for the unit
+     */
+    public function tenants()
+    {
+        return $this->hasMany(Tenant::class, 'property_unit_id', 'id');
+    }
+
 }
