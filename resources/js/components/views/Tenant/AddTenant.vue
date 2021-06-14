@@ -6,19 +6,19 @@
                 <button type="button" class="delete" @click="$emit('close')" />
             </header>
             <section class="modal-card-body">
-                <b-field label="Name">
+                <b-field label="Name" :type="{'is-danger': error.name}" :message="error.name || ''">
                     <b-input type="name" v-model="name" placeholder="Name" required></b-input>
                 </b-field>
-                <b-field label="Phone">
+                <b-field label="Phone" :type="{'is-danger': error.phone}" :message="error.phone || ''">
                     <b-input type="tel" v-model="phone" placeholder="e.g. 000-000-0000" required></b-input>
                 </b-field>
-                <b-field label="Email">
+                <b-field label="Email" :type="{'is-danger': error.email}" :message="error.email || ''">
                     <b-input type="email" v-model="email" placeholder="e.g. bobsmith@gmail.com" required></b-input>
                 </b-field>
             </section>
             <footer class="modal-card-foot">
                 <b-button label="Close" @click="$emit('close')" />
-                <b-button label="Add" type="is-success" @click="add()"/>
+                <b-button label="Add" type="is-success" @click="add()" :disabled="is_loading" :loading="is_loading"/>
             </footer>
         </div>
     </form>
@@ -33,17 +33,28 @@
             return {
                 name: "",
                 phone: "",
-                email: ""
+                email: "",
+                is_loading: false,
+                error: {name: '', phone: '', email: ''}
             }
         },
         methods:{
-            add(){
-                axios.post('/tenant/store', {
-                    unit_id: this.unit_id,
-                    name: this.name,
-                    phone: this.phone,
-                    email: this.email
-                });
+            async add(){
+                this.is_loading = true;
+                try {
+                    const data = {
+                                    unit_id: this.unit_id,
+                                    name: this.name,
+                                    phone: this.phone,
+                                    email: this.email
+                                };
+                    const res = await axios.post('/tenant/store', data);
+                    this.$emit('update', data);
+                    this.$emit('close');
+                } catch (err) {
+                    this.error = err.response?.data?.errors
+                }
+                this.is_loading = false;
             }
         }
     }

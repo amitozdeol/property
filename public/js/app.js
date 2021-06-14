@@ -2325,6 +2325,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2339,8 +2349,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       property: null,
       is_loading: true,
-      add_tenant_modal: false,
-      current_unit_id: null
+      open_tenant_modal: false,
+      current_unit_id: null,
+      unit_index: null
     };
   },
   mounted: function mounted() {
@@ -2375,11 +2386,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     /**
-     * Open add tenant modal
+     * Set unit_id and open add tenant modal
      */
-    addTenant: function addTenant(id) {
+    addTenant: function addTenant(id, index) {
       this.current_unit_id = id;
-      this.add_tenant_modal = true;
+      this.unit_index = index;
+      this.open_tenant_modal = true;
+    },
+
+    /**
+     * Add new tenant to existing data
+     */
+    updateTenant: function updateTenant(tenant) {
+      this.property.units[this.unit_index].tenants.push(tenant);
     }
   }
 });
@@ -2416,7 +2435,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../axios */ "./resources/js/axios.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../../axios */ "./resources/js/axios.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -2450,17 +2477,62 @@ __webpack_require__.r(__webpack_exports__);
     return {
       name: "",
       phone: "",
-      email: ""
+      email: "",
+      is_loading: false,
+      error: {
+        name: '',
+        phone: '',
+        email: ''
+      }
     };
   },
   methods: {
     add: function add() {
-      _axios__WEBPACK_IMPORTED_MODULE_0__.default.post('/tenant/store', {
-        unit_id: this.unit_id,
-        name: this.name,
-        phone: this.phone,
-        email: this.email
-      });
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var data, res, _err$response, _err$response$data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _this.is_loading = true;
+                _context.prev = 1;
+                data = {
+                  unit_id: _this.unit_id,
+                  name: _this.name,
+                  phone: _this.phone,
+                  email: _this.email
+                };
+                _context.next = 5;
+                return _axios__WEBPACK_IMPORTED_MODULE_1__.default.post('/tenant/store', data);
+
+              case 5:
+                res = _context.sent;
+
+                _this.$emit('update', data);
+
+                _this.$emit('close');
+
+                _context.next = 13;
+                break;
+
+              case 10:
+                _context.prev = 10;
+                _context.t0 = _context["catch"](1);
+                _this.error = (_err$response = _context.t0.response) === null || _err$response === void 0 ? void 0 : (_err$response$data = _err$response.data) === null || _err$response$data === void 0 ? void 0 : _err$response$data.errors;
+
+              case 13:
+                _this.is_loading = false;
+
+              case 14:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[1, 10]]);
+      }))();
     }
   }
 });
@@ -8421,7 +8493,7 @@ var render = function() {
                           },
                           [
                             _c("div", { staticClass: "card" }, [
-                              _c("div", { staticClass: "card-content p-2" }, [
+                              _c("div", { staticClass: "card-content" }, [
                                 _c("div", { staticClass: "content" }, [
                                   _c("p", { staticClass: "title is-5 mb-0" }, [
                                     _vm._v(
@@ -8552,42 +8624,30 @@ var render = function() {
                       _c("div", { staticClass: "content" }, [
                         unit.size
                           ? _c("div", [
-                              _vm._v("Size: " + _vm._s(unit.size) + " sq.ft.")
+                              _vm._v(
+                                "\n                            Size: " +
+                                  _vm._s(unit.size) +
+                                  " sq.ft.\n                        "
+                              )
                             ])
                           : _vm._e(),
                         _vm._v(" "),
                         _c(
                           "div",
                           {
-                            staticClass:
-                              "is-flex is-justify-content-space-between"
+                            staticClass: "is-size-4 has-text-weight-bold mt-3"
                           },
                           [
-                            _c("strong", [_vm._v("Tenants")]),
-                            _vm._v(" "),
-                            _c(
-                              "b-button",
-                              {
-                                attrs: {
-                                  type: "is-success",
-                                  size: "is-small",
-                                  rounded: ""
-                                },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.addTenant(unit.id)
-                                  }
-                                }
-                              },
-                              [_vm._v("Add new")]
+                            _vm._v(
+                              "\n                            Tenants\n                        "
                             )
-                          ],
-                          1
+                          ]
                         ),
                         _vm._v(" "),
                         unit.tenants.length
                           ? _c(
                               "ul",
+                              { staticClass: "mt-1" },
                               _vm._l(unit.tenants, function(tenant, index) {
                                 return _c("li", { key: index }, [
                                   _vm._v(_vm._s(tenant.name))
@@ -8595,12 +8655,54 @@ var render = function() {
                               }),
                               0
                             )
-                          : _c("div", [
-                              _vm._v(
-                                "\n                            No tenant found. Click add to add tenants\n                        "
-                              )
+                          : _c("section", { staticClass: "hero is-light" }, [
+                              _c("div", { staticClass: "hero-body" }, [
+                                _c("p", { staticClass: "title" }, [
+                                  _vm._v("No tenant founds")
+                                ]),
+                                _vm._v(" "),
+                                _c("p", { staticClass: "subtitle" }, [
+                                  _vm._v(
+                                    "Click on add tenant button to add new tenant"
+                                  )
+                                ])
+                              ])
                             ])
                       ])
+                    ]),
+                    _vm._v(" "),
+                    _c("footer", { staticClass: "card-footer is-size-7" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "card-footer-item",
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              return _vm.addTenant(unit.id, index)
+                            }
+                          }
+                        },
+                        [_vm._v("Add Tenant")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "card-footer-item",
+                          attrs: { href: "#" }
+                        },
+                        [_vm._v("Edit")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "card-footer-item",
+                          attrs: { href: "#" }
+                        },
+                        [_vm._v("Delete")]
+                      )
                     ])
                   ])
                 ]
@@ -8626,7 +8728,14 @@ var render = function() {
                     _c(
                       "add-tenant",
                       _vm._b(
-                        { on: { close: props.close } },
+                        {
+                          on: {
+                            update: function($event) {
+                              return _vm.updateTenant($event)
+                            },
+                            close: props.close
+                          }
+                        },
                         "add-tenant",
                         { unit_id: _vm.current_unit_id },
                         false
@@ -8637,11 +8746,11 @@ var render = function() {
               }
             ]),
             model: {
-              value: _vm.add_tenant_modal,
+              value: _vm.open_tenant_modal,
               callback: function($$v) {
-                _vm.add_tenant_modal = $$v
+                _vm.open_tenant_modal = $$v
               },
-              expression: "add_tenant_modal"
+              expression: "open_tenant_modal"
             }
           })
         ],
@@ -8718,7 +8827,13 @@ var render = function() {
         [
           _c(
             "b-field",
-            { attrs: { label: "Name" } },
+            {
+              attrs: {
+                label: "Name",
+                type: { "is-danger": _vm.error.name },
+                message: _vm.error.name || ""
+              }
+            },
             [
               _c("b-input", {
                 attrs: { type: "name", placeholder: "Name", required: "" },
@@ -8736,7 +8851,13 @@ var render = function() {
           _vm._v(" "),
           _c(
             "b-field",
-            { attrs: { label: "Phone" } },
+            {
+              attrs: {
+                label: "Phone",
+                type: { "is-danger": _vm.error.phone },
+                message: _vm.error.phone || ""
+              }
+            },
             [
               _c("b-input", {
                 attrs: {
@@ -8758,7 +8879,13 @@ var render = function() {
           _vm._v(" "),
           _c(
             "b-field",
-            { attrs: { label: "Email" } },
+            {
+              attrs: {
+                label: "Email",
+                type: { "is-danger": _vm.error.email },
+                message: _vm.error.email || ""
+              }
+            },
             [
               _c("b-input", {
                 attrs: {
@@ -8795,7 +8922,12 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("b-button", {
-            attrs: { label: "Add", type: "is-success" },
+            attrs: {
+              label: "Add",
+              type: "is-success",
+              disabled: _vm.is_loading,
+              loading: _vm.is_loading
+            },
             on: {
               click: function($event) {
                 return _vm.add()

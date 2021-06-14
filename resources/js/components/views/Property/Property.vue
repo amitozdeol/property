@@ -7,33 +7,41 @@
             :breadcrumb="['Dashboard:/', 'Property:/property', `${$route.params.id}:/property/${$route.params.id}`]" />
 
         <div class="columns is-mobile mx-0 my-2 is-flex-wrap-wrap">
-            <div v-for="(unit, index) in property.units" :key="index"
-                class="column is-full-mobile is-half-tablet is-one-third-widescreen is-one-quarter-fullhd">
+            <div v-for="(unit, index) in property.units" :key="index" class="column is-full-mobile is-half-tablet is-one-third-widescreen is-one-quarter-fullhd">
                 <div class="card">
                     <header class="card-header">
                         <p class="card-header-title">{{unit.unit | capitalize}}</p>
                     </header>
                     <div class="card-content">
                         <div class="content">
-                            <div v-if="unit.size">Size: {{unit.size}} sq.ft.</div>
-                            <div class="is-flex is-justify-content-space-between">
-                                <strong>Tenants</strong>
-                                <b-button type="is-success" size="is-small" rounded @click="addTenant(unit.id)">Add new</b-button>
+                            <div v-if="unit.size">
+                                Size: {{unit.size}} sq.ft.
                             </div>
-                            <ul v-if="unit.tenants.length">
+                            <div class="is-size-4 has-text-weight-bold mt-3">
+                                Tenants
+                            </div>
+                            <ul v-if="unit.tenants.length" class="mt-1">
                                 <li v-for="(tenant, index) in unit.tenants" :key="index">{{tenant.name}}</li>
                             </ul>
-                            <div v-else>
-                                No tenant found. Click add to add tenants
-                            </div>
+                            <section v-else class="hero is-light">
+                                <div class="hero-body">
+                                    <p class="title">No tenant founds</p>
+                                    <p class="subtitle">Click on add tenant button to add new tenant</p>
+                                </div>
+                            </section>
                         </div>
                     </div>
+                    <footer class="card-footer is-size-7">
+                        <a href="#" class="card-footer-item" @click="addTenant(unit.id, index)">Add Tenant</a>
+                        <a href="#" class="card-footer-item">Edit</a>
+                        <a href="#" class="card-footer-item">Delete</a>
+                    </footer>
                 </div>
             </div>
         </div>
 
         <b-modal
-            v-model="add_tenant_modal"
+            v-model="open_tenant_modal"
             has-modal-card
             trap-focus
             :destroy-on-hide="false"
@@ -41,7 +49,9 @@
             aria-label="Add Tenant"
             aria-modal>
             <template #default="props">
-                <add-tenant v-bind="{unit_id: current_unit_id}" @close="props.close"></add-tenant>
+                <add-tenant v-bind="{unit_id: current_unit_id}"
+                        v-on:update="updateTenant($event)"
+                        @close="props.close"></add-tenant>
             </template>
         </b-modal>
     </section>
@@ -63,8 +73,9 @@
             return {
                 property: null,
                 is_loading: true,
-                add_tenant_modal: false,
-                current_unit_id: null
+                open_tenant_modal: false,
+                current_unit_id: null,
+                unit_index: null
             }
         },
         async mounted() {
@@ -79,11 +90,19 @@
         },
         methods:{
             /**
-             * Open add tenant modal
+             * Set unit_id and open add tenant modal
              */
-            addTenant(id){
+            addTenant(id, index){
                 this.current_unit_id = id;
-                this.add_tenant_modal = true;
+                this.unit_index = index;
+                this.open_tenant_modal = true;
+            },
+
+            /**
+             * Add new tenant to existing data
+             */
+            updateTenant(tenant){
+                this.property.units[this.unit_index].tenants.push(tenant);
             }
         }
     }

@@ -11,7 +11,7 @@
                     <router-link v-for="property in properties" :key="property.id" :to="'/property/'+property.id"
                         class="column is-full-mobile is-half-tablet is-one-third-widescreen is-one-quarter-fullhd">
                         <div class="card">
-                            <div class="card-content p-2">
+                            <div class="card-content">
                                 <div class="content">
                                     <p class="title is-5 mb-0">{{property.name | capitalize}}</p>
                                     <time :datetime="property.created_at"
