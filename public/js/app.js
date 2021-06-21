@@ -8535,7 +8535,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".p-1 {\n  padding: 1em;\n}\n.sidebar-page {\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n  min-height: 100vh;\n}\n.sidebar-page .sidebar-layout {\n  display: flex;\n  flex-direction: row;\n  min-height: 100vh;\n}\n@media screen and (max-width: 768px) {\n.b-sidebar {\n    box-shadow: 0px 0px 5px 1px teal;\n}\n.b-sidebar .sidebar-content.is-mini-mobile:not(.is-mini-expand) .menu-list li a span:nth-child(2), .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:not(:hover) .menu-list li a span:nth-child(2) {\n    display: none;\n}\n.b-sidebar .sidebar-content.is-mini-mobile:not(.is-mini-expand) .menu-list li ul, .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:not(:hover) .menu-list li ul {\n    padding-left: 0;\n}\n.b-sidebar .sidebar-content.is-mini-mobile:not(.is-mini-expand) .menu-list li ul li a, .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:not(:hover) .menu-list li ul li a {\n    display: inline-block;\n}\n.b-sidebar .sidebar-content.is-mini-mobile:not(.is-mini-expand) .menu-label:not(:last-child), .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:not(:hover) .menu-label:not(:last-child) {\n    margin-bottom: 0;\n}\n}\n.is-mini-expand .menu-list a {\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".p-1 {\n  padding: 1em;\n}\n.sidebar-page {\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n  min-height: 100vh;\n}\n.sidebar-page .sidebar-layout {\n  display: flex;\n  flex-direction: row;\n  min-height: 100vh;\n}\n@media screen and (max-width: 768px) {\n.b-sidebar {\n    box-shadow: 0px 0px 5px 1px #00808078;\n}\n.b-sidebar .sidebar-content.is-mini-mobile:not(.is-mini-expand) .menu-list li a span:nth-child(2), .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:not(:hover) .menu-list li a span:nth-child(2) {\n    display: none;\n}\n.b-sidebar .sidebar-content.is-mini-mobile:not(.is-mini-expand) .menu-list li ul, .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:not(:hover) .menu-list li ul {\n    padding-left: 0;\n}\n.b-sidebar .sidebar-content.is-mini-mobile:not(.is-mini-expand) .menu-list li ul li a, .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:not(:hover) .menu-list li ul li a {\n    display: inline-block;\n}\n.b-sidebar .sidebar-content.is-mini-mobile:not(.is-mini-expand) .menu-label:not(:last-child), .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:not(:hover) .menu-label:not(:last-child) {\n    margin-bottom: 0;\n}\n}\n.is-mini-expand .menu-list a {\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -10281,8 +10281,9 @@ var render = function() {
                       [
                         _c("b-menu-item", {
                           attrs: {
-                            icon: "information-outline",
+                            icon: "account-group",
                             label: "Property",
+                            title: "Property",
                             tag: "router-link",
                             to: "/property",
                             active: _vm.$route.name == "property"
@@ -10291,8 +10292,9 @@ var render = function() {
                         _vm._v(" "),
                         _c("b-menu-item", {
                           attrs: {
-                            icon: "information-outline",
+                            icon: "office-building-marker",
                             label: "Tenants",
+                            title: "Tenants",
                             tag: "router-link",
                             to: "/tenant",
                             active: _vm.$route.name == "tenant"
