@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Properties from './components/views/Property/Properties';
+import Properties from './components/views/Property/Index';
 import Property from './components/views/Property/Property';
 import AddProperty from './components/views/Property/AddProperty';
-import Tenant from './components/views/Tenant';
+import Tenant from './components/views/Tenant/Index';
 
 Vue.use(VueRouter);
 

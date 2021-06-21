@@ -36,7 +36,7 @@
 <script>
     import Loader from '../../Loader.vue';
     import Header from '../../Header.vue';
-    import axios from './../../../axios';
+    import axios from '../../../axios';
 
     export default {
         data() {

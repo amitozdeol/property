@@ -19,6 +19,8 @@ class CreateTenantsTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('phone');
+            $table->date('lease_start');
+            $table->date('lease_end');
             $table->timestamps();
         });
     }

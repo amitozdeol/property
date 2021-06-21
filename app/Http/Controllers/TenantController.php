@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Model\Tenant;
+use App\Model\Property;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TenantController extends Controller
 {
@@ -12,9 +14,18 @@ class TenantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $sort_field = $request->query('sort') == 'null' ? 'tenant.updated_at' : $request->query('sort');
+        $order = $request->query('order') == 'null' ? 'desc' : $request->query('order');
+
+        $tenants = Tenant::select('tenant.*', 'property_unit.unit', 'property.name as property_name')
+                        ->join('property_unit', 'tenant.property_unit_id', '=', 'property_unit.id')
+                        ->join('property', 'property.id', '=', 'property_unit.property_id')
+                        ->where('property.user_id', Auth::guard('api')->id())
+                        ->orderBy($sort_field, $order)
+                        ->paginate(5);
+        return $tenants;
     }
 
     /**
@@ -26,17 +37,21 @@ class TenantController extends Controller
     public function store(Request $request)
     {
         $vd = $request->validate([
+            'unit_id' => 'required',
             'name' => 'required',
             'phone' => 'required',
             'email' => 'required',
-            'unit_id' => 'required',
+            'lease_start' => 'required|date',
+            'lease_end' => 'required|date|after:lease_start',
         ]);
 
         $tenant = new Tenant();
+        $tenant->property_unit_id = $vd['unit_id'];
         $tenant->name = $vd['name'];
         $tenant->email = $vd['email'];
         $tenant->phone = $vd['phone'];
-        $tenant->property_unit_id = $vd['unit_id'];
+        $tenant->lease_start = $vd['lease_start'];
+        $tenant->lease_end = $vd['lease_end'];
         $tenant->save();
 
         return response()->json($tenant, 201);

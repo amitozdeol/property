@@ -31,7 +31,7 @@
 
         <div class="page-header is-flex is-align-items-center">
             <h3 class="title is-4 mb-0 mr-2">Add Units</h3>
-            <b-button rounded type="is-success" size="is-small" @click="addUnit">Add</b-button>
+            <b-button rounded type="is-success" size="is-small" @click="openUnitModal">Add</b-button>
         </div>
         <div class="columns is-mobile mx-0 my-2 is-flex-wrap-wrap">
             <div v-for="(unit, index) in units" :key="index" class="column is-full-mobile is-half-tablet is-one-third-widescreen is-one-quarter-fullhd">
@@ -39,7 +39,7 @@
                     :index="index"
                     :address="`${input.address}, ${input.city}, ${input.state}, ${input.zip}`"
                     :error="typeof error.units[index] === 'undefined' ? {} : error.units[index]"
-                    v-on:update="updateUnit($event)"
+                    v-on:update="addUnit($event)"
                     v-on:destroy="deleteUnit($event)"/>
             </div>
         </div>
@@ -92,14 +92,14 @@
                     this.is_loading = false;
                 }
             },
-            addUnit(){
+            openUnitModal(){
                 this.units.push({unit: null, size: null, address: null});
             },
-            updateUnit(unit, index){
+            addUnit(unit, index){
                 this.units[index] = unit;
             },
             deleteUnit(index){
-                this.units = this.units.splice(index, 0);
+                this.units.splice(index, 1);
             },
         }
     }

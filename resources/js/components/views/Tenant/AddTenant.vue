@@ -15,6 +15,12 @@
                 <b-field label="Email" :type="{'is-danger': error.email}" :message="error.email || ''">
                     <b-input type="email" v-model="email" placeholder="e.g. bobsmith@gmail.com" required></b-input>
                 </b-field>
+                <b-field label="Lease Start" :type="{'is-danger': error.lease_start}" :message="error.lease_start || ''">
+                    <b-input type="date" v-model="lease_start" required></b-input>
+                </b-field>
+                <b-field label="Lease End" :type="{'is-danger': error.lease_end}" :message="error.lease_end || ''">
+                    <b-input type="date" v-model="lease_end" required></b-input>
+                </b-field>
             </section>
             <footer class="modal-card-foot">
                 <b-button label="Close" @click="$emit('close')" />
@@ -34,8 +40,10 @@
                 name: "",
                 phone: "",
                 email: "",
+                lease_start: "",
+                lease_end: "",
                 is_loading: false,
-                error: {name: '', phone: '', email: ''}
+                error: {name: '', phone: '', email: '', lease_start: "", lease_end: "" }
             }
         },
         methods:{
@@ -46,7 +54,9 @@
                                     unit_id: this.unit_id,
                                     name: this.name,
                                     phone: this.phone,
-                                    email: this.email
+                                    email: this.email,
+                                    lease_start: this.lease_start,
+                                    lease_end: this.lease_end
                                 };
                     const res = await axios.post('/tenant/store', data);
                     this.$emit('update', data);

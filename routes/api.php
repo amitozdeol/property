@@ -20,5 +20,6 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/property', [PropertyController::class, 'index']);
     Route::get('/property/{id}', [PropertyController::class, 'show']);
     Route::post('/property/store', [PropertyController::class, 'store']);
+    Route::get('/tenant', [TenantController::class, 'index']);
     Route::post('/tenant/store', [TenantController::class, 'store']);
 });
