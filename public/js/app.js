@@ -2684,6 +2684,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -11757,7 +11760,20 @@ var render = function() {
                 "default-sort-direction": _vm.default_sort_order,
                 "default-sort": [_vm.sort_field, _vm.sort_order]
               },
-              on: { "page-change": _vm.onPageChange, sort: _vm.onSort }
+              on: { "page-change": _vm.onPageChange, sort: _vm.onSort },
+              scopedSlots: _vm._u([
+                {
+                  key: "empty",
+                  fn: function() {
+                    return [
+                      _c("div", { staticClass: "has-text-centered" }, [
+                        _vm._v("No records")
+                      ])
+                    ]
+                  },
+                  proxy: true
+                }
+              ])
             },
             [
               _c("b-table-column", {
