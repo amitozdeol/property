@@ -34,19 +34,18 @@
 </template>
 
 <script>
-    import Loader from '../../Loader.vue';
+    import loadingMixin from './../../mixins/loading';
     import Header from '../../Header.vue';
     import axios from '../../../axios';
 
     export default {
+        mixins: [loadingMixin],
         data() {
             return {
-                is_loading: true,
                 properties: null
             }
         },
         components: {
-            Loader,
             Header
         },
         async mounted() {

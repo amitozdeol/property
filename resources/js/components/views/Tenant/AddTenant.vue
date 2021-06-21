@@ -5,22 +5,26 @@
                 <p class="modal-card-title">Add Tenant</p>
                 <button type="button" class="delete" @click="$emit('close')" />
             </header>
-            <section class="modal-card-body">
-                <b-field label="Name" :type="{'is-danger': error.name}" :message="error.name || ''">
-                    <b-input type="name" v-model="name" placeholder="Name" required></b-input>
-                </b-field>
-                <b-field label="Phone" :type="{'is-danger': error.phone}" :message="error.phone || ''">
-                    <b-input type="tel" v-model="phone" placeholder="e.g. 000-000-0000" required></b-input>
-                </b-field>
-                <b-field label="Email" :type="{'is-danger': error.email}" :message="error.email || ''">
-                    <b-input type="email" v-model="email" placeholder="e.g. bobsmith@gmail.com" required></b-input>
-                </b-field>
-                <b-field label="Lease Start" :type="{'is-danger': error.lease_start}" :message="error.lease_start || ''">
-                    <b-input type="date" v-model="lease_start" required></b-input>
-                </b-field>
-                <b-field label="Lease End" :type="{'is-danger': error.lease_end}" :message="error.lease_end || ''">
-                    <b-input type="date" v-model="lease_end" required></b-input>
-                </b-field>
+            <section class="modal-card-body columns mb-0">
+                <div class="column is-mobile">
+                    <b-field label="Name" :type="{'is-danger': error.name}" :message="error.name || ''">
+                        <b-input type="name" v-model="name" placeholder="Name" required></b-input>
+                    </b-field>
+                    <b-field label="Phone" :type="{'is-danger': error.phone}" :message="error.phone || ''">
+                        <b-input type="tel" v-model="phone" placeholder="e.g. 000-000-0000" required></b-input>
+                    </b-field>
+                </div>
+                <div class="column is-mobile">
+                    <b-field label="Email" :type="{'is-danger': error.email}" :message="error.email || ''">
+                        <b-input type="email" v-model="email" placeholder="e.g. bobsmith@gmail.com" required></b-input>
+                    </b-field>
+                    <b-field label="Lease Start" :type="{'is-danger': error.lease_start}" :message="error.lease_start || ''">
+                        <b-input type="date" v-model="lease_start" required></b-input>
+                    </b-field>
+                    <b-field label="Lease End" :type="{'is-danger': error.lease_end}" :message="error.lease_end || ''">
+                        <b-input type="date" v-model="lease_end" required></b-input>
+                    </b-field>
+                </div>
             </section>
             <footer class="modal-card-foot">
                 <b-button label="Close" @click="$emit('close')" />

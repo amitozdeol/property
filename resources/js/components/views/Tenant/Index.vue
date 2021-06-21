@@ -1,8 +1,9 @@
 <template>
-    <section>
+    <Loader v-if="is_loading" />
+
+    <section v-else>
         <b-table
             :data="data"
-            :loading="loading"
 
             paginated
             backend-pagination
@@ -47,14 +48,15 @@
 </template>
 
 <script>
+    import loadingMixin from './../../mixins/loading';
     import axios from './../../../axios';
 
     export default {
+        mixins: [loadingMixin],
         data() {
             return {
                 data: [],
                 total: 0,
-                loading: false,
                 sort_field: null,
                 sort_order: null,
                 default_sort_order: 'desc',
@@ -70,18 +72,17 @@
             * Load async data
             */
             async loadAsyncData() {
-                this.loading = true
                 try {
                     const res = await axios.get(`/tenant?page=${this.page}&sort=${this.sort_field}&order=${this.sort_order}`);
                     this.perPage = res.data.per_page;
                     this.data = res.data.data;
                     this.total = res.data.total
 
-                    this.loading = false
+                    this.is_loading = false
                 } catch (error) {
                     this.data = []
                     this.total = 0
-                    this.loading = false
+                    this.is_loading = false
                     console.log(error);
                 }
             },

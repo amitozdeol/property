@@ -6,6 +6,7 @@
         <Header :title="property.name || ''" :subtitle="detail"
             :breadcrumb="['Dashboard:/', 'Property:/property', `${$route.params.id}:/property/${$route.params.id}`]" />
 
+        <!-- Load units for this property -->
         <div class="columns is-mobile mx-0 my-2 is-flex-wrap-wrap">
             <div v-for="(unit, index) in property.units" :key="index" class="column is-full-mobile is-half-tablet is-one-third-widescreen is-one-quarter-fullhd">
                 <div class="card">
@@ -40,6 +41,7 @@
             </div>
         </div>
 
+        <!-- Open AddTenant.vue file in a modal to add new teanants straight from this page -->
         <b-modal
             v-model="open_tenant_modal"
             has-modal-card
@@ -47,6 +49,7 @@
             :destroy-on-hide="false"
             aria-role="dialog"
             aria-label="Add Tenant"
+            :width="800"
             aria-modal>
             <template #default="props">
                 <add-tenant v-bind="{unit_id: current_unit_id}"
@@ -58,21 +61,20 @@
 </template>
 
 <script>
+    import loadingMixin from './../../mixins/loading';
     import axios from '../../../axios';
     import Header from '../../Header.vue';
-    import Loader from '../../Loader.vue';
     import AddTenant from './../Tenant/AddTenant.vue';
 
     export default {
+        mixins: [loadingMixin],
         components: {
-            Loader,
             Header,
             AddTenant
         },
         data() {
             return {
                 property: null,
-                is_loading: true,
                 open_tenant_modal: false,
                 current_unit_id: null,
                 unit_index: null

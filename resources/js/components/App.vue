@@ -6,7 +6,8 @@
                 <div class="px-1 pt-2">
                     <b-menu class="is-custom-mobile">
                         <b-menu-list label="Menu">
-                            <b-menu-item icon="account-group" label="Property" title="Property" tag="router-link" to="/property" :active="$route.name=='property'" ></b-menu-item>
+                            <b-menu-item icon="home" label="Dashboard" title="Dashboard" tag="router-link" to="/" :active="$route.name=='dashboard'" ></b-menu-item>
+                            <b-menu-item icon="account-group" label="Property" title="Property" tag="router-link" to="/property" :active="$route.meta.name=='property'" ></b-menu-item>
                             <b-menu-item icon="office-building-marker" label="Tenants" title="Tenants" tag="router-link" to="/tenant" :active="$route.name=='tenant'" ></b-menu-item>
                         </b-menu-list>
                         <b-menu-list label="Admin">

@@ -21,6 +21,7 @@ class CreateTenantsTable extends Migration
             $table->string('phone');
             $table->date('lease_start');
             $table->date('lease_end');
+            $table->integer('rent_due')->comment('Day of the month at which rent is due');
             $table->timestamps();
         });
     }
