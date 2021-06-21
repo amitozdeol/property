@@ -1,5 +1,6 @@
 <template>
     <div class="sidebar-page has-background-info">
+        <!-- Sidebar -->
         <section class="sidebar-layout">
             <b-sidebar position="static" mobile="reduce" :expand-on-hover="false" :reduce="false" :fullheight="true"
                 type="is-info" open>
