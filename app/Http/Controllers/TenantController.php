@@ -41,6 +41,7 @@ class TenantController extends Controller
             'name' => 'required',
             'phone' => 'required',
             'email' => 'required',
+            'rent_due' => 'required|integer|between:1,31',
             'lease_start' => 'required|date',
             'lease_end' => 'required|date|after:lease_start',
         ]);
@@ -50,6 +51,7 @@ class TenantController extends Controller
         $tenant->name = $vd['name'];
         $tenant->email = $vd['email'];
         $tenant->phone = $vd['phone'];
+        $tenant->rent_due = $vd['rent_due'];
         $tenant->lease_start = $vd['lease_start'];
         $tenant->lease_end = $vd['lease_end'];
         $tenant->save();

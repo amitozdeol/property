@@ -64,6 +64,7 @@ class Handler extends ExceptionHandler
 
     /**
      * Convert flatten collection (with dot notation) to multiple dimmensionals array
+     * Example from unit.0.address='123 street' to unit:[0: [ address: '123 street' ]]
      * @param  Collection $collection Collection to be flatten
      * @return Array
      */

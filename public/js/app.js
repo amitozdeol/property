@@ -2015,6 +2015,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../axios */ "./resources/js/axios.js");
 /* harmony import */ var _Header_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Header.vue */ "./resources/js/components/Header.vue");
 /* harmony import */ var _AddUnit_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./AddUnit.vue */ "./resources/js/components/views/Property/AddUnit.vue");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2075,6 +2081,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
+    var unit_template = {
+      unit: null,
+      rent: null,
+      size: null,
+      address: null
+    };
     return {
       input: {
         name: null,
@@ -2083,11 +2095,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         state: null,
         zip: null
       },
-      units: [{
-        unit: null,
-        size: null,
-        address: null
-      }],
+      unit_template: unit_template,
+      units: [unit_template],
       error: {
         units: []
       },
@@ -2152,11 +2161,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     openUnitModal: function openUnitModal() {
-      this.units.push({
-        unit: null,
-        size: null,
-        address: null
-      });
+      this.units.push(_objectSpread({}, this.unit_template));
     },
     addUnit: function addUnit(unit, index) {
       this.units[index] = unit;
@@ -2180,6 +2185,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2414,6 +2427,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -2503,6 +2517,22 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2543,20 +2573,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['unit_id'],
   data: function data() {
-    return {
+    var fields = {
       name: "",
       phone: "",
       email: "",
+      rent_due: null,
       lease_start: "",
-      lease_end: "",
+      lease_end: ""
+    };
+    return {
+      fields: fields,
       is_loading: false,
-      error: {
-        name: '',
-        phone: '',
-        email: '',
-        lease_start: "",
-        lease_end: ""
-      }
+      error: _objectSpread({}, fields)
     };
   },
   methods: {
@@ -2572,41 +2600,43 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _this.is_loading = true;
                 _context.prev = 1;
-                data = {
-                  unit_id: _this.unit_id,
-                  name: _this.name,
-                  phone: _this.phone,
-                  email: _this.email,
-                  lease_start: _this.lease_start,
-                  lease_end: _this.lease_end
-                };
-                _context.next = 5;
+                data = _objectSpread({}, _this.fields);
+                data.unit_id = _this.unit_id; // const data = {
+                //                 unit_id: this.unit_id,
+                //                 name: this.name,
+                //                 phone: this.phone,
+                //                 email: this.email,
+                //                 lease_start: this.lease_start,
+                //                 lease_end: this.lease_end
+                //             };
+
+                _context.next = 6;
                 return _axios__WEBPACK_IMPORTED_MODULE_1__.default.post('/tenant/store', data);
 
-              case 5:
+              case 6:
                 res = _context.sent;
 
                 _this.$emit('update', data);
 
                 _this.$emit('close');
 
-                _context.next = 13;
+                _context.next = 14;
                 break;
 
-              case 10:
-                _context.prev = 10;
+              case 11:
+                _context.prev = 11;
                 _context.t0 = _context["catch"](1);
                 _this.error = (_err$response = _context.t0.response) === null || _err$response === void 0 ? void 0 : (_err$response$data = _err$response.data) === null || _err$response$data === void 0 ? void 0 : _err$response$data.errors;
 
-              case 13:
+              case 14:
                 _this.is_loading = false;
 
-              case 14:
+              case 15:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 10]]);
+        }, _callee, null, [[1, 11]]);
       }))();
     }
   }
@@ -11049,130 +11079,169 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "card-content" }, [
-      _c(
-        "div",
-        { staticClass: "content" },
-        [
-          _c(
-            "b-field",
-            {
-              attrs: {
-                label: "Number/Name",
-                type: { "is-danger": _vm.error.unit },
-                message: _vm.error.unit || ""
-              }
-            },
-            [
-              _c("b-input", {
+      _c("div", { staticClass: "content columns is-mobile" }, [
+        _c(
+          "div",
+          { staticClass: "column" },
+          [
+            _c(
+              "b-field",
+              {
                 attrs: {
-                  placeholder: "Number/Name",
-                  type: "text",
-                  max: "200",
-                  required: ""
-                },
-                model: {
-                  value: _vm.unit.unit,
-                  callback: function($$v) {
-                    _vm.$set(_vm.unit, "unit", $$v)
-                  },
-                  expression: "unit.unit"
+                  label: "Number/Name",
+                  type: { "is-danger": _vm.error.unit },
+                  message: _vm.error.unit || ""
                 }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-field",
-            {
-              attrs: {
-                label: "Size(Optional)",
-                type: { "is-danger": _vm.error.size },
-                message: _vm.error.size
-              }
-            },
-            [
-              _c("b-input", {
-                attrs: {
-                  placeholder: "sq. ft.",
-                  type: "number",
-                  min: "1",
-                  max: "999999"
-                },
-                model: {
-                  value: _vm.unit.size,
-                  callback: function($$v) {
-                    _vm.$set(_vm.unit, "size", _vm._n($$v))
-                  },
-                  expression: "unit.size"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-field",
-            {
-              attrs: {
-                type: { "is-danger": _vm.error.address },
-                message: _vm.error.address || "",
-                "custom-class": "is-flex is-align-items-center"
               },
-              scopedSlots: _vm._u([
-                {
-                  key: "label",
-                  fn: function() {
-                    return [
-                      _vm._v(
-                        "\n                    Address\n                    "
-                      ),
-                      _c(
-                        "b-button",
-                        {
-                          attrs: {
-                            type: "is-ghost",
-                            size: "is-small",
-                            rounded: ""
-                          },
-                          on: {
-                            click: function($event) {
-                              _vm.unit.address = _vm.address
-                            }
-                          }
-                        },
-                        [_vm._v("Same as above")]
-                      )
-                    ]
+              [
+                _c("b-input", {
+                  attrs: {
+                    placeholder: "Number/Name",
+                    type: "text",
+                    max: "200",
+                    required: ""
                   },
-                  proxy: true
-                }
-              ])
-            },
-            [
-              _vm._v(" "),
-              _c("b-input", {
+                  model: {
+                    value: _vm.unit.unit,
+                    callback: function($$v) {
+                      _vm.$set(_vm.unit, "unit", $$v)
+                    },
+                    expression: "unit.unit"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              {
                 attrs: {
-                  placeholder: "Ex: 123 Street name, City, State, zip",
-                  type: "text",
-                  min: "5",
-                  max: "500",
-                  required: ""
-                },
-                model: {
-                  value: _vm.unit.address,
-                  callback: function($$v) {
-                    _vm.$set(_vm.unit, "address", $$v)
-                  },
-                  expression: "unit.address"
+                  label: "Rent",
+                  type: { "is-danger": _vm.error.rent },
+                  message: _vm.error.rent
                 }
-              })
-            ],
-            1
-          )
-        ],
-        1
-      )
+              },
+              [
+                _c("b-input", {
+                  attrs: {
+                    placeholder: "$500",
+                    type: "number",
+                    min: "1",
+                    max: "99999",
+                    step: "0.01"
+                  },
+                  model: {
+                    value: _vm.unit.rent,
+                    callback: function($$v) {
+                      _vm.$set(_vm.unit, "rent", _vm._n($$v))
+                    },
+                    expression: "unit.rent"
+                  }
+                })
+              ],
+              1
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "column" },
+          [
+            _c(
+              "b-field",
+              {
+                attrs: {
+                  label: "Size(Optional)",
+                  type: { "is-danger": _vm.error.size },
+                  message: _vm.error.size
+                }
+              },
+              [
+                _c("b-input", {
+                  attrs: {
+                    placeholder: "sq. ft.",
+                    type: "number",
+                    min: "1",
+                    max: "99999"
+                  },
+                  model: {
+                    value: _vm.unit.size,
+                    callback: function($$v) {
+                      _vm.$set(_vm.unit, "size", _vm._n($$v))
+                    },
+                    expression: "unit.size"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              {
+                attrs: {
+                  type: { "is-danger": _vm.error.address },
+                  message: _vm.error.address || "",
+                  "custom-class": "is-flex is-align-items-center"
+                },
+                scopedSlots: _vm._u([
+                  {
+                    key: "label",
+                    fn: function() {
+                      return [
+                        _vm._v(
+                          "\n                        Address\n                        "
+                        ),
+                        _c(
+                          "b-button",
+                          {
+                            attrs: {
+                              type: "is-ghost",
+                              size: "is-small",
+                              rounded: ""
+                            },
+                            on: {
+                              click: function($event) {
+                                _vm.unit.address = _vm.address
+                              }
+                            }
+                          },
+                          [_vm._v("Same as above")]
+                        )
+                      ]
+                    },
+                    proxy: true
+                  }
+                ])
+              },
+              [
+                _vm._v(" "),
+                _c("b-input", {
+                  attrs: {
+                    placeholder: "Ex: 123 Street name, City, State, zip",
+                    type: "text",
+                    min: "5",
+                    max: "500",
+                    required: ""
+                  },
+                  model: {
+                    value: _vm.unit.address,
+                    callback: function($$v) {
+                      _vm.$set(_vm.unit, "address", $$v)
+                    },
+                    expression: "unit.address"
+                  }
+                })
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ])
     ])
   ])
 }
@@ -11364,15 +11433,26 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "card-content" }, [
                       _c("div", { staticClass: "content" }, [
-                        unit.size
-                          ? _c("div", [
-                              _vm._v(
-                                "\n                            Size: " +
-                                  _vm._s(unit.size) +
-                                  " sq.ft.\n                        "
-                              )
-                            ])
-                          : _vm._e(),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "is-flex is-justify-content-space-between"
+                          },
+                          [
+                            unit.size
+                              ? _c("span", [
+                                  _vm._v(_vm._s(unit.size) + " sq.ft.")
+                                ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            unit.rent
+                              ? _c("span", { staticClass: "tag is-success" }, [
+                                  _vm._v("$" + _vm._s(unit.rent))
+                                ])
+                              : _vm._e()
+                          ]
+                        ),
                         _vm._v(" "),
                         _c(
                           "div",
@@ -11557,11 +11637,11 @@ var render = function() {
                 _c("b-input", {
                   attrs: { type: "name", placeholder: "Name", required: "" },
                   model: {
-                    value: _vm.name,
+                    value: _vm.fields.name,
                     callback: function($$v) {
-                      _vm.name = $$v
+                      _vm.$set(_vm.fields, "name", $$v)
                     },
-                    expression: "name"
+                    expression: "fields.name"
                   }
                 })
               ],
@@ -11585,24 +11665,17 @@ var render = function() {
                     required: ""
                   },
                   model: {
-                    value: _vm.phone,
+                    value: _vm.fields.phone,
                     callback: function($$v) {
-                      _vm.phone = $$v
+                      _vm.$set(_vm.fields, "phone", $$v)
                     },
-                    expression: "phone"
+                    expression: "fields.phone"
                   }
                 })
               ],
               1
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "column is-mobile" },
-          [
+            ),
+            _vm._v(" "),
             _c(
               "b-field",
               {
@@ -11620,13 +11693,60 @@ var render = function() {
                     required: ""
                   },
                   model: {
-                    value: _vm.email,
+                    value: _vm.fields.email,
                     callback: function($$v) {
-                      _vm.email = $$v
+                      _vm.$set(_vm.fields, "email", $$v)
                     },
-                    expression: "email"
+                    expression: "fields.email"
                   }
                 })
+              ],
+              1
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "column is-mobile" },
+          [
+            _c(
+              "b-field",
+              {
+                attrs: {
+                  label: "Rent due",
+                  type: { "is-danger": _vm.error.rent_due },
+                  message: _vm.error.rent_due || ""
+                }
+              },
+              [
+                _c(
+                  "b-select",
+                  {
+                    attrs: {
+                      placeholder: "Select a day of the month",
+                      required: ""
+                    },
+                    model: {
+                      value: _vm.fields.rent_due,
+                      callback: function($$v) {
+                        _vm.$set(_vm.fields, "rent_due", $$v)
+                      },
+                      expression: "fields.rent_due"
+                    }
+                  },
+                  _vm._l(31, function(d) {
+                    return _c("option", { key: d, domProps: { value: d } }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(d) +
+                          "\n                        "
+                      )
+                    ])
+                  }),
+                  0
+                )
               ],
               1
             ),
@@ -11644,11 +11764,11 @@ var render = function() {
                 _c("b-input", {
                   attrs: { type: "date", required: "" },
                   model: {
-                    value: _vm.lease_start,
+                    value: _vm.fields.lease_start,
                     callback: function($$v) {
-                      _vm.lease_start = $$v
+                      _vm.$set(_vm.fields, "lease_start", $$v)
                     },
-                    expression: "lease_start"
+                    expression: "fields.lease_start"
                   }
                 })
               ],
@@ -11668,11 +11788,11 @@ var render = function() {
                 _c("b-input", {
                   attrs: { type: "date", required: "" },
                   model: {
-                    value: _vm.lease_end,
+                    value: _vm.fields.lease_end,
                     callback: function($$v) {
-                      _vm.lease_end = $$v
+                      _vm.$set(_vm.fields, "lease_end", $$v)
                     },
-                    expression: "lease_end"
+                    expression: "fields.lease_end"
                   }
                 })
               ],

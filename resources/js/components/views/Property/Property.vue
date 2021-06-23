@@ -15,8 +15,9 @@
                     </header>
                     <div class="card-content">
                         <div class="content">
-                            <div v-if="unit.size">
-                                Size: {{unit.size}} sq.ft.
+                            <div class="is-flex is-justify-content-space-between">
+                                <span v-if="unit.size">{{unit.size}} sq.ft.</span>
+                                <span v-if="unit.rent" class="tag is-success">${{unit.rent}}</span>
                             </div>
                             <div class="is-size-4 has-text-weight-bold mt-3">
                                 Tenants

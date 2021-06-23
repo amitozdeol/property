@@ -21,7 +21,7 @@ class PropertyUnit extends Model
      *
      * @var array
      */
-    protected $fillable = ['unit', 'size', 'address'];
+    protected $fillable = ['unit', 'rent', 'size', 'address'];
 
     /**
      * Get the tenant for the unit

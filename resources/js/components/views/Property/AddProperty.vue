@@ -54,6 +54,7 @@
 
     export default {
         data() {
+            const unit_template = {unit: null, rent: null, size: null, address: null};
             return {
                 input: {
                     name: null,
@@ -62,7 +63,8 @@
                     state: null,
                     zip: null
                 },
-                units: [{unit: null, size: null, address: null}],
+                unit_template,
+                units: [unit_template],
                 error: {units: []},
                 is_loading: false
             }
@@ -93,7 +95,7 @@
                 }
             },
             openUnitModal(){
-                this.units.push({unit: null, size: null, address: null});
+                this.units.push({...this.unit_template});
             },
             addUnit(unit, index){
                 this.units[index] = unit;

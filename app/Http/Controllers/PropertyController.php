@@ -16,7 +16,7 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        return Property::get();
+        return Property::orderBy('updated_at', 'desc')->get();
     }
 
     /**
@@ -35,6 +35,7 @@ class PropertyController extends Controller
             'zip' => 'required|max:999999|integer',
             'units' => 'required|array',
             'units.*.unit' => 'required|string',
+            'units.*.rent' => 'required|numeric|between:1,99999.99',
             'units.*.size' => 'nullable|integer',
             'units.*.address' => 'required|string'
         ]);
