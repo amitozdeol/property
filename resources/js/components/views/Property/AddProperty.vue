@@ -1,6 +1,6 @@
 <template>
     <section>
-        <Header title="Create new property" subtitle="These are the propety you want to keep track of"
+        <Header title="Create new property" subtitle="Add property details here"
             :breadcrumb="['Dashboard:/', 'Property:/property', 'Create Property:/property/create']" />
 
         <div class="columns">
@@ -29,9 +29,12 @@
             </div>
         </div>
 
-        <div class="page-header is-flex is-align-items-center">
-            <h3 class="title is-4 mb-0 mr-2">Add Units</h3>
-            <b-button rounded type="is-success" size="is-small" @click="openUnitModal">Add</b-button>
+        <div class="page-header">
+            <div class="is-flex is-align-items-center">
+                <h3 class="title is-4 mb-0 mr-2">Add Units</h3>
+                <b-button rounded type="is-success" size="is-small" @click="openUnitModal">Add</b-button>
+            </div>
+            <p class="has-text-grey">A property can have multiple units. If no unit is provided, a unit will get created for you.</p>
         </div>
         <div class="columns is-mobile mx-0 my-2 is-flex-wrap-wrap">
             <div v-for="(unit, index) in units" :key="index" class="column is-full-mobile is-half-tablet is-one-third-widescreen is-one-quarter-fullhd">
@@ -83,6 +86,9 @@
                 if (this.is_validated) {
                     this.is_loading = true;
                     try {
+                        if (this.units.length == 0) {
+                            this.units.push(this.defaultUnit());
+                        }
                         this.input.units = this.units;
                         const res = await axios.post('/property/store', this.input);
                         this.$router.push({
@@ -92,6 +98,15 @@
                         this.error = err.response?.data?.errors
                     }
                     this.is_loading = false;
+                }
+            },
+            //If no unit is provided, just create a new one
+            defaultUnit(){
+                return {
+                    unit: this.input.name,
+                    size: 1000,
+                    rent: 500,
+                    address: `${this.input.address}, ${this.input.city}, ${this.input.state}, ${this.input.zip}`
                 }
             },
             openUnitModal(){

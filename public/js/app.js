@@ -2076,6 +2076,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 
@@ -2124,41 +2127,55 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 if (!_this.is_validated) {
-                  _context.next = 14;
+                  _context.next = 15;
                   break;
                 }
 
                 _this.is_loading = true;
                 _context.prev = 2;
+
+                if (_this.units.length == 0) {
+                  _this.units.push(_this.defaultUnit());
+                }
+
                 _this.input.units = _this.units;
-                _context.next = 6;
+                _context.next = 7;
                 return _axios__WEBPACK_IMPORTED_MODULE_1__.default.post('/property/store', _this.input);
 
-              case 6:
+              case 7:
                 res = _context.sent;
 
                 _this.$router.push({
                   name: 'property'
                 });
 
-                _context.next = 13;
+                _context.next = 14;
                 break;
 
-              case 10:
-                _context.prev = 10;
+              case 11:
+                _context.prev = 11;
                 _context.t0 = _context["catch"](2);
                 _this.error = (_err$response = _context.t0.response) === null || _err$response === void 0 ? void 0 : (_err$response$data = _err$response.data) === null || _err$response$data === void 0 ? void 0 : _err$response$data.errors;
 
-              case 13:
+              case 14:
                 _this.is_loading = false;
 
-              case 14:
+              case 15:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[2, 10]]);
+        }, _callee, null, [[2, 11]]);
       }))();
+    },
+    //If no unit is provided, just create a new one
+    defaultUnit: function defaultUnit() {
+      return {
+        unit: this.input.name,
+        size: 1000,
+        rent: 500,
+        address: "".concat(this.input.address, ", ").concat(this.input.city, ", ").concat(this.input.state, ", ").concat(this.input.zip)
+      };
     },
     openUnitModal: function openUnitModal() {
       this.units.push(_objectSpread({}, this.unit_template));
@@ -10782,7 +10799,7 @@ var render = function() {
       _c("Header", {
         attrs: {
           title: "Create new property",
-          subtitle: "These are the propety you want to keep track of",
+          subtitle: "Add property details here",
           breadcrumb: [
             "Dashboard:/",
             "Property:/property",
@@ -10948,25 +10965,33 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "page-header is-flex is-align-items-center" },
-        [
-          _c("h3", { staticClass: "title is-4 mb-0 mr-2" }, [
-            _vm._v("Add Units")
-          ]),
-          _vm._v(" "),
-          _c(
-            "b-button",
-            {
-              attrs: { rounded: "", type: "is-success", size: "is-small" },
-              on: { click: _vm.openUnitModal }
-            },
-            [_vm._v("Add")]
+      _c("div", { staticClass: "page-header" }, [
+        _c(
+          "div",
+          { staticClass: "is-flex is-align-items-center" },
+          [
+            _c("h3", { staticClass: "title is-4 mb-0 mr-2" }, [
+              _vm._v("Add Units")
+            ]),
+            _vm._v(" "),
+            _c(
+              "b-button",
+              {
+                attrs: { rounded: "", type: "is-success", size: "is-small" },
+                on: { click: _vm.openUnitModal }
+              },
+              [_vm._v("Add")]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("p", { staticClass: "has-text-grey" }, [
+          _vm._v(
+            "A property can have multiple units. If no unit is provided, a unit will get created for you."
           )
-        ],
-        1
-      ),
+        ])
+      ]),
       _vm._v(" "),
       _c(
         "div",
