@@ -57,7 +57,7 @@
 
     export default {
         data() {
-            const unit_template = {unit: null, rent: null, size: null, address: null};
+            const unit_template = {unit: null, rent: null, deposit: null, size: null, address: null};
             return {
                 input: {
                     name: null,
@@ -106,6 +106,7 @@
                     unit: this.input.name,
                     size: 1000,
                     rent: 500,
+                    deposit: 500,
                     address: `${this.input.address}, ${this.input.city}, ${this.input.state}, ${this.input.zip}`
                 }
             },

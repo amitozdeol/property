@@ -36,6 +36,7 @@ class PropertyController extends Controller
             'units' => 'required|array',
             'units.*.unit' => 'required|string',
             'units.*.rent' => 'required|numeric|between:1,99999.99',
+            'units.*.deposit' => 'required|numeric|between:1,99999.99',
             'units.*.size' => 'nullable|integer',
             'units.*.address' => 'required|string'
         ]);

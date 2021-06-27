@@ -19,6 +19,7 @@ class CreatePropertyUnitTable extends Migration
             $table->string('unit', 100);
             $table->integer('size')->nullable();
             $table->decimal('rent', $precision = 8, $scale = 2);
+            $table->decimal('deposit', $precision = 8, $scale = 2);
             $table->string('address', 1000);
             $table->timestamps();
         });

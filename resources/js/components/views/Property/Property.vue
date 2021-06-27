@@ -19,6 +19,13 @@
                                 <span v-if="unit.size">{{unit.size}} sq.ft.</span>
                                 <span v-if="unit.rent" class="tag is-success">${{unit.rent}}</span>
                             </div>
+                            <details class="mt-1 has-text-grey">
+                                <summary>More details</summary>
+                                <ul>
+                                    <li>Deposit: ${{unit.deposit}}</li>
+                                </ul>
+                            </details>
+
                             <div class="is-size-4 has-text-weight-bold mt-3">
                                 Tenants
                             </div>

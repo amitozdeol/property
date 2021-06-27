@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\RentActivityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,4 +23,5 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/property/store', [PropertyController::class, 'store']);
     Route::get('/tenant', [TenantController::class, 'index']);
     Route::post('/tenant/store', [TenantController::class, 'store']);
+    Route::post('/rent/{tenant_id}', [RentActivityController::class, 'store']);
 });

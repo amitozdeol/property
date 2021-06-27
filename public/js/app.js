@@ -1961,6 +1961,116 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2087,6 +2197,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var unit_template = {
       unit: null,
       rent: null,
+      deposit: null,
       size: null,
       address: null
     };
@@ -2174,6 +2285,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         unit: this.input.name,
         size: 1000,
         rent: 500,
+        deposit: 500,
         address: "".concat(this.input.address, ", ").concat(this.input.city, ", ").concat(this.input.state, ", ").concat(this.input.zip)
       };
     },
@@ -2202,6 +2314,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
 //
 //
 //
@@ -2382,6 +2498,13 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -10539,7 +10662,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("b-menu-item", {
                           attrs: {
-                            icon: "account-group",
+                            icon: "office-building-marker",
                             label: "Property",
                             title: "Property",
                             tag: "router-link",
@@ -10550,7 +10673,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("b-menu-item", {
                           attrs: {
-                            icon: "office-building-marker",
+                            icon: "account-group",
                             label: "Tenants",
                             title: "Tenants",
                             tag: "router-link",
@@ -10739,6 +10862,190 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _vm.is_loading
     ? _c("Loader")
+    : this.properties.length
+    ? _c("div", [
+        _c("section", [
+          _c("div", { staticClass: "columns is-multiline" }, [
+            _c("div", { staticClass: "column" }, [
+              _c("div", { staticClass: "box" }, [
+                _c("div", { staticClass: "heading" }, [
+                  _vm._v("Top Seller Total")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "title" }, [_vm._v("56,950")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "level" }, [
+                  _c("div", { staticClass: "level-item" }, [
+                    _c("div", {}, [
+                      _c("div", { staticClass: "heading" }, [
+                        _vm._v("Sales $")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "title is-5" }, [
+                        _vm._v("250,000")
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "level-item" }, [
+                    _c("div", {}, [
+                      _c("div", { staticClass: "heading" }, [
+                        _vm._v("Overall $")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "title is-5" }, [
+                        _vm._v("750,000")
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "level-item" }, [
+                    _c("div", {}, [
+                      _c("div", { staticClass: "heading" }, [
+                        _vm._v("Sales %")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "title is-5" }, [_vm._v("25%")])
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "column" }, [
+              _c("div", { staticClass: "box" }, [
+                _c("div", { staticClass: "heading" }, [
+                  _vm._v("Revenue / Expenses")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "title" }, [_vm._v("55% / 45%")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "level" }, [
+                  _c("div", { staticClass: "level-item" }, [
+                    _c("div", {}, [
+                      _c("div", { staticClass: "heading" }, [
+                        _vm._v("Rev Prod $")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "title is-5" }, [_vm._v("30%")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "level-item" }, [
+                    _c("div", {}, [
+                      _c("div", { staticClass: "heading" }, [
+                        _vm._v("Rev Serv $")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "title is-5" }, [_vm._v("25%")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "level-item" }, [
+                    _c("div", {}, [
+                      _c("div", { staticClass: "heading" }, [_vm._v("Exp %")]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "title is-5" }, [_vm._v("45%")])
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "column" }, [
+              _c("div", { staticClass: "box" }, [
+                _c("div", { staticClass: "heading" }, [
+                  _vm._v("Feedback Activity")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "title" }, [_vm._v("78% ↑")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "level" }, [
+                  _c("div", { staticClass: "level-item" }, [
+                    _c("div", {}, [
+                      _c("div", { staticClass: "heading" }, [
+                        _vm._v("Positive")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "title is-5" }, [_vm._v("1560")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "level-item" }, [
+                    _c("div", {}, [
+                      _c("div", { staticClass: "heading" }, [
+                        _vm._v("Negative")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "title is-5" }, [_vm._v("368")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "level-item" }, [
+                    _c("div", {}, [
+                      _c("div", { staticClass: "heading" }, [
+                        _vm._v("Pos/Neg %")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "title is-5" }, [
+                        _vm._v("77% / 23%")
+                      ])
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "column" }, [
+              _c("div", { staticClass: "box" }, [
+                _c("div", { staticClass: "heading" }, [
+                  _vm._v("Orders / Returns")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "title" }, [_vm._v("75% / 25%")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "level" }, [
+                  _c("div", { staticClass: "level-item" }, [
+                    _c("div", {}, [
+                      _c("div", { staticClass: "heading" }, [
+                        _vm._v("Orders $")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "title is-5" }, [
+                        _vm._v("425,000")
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "level-item" }, [
+                    _c("div", {}, [
+                      _c("div", { staticClass: "heading" }, [
+                        _vm._v("Returns $")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "title is-5" }, [
+                        _vm._v("106,250")
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "level-item" }, [
+                    _c("div", {}, [
+                      _c("div", { staticClass: "heading" }, [
+                        _vm._v("Success %")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "title is-5" }, [
+                        _vm._v("+ 28,5%")
+                      ])
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ])
+      ])
     : _c("div", [
         _c("section", { staticClass: "hero is-light" }, [
           _c(
@@ -11103,171 +11410,204 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "card-content" }, [
-      _c("div", { staticClass: "content columns is-mobile" }, [
-        _c(
-          "div",
-          { staticClass: "column" },
-          [
-            _c(
-              "b-field",
-              {
-                attrs: {
-                  label: "Number/Name",
-                  type: { "is-danger": _vm.error.unit },
-                  message: _vm.error.unit || ""
-                }
-              },
-              [
-                _c("b-input", {
+    _c(
+      "div",
+      { staticClass: "card-content" },
+      [
+        _c("div", { staticClass: "content columns mb-0" }, [
+          _c(
+            "div",
+            { staticClass: "column" },
+            [
+              _c(
+                "b-field",
+                {
                   attrs: {
-                    placeholder: "Number/Name",
-                    type: "text",
-                    max: "200",
-                    required: ""
-                  },
-                  model: {
-                    value: _vm.unit.unit,
-                    callback: function($$v) {
-                      _vm.$set(_vm.unit, "unit", $$v)
-                    },
-                    expression: "unit.unit"
+                    label: "Number/Name",
+                    type: { "is-danger": _vm.error.unit },
+                    message: _vm.error.unit || ""
                   }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "b-field",
-              {
-                attrs: {
-                  label: "Rent",
-                  type: { "is-danger": _vm.error.rent },
-                  message: _vm.error.rent
-                }
-              },
-              [
-                _c("b-input", {
+                },
+                [
+                  _c("b-input", {
+                    attrs: {
+                      placeholder: "Number/Name",
+                      type: "text",
+                      max: "200",
+                      required: ""
+                    },
+                    model: {
+                      value: _vm.unit.unit,
+                      callback: function($$v) {
+                        _vm.$set(_vm.unit, "unit", $$v)
+                      },
+                      expression: "unit.unit"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-field",
+                {
                   attrs: {
-                    placeholder: "$500",
-                    type: "number",
-                    min: "1",
-                    max: "99999",
-                    step: "0.01"
-                  },
-                  model: {
-                    value: _vm.unit.rent,
-                    callback: function($$v) {
-                      _vm.$set(_vm.unit, "rent", _vm._n($$v))
-                    },
-                    expression: "unit.rent"
+                    label: "Rent",
+                    type: { "is-danger": _vm.error.rent },
+                    message: _vm.error.rent
                   }
-                })
-              ],
-              1
-            )
-          ],
-          1
-        ),
+                },
+                [
+                  _c("b-input", {
+                    attrs: {
+                      placeholder: "$500",
+                      type: "number",
+                      min: "1",
+                      max: "99999",
+                      step: "0.01"
+                    },
+                    model: {
+                      value: _vm.unit.rent,
+                      callback: function($$v) {
+                        _vm.$set(_vm.unit, "rent", _vm._n($$v))
+                      },
+                      expression: "unit.rent"
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "column" },
+            [
+              _c(
+                "b-field",
+                {
+                  attrs: {
+                    label: "Size(Optional)",
+                    type: { "is-danger": _vm.error.size },
+                    message: _vm.error.size
+                  }
+                },
+                [
+                  _c("b-input", {
+                    attrs: {
+                      placeholder: "sq. ft.",
+                      type: "number",
+                      min: "1",
+                      max: "99999"
+                    },
+                    model: {
+                      value: _vm.unit.size,
+                      callback: function($$v) {
+                        _vm.$set(_vm.unit, "size", _vm._n($$v))
+                      },
+                      expression: "unit.size"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-field",
+                {
+                  attrs: {
+                    label: "Deposit",
+                    type: { "is-danger": _vm.error.deposit },
+                    message: _vm.error.deposit
+                  }
+                },
+                [
+                  _c("b-input", {
+                    attrs: {
+                      placeholder: "$500",
+                      type: "number",
+                      min: "1",
+                      max: "99999",
+                      step: "0.01"
+                    },
+                    model: {
+                      value: _vm.unit.deposit,
+                      callback: function($$v) {
+                        _vm.$set(_vm.unit, "deposit", _vm._n($$v))
+                      },
+                      expression: "unit.deposit"
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ]),
         _vm._v(" "),
         _c(
-          "div",
-          { staticClass: "column" },
-          [
-            _c(
-              "b-field",
+          "b-field",
+          {
+            attrs: {
+              type: { "is-danger": _vm.error.address },
+              message: _vm.error.address || "",
+              "custom-class": "is-flex is-align-items-center"
+            },
+            scopedSlots: _vm._u([
               {
-                attrs: {
-                  label: "Size(Optional)",
-                  type: { "is-danger": _vm.error.size },
-                  message: _vm.error.size
-                }
-              },
-              [
-                _c("b-input", {
-                  attrs: {
-                    placeholder: "sq. ft.",
-                    type: "number",
-                    min: "1",
-                    max: "99999"
-                  },
-                  model: {
-                    value: _vm.unit.size,
-                    callback: function($$v) {
-                      _vm.$set(_vm.unit, "size", _vm._n($$v))
-                    },
-                    expression: "unit.size"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "b-field",
-              {
-                attrs: {
-                  type: { "is-danger": _vm.error.address },
-                  message: _vm.error.address || "",
-                  "custom-class": "is-flex is-align-items-center"
+                key: "label",
+                fn: function() {
+                  return [
+                    _vm._v("\n                Address\n                "),
+                    _c(
+                      "b-button",
+                      {
+                        attrs: {
+                          type: "is-ghost",
+                          size: "is-small",
+                          rounded: ""
+                        },
+                        on: {
+                          click: function($event) {
+                            _vm.unit.address = _vm.address
+                          }
+                        }
+                      },
+                      [_vm._v("Same as above")]
+                    )
+                  ]
                 },
-                scopedSlots: _vm._u([
-                  {
-                    key: "label",
-                    fn: function() {
-                      return [
-                        _vm._v(
-                          "\n                        Address\n                        "
-                        ),
-                        _c(
-                          "b-button",
-                          {
-                            attrs: {
-                              type: "is-ghost",
-                              size: "is-small",
-                              rounded: ""
-                            },
-                            on: {
-                              click: function($event) {
-                                _vm.unit.address = _vm.address
-                              }
-                            }
-                          },
-                          [_vm._v("Same as above")]
-                        )
-                      ]
-                    },
-                    proxy: true
-                  }
-                ])
+                proxy: true
+              }
+            ])
+          },
+          [
+            _vm._v(" "),
+            _c("b-input", {
+              attrs: {
+                placeholder: "Ex: 123 Street name, City, State, zip",
+                type: "text",
+                min: "5",
+                max: "500",
+                required: ""
               },
-              [
-                _vm._v(" "),
-                _c("b-input", {
-                  attrs: {
-                    placeholder: "Ex: 123 Street name, City, State, zip",
-                    type: "text",
-                    min: "5",
-                    max: "500",
-                    required: ""
-                  },
-                  model: {
-                    value: _vm.unit.address,
-                    callback: function($$v) {
-                      _vm.$set(_vm.unit, "address", $$v)
-                    },
-                    expression: "unit.address"
-                  }
-                })
-              ],
-              1
-            )
+              model: {
+                value: _vm.unit.address,
+                callback: function($$v) {
+                  _vm.$set(_vm.unit, "address", $$v)
+                },
+                expression: "unit.address"
+              }
+            })
           ],
           1
         )
-      ])
-    ])
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = []
@@ -11478,6 +11818,16 @@ var render = function() {
                               : _vm._e()
                           ]
                         ),
+                        _vm._v(" "),
+                        _c("details", { staticClass: "mt-1 has-text-grey" }, [
+                          _c("summary", [_vm._v("More details")]),
+                          _vm._v(" "),
+                          _c("ul", [
+                            _c("li", [
+                              _vm._v("Deposit: $" + _vm._s(unit.deposit))
+                            ])
+                          ])
+                        ]),
                         _vm._v(" "),
                         _c(
                           "div",
