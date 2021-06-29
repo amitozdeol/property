@@ -2065,19 +2065,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mixins: [_mixins_loading__WEBPACK_IMPORTED_MODULE_2__.default],
   data: function data() {
     return {
-      properties: null
+      properties: null,
+      latest_income: null
     };
   },
   beforeCreate: function beforeCreate() {
@@ -2095,9 +2090,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 2:
               res = _context.sent;
               _this.properties = res.data;
+              _context.next = 6;
+              return _axios__WEBPACK_IMPORTED_MODULE_1__.default.get('/rent/latest');
+
+            case 6:
+              res = _context.sent;
+              _this.latest_income = res.data;
               _this.is_loading = false;
 
-            case 5:
+            case 9:
             case "end":
               return _context.stop();
           }
@@ -2997,9 +2998,15 @@ __webpack_require__.r(__webpack_exports__);
 [buefy__WEBPACK_IMPORTED_MODULE_1__.default, buefy__WEBPACK_IMPORTED_MODULE_2__.default, buefy__WEBPACK_IMPORTED_MODULE_3__.default, buefy__WEBPACK_IMPORTED_MODULE_4__.default, buefy__WEBPACK_IMPORTED_MODULE_5__.default, buefy__WEBPACK_IMPORTED_MODULE_6__.default, buefy__WEBPACK_IMPORTED_MODULE_7__.default, buefy__WEBPACK_IMPORTED_MODULE_8__.default, buefy__WEBPACK_IMPORTED_MODULE_9__.default, buefy__WEBPACK_IMPORTED_MODULE_10__.default].forEach(function (x) {
   return vue__WEBPACK_IMPORTED_MODULE_11__.default.use(x);
 });
-vue__WEBPACK_IMPORTED_MODULE_11__.default.component('app', __webpack_require__(/*! ./components/App.vue */ "./resources/js/components/App.vue").default); //Format date to human readable time
+vue__WEBPACK_IMPORTED_MODULE_11__.default.component('app', __webpack_require__(/*! ./components/App.vue */ "./resources/js/components/App.vue").default);
+/**
+ * Format date to human readable time
+ * @param hasDay {Boolean} Show day or not in the returned date
+ */
 
 vue__WEBPACK_IMPORTED_MODULE_11__.default.filter('formatDate', function (value) {
+  var hasDay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
   if (value) {
     var d = new Date(value);
     var ye = new Intl.DateTimeFormat('en', {
@@ -3011,7 +3018,7 @@ vue__WEBPACK_IMPORTED_MODULE_11__.default.filter('formatDate', function (value) 
     var da = new Intl.DateTimeFormat('en', {
       day: '2-digit'
     }).format(d);
-    return "".concat(da, "-").concat(mo, "-").concat(ye);
+    return hasDay ? "".concat(da, "-").concat(mo, "-").concat(ye) : "".concat(mo, "-").concat(ye);
   }
 }); //capitalize text
 
@@ -10885,45 +10892,62 @@ var render = function() {
             _c("div", { staticClass: "column" }, [
               _c("div", { staticClass: "box" }, [
                 _c("div", { staticClass: "heading" }, [
-                  _vm._v("Top Seller Total")
+                  _vm._v(
+                    _vm._s(
+                      _vm._f("formatDate")(
+                        _vm.latest_income[0].rent_month,
+                        false
+                      )
+                    ) + ": Income"
+                  )
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "title" }, [_vm._v("56,950")]),
+                _c("div", { staticClass: "title" }, [
+                  _vm._v(_vm._s(_vm.latest_income[0].sum))
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "level" }, [
-                  _c("div", { staticClass: "level-item" }, [
-                    _c("div", {}, [
-                      _c("div", { staticClass: "heading" }, [
-                        _vm._v("Sales $")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "title is-5" }, [
-                        _vm._v("250,000")
+                  _vm.latest_income[1]
+                    ? _c("div", { staticClass: "level-item" }, [
+                        _c("div", {}, [
+                          _c("div", { staticClass: "heading" }, [
+                            _vm._v(
+                              _vm._s(
+                                _vm._f("formatDate")(
+                                  _vm.latest_income[1].rent_month,
+                                  false
+                                )
+                              )
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "title is-5" }, [
+                            _vm._v(_vm._s(_vm.latest_income[1].sum))
+                          ])
+                        ])
                       ])
-                    ])
-                  ]),
+                    : _vm._e(),
                   _vm._v(" "),
-                  _c("div", { staticClass: "level-item" }, [
-                    _c("div", {}, [
-                      _c("div", { staticClass: "heading" }, [
-                        _vm._v("Overall $")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "title is-5" }, [
-                        _vm._v("750,000")
+                  _vm.latest_income[2]
+                    ? _c("div", { staticClass: "level-item" }, [
+                        _c("div", {}, [
+                          _c("div", { staticClass: "heading" }, [
+                            _vm._v(
+                              _vm._s(
+                                _vm._f("formatDate")(
+                                  _vm.latest_income[2].rent_month,
+                                  false
+                                )
+                              )
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "title is-5" }, [
+                            _vm._v(_vm._s(_vm.latest_income[2].sum))
+                          ])
+                        ])
                       ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "level-item" }, [
-                    _c("div", {}, [
-                      _c("div", { staticClass: "heading" }, [
-                        _vm._v("Sales %")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "title is-5" }, [_vm._v("25%")])
-                    ])
-                  ])
+                    : _vm._e()
                 ])
               ])
             ]),

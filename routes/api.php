@@ -18,10 +18,17 @@ use App\Http\Controllers\RentActivityController;
 */
 
 Route::middleware('auth:api')->group(function () {
-    Route::get('/property', [PropertyController::class, 'index']);
-    Route::get('/property/{id}', [PropertyController::class, 'show']);
-    Route::post('/property/store', [PropertyController::class, 'store']);
-    Route::get('/tenant', [TenantController::class, 'index']);
-    Route::post('/tenant/store', [TenantController::class, 'store']);
-    Route::post('/rent/{tenant_id}', [RentActivityController::class, 'store']);
+    Route::prefix('property')->group(function () {
+        Route::get('/', [PropertyController::class, 'index']);
+        Route::get('/{id}', [PropertyController::class, 'show']);
+        Route::post('/store', [PropertyController::class, 'store']);
+    });
+    Route::prefix('tenant')->group(function () {
+        Route::get('/', [TenantController::class, 'index']);
+        Route::post('/store', [TenantController::class, 'store']);
+    });
+    Route::prefix('rent')->group(function () {
+        Route::get('/latest', [RentActivityController::class, 'latest']);
+        Route::post('/{tenant_id}', [RentActivityController::class, 'store']);
+    });
 });

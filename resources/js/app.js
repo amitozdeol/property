@@ -6,14 +6,17 @@ import router from './routes';
 
 Vue.component('app', require('./components/App.vue').default);
 
-//Format date to human readable time
-Vue.filter('formatDate', function(value) {
+/**
+ * Format date to human readable time
+ * @param hasDay {Boolean} Show day or not in the returned date
+ */
+Vue.filter('formatDate', function(value, hasDay = true) {
     if (value) {
         let d = new Date(value);
         let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
         let mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(d);
         let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
-        return `${da}-${mo}-${ye}`;
+        return hasDay ? `${da}-${mo}-${ye}` : `${mo}-${ye}`;
     }
 });
 

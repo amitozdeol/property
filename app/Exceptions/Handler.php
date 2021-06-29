@@ -52,7 +52,8 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        if ($exception instanceof ValidationException) {
+        //Only change response when the exception is raised by an api
+        if ($exception instanceof ValidationException && $request->hasHeader('Authorization')) {
             return response()->json([
                 'code' => $exception->status,
                 'message' => $exception->getMessage(),
