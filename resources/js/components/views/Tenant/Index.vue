@@ -2,6 +2,18 @@
     <Loader v-if="is_loading" />
 
     <section v-else>
+        <div class="columns is-justify-content-flex-end">
+            <div class="column is-full-mobile is-half-desktop is-half-tablet">
+                <div class="field is-grouped">
+                    <p class="control is-expanded">
+                        <input class="input" type="text" placeholder="Find a tenant" v-model="search_text">
+                    </p>
+                    <p class="control">
+                        <b-button label="Search" type="is-success" @click="loadAsyncData()"/>
+                    </p>
+                </div>
+            </div>
+        </div>
         <b-table
             :data="data"
 
@@ -31,7 +43,7 @@
                     {{ props.row.lease_start ? new Date(props.row.lease_start).toLocaleDateString() : 'unknown' }}
             </b-table-column>
             <b-table-column field="lease_end" label="Lease end" sortable v-slot="props">
-                <span class="tag" :class="type(props.row.lease_end)">
+                <span class="tag" :class="dateColor(props.row.lease_end)">
                     {{ props.row.lease_end ? new Date(props.row.lease_end).toLocaleDateString() : 'unknown' }}
                 </span>
             </b-table-column>
@@ -64,10 +76,12 @@
                 sort_order: null,
                 default_sort_order: 'desc',
                 page: 1,
-                perPage: 5
+                perPage: 5,
+                search_text: null
             }
         },
         mounted() {
+            this.search_text = this.$route.query.search_text;
             this.loadAsyncData()
         },
         methods: {
@@ -76,7 +90,7 @@
             */
             async loadAsyncData() {
                 try {
-                    const res = await axios.get(`/tenant?page=${this.page}&sort=${this.sort_field}&order=${this.sort_order}`);
+                    const res = await axios.get(`/tenant?page=${this.page}&sort=${this.sort_field}&order=${this.sort_order}&search_text=${this.search_text}`);
                     this.perPage = res.data.per_page;
                     this.data = res.data.data;
                     this.total = res.data.total
@@ -105,9 +119,9 @@
                 this.loadAsyncData()
             },
             /*
-            * Type style in relation to the value
+            * Change date color based on when the lease is ending
             */
-            type(value) {
+            dateColor(value) {
                 const now = new Date();
                 const date = new Date(value);
                 if (now >= date) {

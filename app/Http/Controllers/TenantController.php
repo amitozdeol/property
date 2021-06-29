@@ -16,13 +16,20 @@ class TenantController extends Controller
      */
     public function index(Request $request)
     {
-        $sort_field = $request->query('sort') == 'null' ? 'tenant.updated_at' : $request->query('sort');
-        $order = $request->query('order') == 'null' ? 'desc' : $request->query('order');
+        $sort_field   = $request->query('sort') == 'null' ? 'tenant.updated_at' : $request->query('sort');
+        $order       = $request->query('order') == 'null' ? 'desc' : $request->query('order');
+        $search_text = $request->query('search_text') == 'null' ? null : $request->query('search_text');
 
         $tenants = Tenant::select('tenant.*', 'property_unit.unit', 'property.name as property_name')
                         ->join('property_unit', 'tenant.property_unit_id', '=', 'property_unit.id')
                         ->join('property', 'property.id', '=', 'property_unit.property_id')
                         ->where('property.user_id', Auth::guard('api')->id())
+                        ->when($search_text, function($q) use($search_text){
+                            return $q->where(function($q1) use($search_text){
+                                        $q1->where('tenant.name', 'ilike', '%'.$search_text.'%')
+                                        ->orWhere('tenant.email', 'ilike', '%'.$search_text.'%');
+                                    });
+                        })
                         ->orderBy($sort_field, $order)
                         ->paginate(5);
         return $tenants;

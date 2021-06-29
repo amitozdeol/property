@@ -30,7 +30,9 @@
                                 Tenants
                             </div>
                             <ul v-if="unit.tenants.length" class="mt-1">
-                                <li v-for="(tenant, index) in unit.tenants" :key="index">{{tenant.name}}</li>
+                                <li v-for="(tenant, index) in unit.tenants" :key="index">
+                                    <router-link :to="'/tenant?search_text='+tenant.name">{{tenant.name}}</router-link>
+                                </li>
                             </ul>
                             <section v-else class="hero is-light">
                                 <div class="hero-body">

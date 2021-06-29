@@ -2568,6 +2568,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 
@@ -2857,6 +2859,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2869,10 +2883,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       sort_order: null,
       default_sort_order: 'desc',
       page: 1,
-      perPage: 5
+      perPage: 5,
+      search_text: null
     };
   },
   mounted: function mounted() {
+    this.search_text = this.$route.query.search_text;
     this.loadAsyncData();
   },
   methods: {
@@ -2890,7 +2906,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return _axios__WEBPACK_IMPORTED_MODULE_2__.default.get("/tenant?page=".concat(_this.page, "&sort=").concat(_this.sort_field, "&order=").concat(_this.sort_order));
+                return _axios__WEBPACK_IMPORTED_MODULE_2__.default.get("/tenant?page=".concat(_this.page, "&sort=").concat(_this.sort_field, "&order=").concat(_this.sort_order, "&search_text=").concat(_this.search_text));
 
               case 3:
                 res = _context.sent;
@@ -2936,9 +2952,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
 
     /*
-    * Type style in relation to the value
+    * Change date color based on when the lease is ending
     */
-    type: function type(value) {
+    dateColor: function dateColor(value) {
       var now = new Date();
       var date = new Date(value);
 
@@ -11846,9 +11862,23 @@ var render = function() {
                               "ul",
                               { staticClass: "mt-1" },
                               _vm._l(unit.tenants, function(tenant, index) {
-                                return _c("li", { key: index }, [
-                                  _vm._v(_vm._s(tenant.name))
-                                ])
+                                return _c(
+                                  "li",
+                                  { key: index },
+                                  [
+                                    _c(
+                                      "router-link",
+                                      {
+                                        attrs: {
+                                          to:
+                                            "/tenant?search_text=" + tenant.name
+                                        }
+                                      },
+                                      [_vm._v(_vm._s(tenant.name))]
+                                    )
+                                  ],
+                                  1
+                                )
                               }),
                               0
                             )
@@ -12238,6 +12268,59 @@ var render = function() {
     : _c(
         "section",
         [
+          _c("div", { staticClass: "columns is-justify-content-flex-end" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "column is-full-mobile is-half-desktop is-half-tablet"
+              },
+              [
+                _c("div", { staticClass: "field is-grouped" }, [
+                  _c("p", { staticClass: "control is-expanded" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.search_text,
+                          expression: "search_text"
+                        }
+                      ],
+                      staticClass: "input",
+                      attrs: { type: "text", placeholder: "Find a tenant" },
+                      domProps: { value: _vm.search_text },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.search_text = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "p",
+                    { staticClass: "control" },
+                    [
+                      _c("b-button", {
+                        attrs: { label: "Search", type: "is-success" },
+                        on: {
+                          click: function($event) {
+                            return _vm.loadAsyncData()
+                          }
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
           _c(
             "b-table",
             {
@@ -12330,7 +12413,7 @@ var render = function() {
                           "span",
                           {
                             staticClass: "tag",
-                            class: _vm.type(props.row.lease_end)
+                            class: _vm.dateColor(props.row.lease_end)
                           },
                           [
                             _vm._v(
