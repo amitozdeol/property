@@ -23,6 +23,7 @@ class TenantController extends Controller
         $search_text = $request->query('search_text') == 'null' ? null : $request->query('search_text');
 
         $tenants = Tenant::myTenant()
+                        ->withoutGlobalScope('lease_end')
                         ->select('tenant.*', 'property_unit.unit', 'property.name as property_name')
                         ->when($search_text, function($q) use($search_text){
                             return $q->where(function($q1) use($search_text){
