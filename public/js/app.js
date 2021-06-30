@@ -10890,12 +10890,12 @@ var render = function() {
         _c("section", [
           _c("div", { staticClass: "columns is-multiline" }, [
             _c("div", { staticClass: "column" }, [
-              _c("div", { staticClass: "box" }, [
+              _c("div", { staticClass: "box has-background-success p-4" }, [
                 _c("div", { staticClass: "heading" }, [
                   _vm._v(
                     _vm._s(
                       _vm._f("formatDate")(
-                        _vm.latest_income[0].rent_month,
+                        _vm.latest_income[0] && _vm.latest_income[0].rent_month,
                         false
                       )
                     ) + ": Income"
@@ -10903,12 +10903,17 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "title" }, [
-                  _vm._v(_vm._s(_vm.latest_income[0].sum))
+                  _vm._v(
+                    "$" +
+                      _vm._s(
+                        (_vm.latest_income[0] && _vm.latest_income[0].sum) || 0
+                      )
+                  )
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "level" }, [
+                _c("div", { staticClass: "level level-left" }, [
                   _vm.latest_income[1]
-                    ? _c("div", { staticClass: "level-item" }, [
+                    ? _c("div", { staticClass: "level-item level-left" }, [
                         _c("div", {}, [
                           _c("div", { staticClass: "heading" }, [
                             _vm._v(
@@ -10922,14 +10927,14 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "title is-5" }, [
-                            _vm._v(_vm._s(_vm.latest_income[1].sum))
+                            _vm._v("$" + _vm._s(_vm.latest_income[1].sum))
                           ])
                         ])
                       ])
                     : _vm._e(),
                   _vm._v(" "),
                   _vm.latest_income[2]
-                    ? _c("div", { staticClass: "level-item" }, [
+                    ? _c("div", { staticClass: "level-item level-left" }, [
                         _c("div", {}, [
                           _c("div", { staticClass: "heading" }, [
                             _vm._v(
@@ -10943,7 +10948,7 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "title is-5" }, [
-                            _vm._v(_vm._s(_vm.latest_income[2].sum))
+                            _vm._v("$" + _vm._s(_vm.latest_income[2].sum))
                           ])
                         ])
                       ])

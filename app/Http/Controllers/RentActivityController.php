@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Tenant;
 use App\Model\Property;
+use Carbon\CarbonPeriod;
 use App\Model\RentActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -19,6 +20,7 @@ class RentActivityController extends Controller
      */
     public function latest()
     {
+        $last3month = CarbonPeriod::create(Carbon::now()->subMonth(2), '1 month', 'now');
         $incomes = RentActivity::select('rent_month', DB::raw('sum("value")'))
                             ->where('rent_month', '>=', Carbon::now()->startOfMonth()->subMonths(3))
                             ->where('user_id', Auth::guard('api')->id())

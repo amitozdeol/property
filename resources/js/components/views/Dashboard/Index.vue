@@ -5,20 +5,20 @@
         <section>
             <div class="columns is-multiline">
                 <div class="column">
-                    <div class="box">
-                        <div class="heading">{{latest_income[0].rent_month | formatDate(false)}}: Income</div>
-                        <div class="title">{{latest_income[0].sum}}</div>
-                        <div class="level">
-                            <div class="level-item" v-if="latest_income[1]">
+                    <div class="box has-background-success p-4">
+                        <div class="heading">{{latest_income[0] && latest_income[0].rent_month | formatDate(false)}}: Income</div>
+                        <div class="title">${{latest_income[0] && latest_income[0].sum || 0}}</div>
+                        <div class="level level-left">
+                            <div class="level-item level-left" v-if="latest_income[1]">
                                 <div class="">
                                     <div class="heading">{{latest_income[1].rent_month | formatDate(false)}}</div>
-                                    <div class="title is-5">{{latest_income[1].sum}}</div>
+                                    <div class="title is-5">${{latest_income[1].sum}}</div>
                                 </div>
                             </div>
-                            <div class="level-item" v-if="latest_income[2]">
+                            <div class="level-item level-left" v-if="latest_income[2]">
                                 <div class="">
                                     <div class="heading">{{latest_income[2].rent_month | formatDate(false)}}</div>
-                                    <div class="title is-5">{{latest_income[2].sum}}</div>
+                                    <div class="title is-5">${{latest_income[2].sum}}</div>
                                 </div>
                             </div>
                         </div>

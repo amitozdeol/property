@@ -16,7 +16,7 @@ class CreateRentActivityTable extends Migration
         Schema::create('rent_activity', function (Blueprint $table) {
             $table->id();
             $table->integer('tenant_id');
-            $table->date('rent_month');
+            $table->datetime('rent_month');
             $table->boolean('fully_paid');
             $table->decimal('value', $precision = 8, $scale = 2);
             $table->decimal('remaining', $precision = 8, $scale = 2);
