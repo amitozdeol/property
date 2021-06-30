@@ -22,7 +22,8 @@ class TenantController extends Controller
         $order       = $request->query('order') == 'null' ? 'desc' : $request->query('order');
         $search_text = $request->query('search_text') == 'null' ? null : $request->query('search_text');
 
-        $tenants = Tenant::select('tenant.*', 'property_unit.unit', 'property.name as property_name')
+        $tenants = Tenant::myTenant()
+                        ->select('tenant.*', 'property_unit.unit', 'property.name as property_name')
                         ->when($search_text, function($q) use($search_text){
                             return $q->where(function($q1) use($search_text){
                                         $q1->where('tenant.name', 'ilike', '%'.$search_text.'%')
@@ -80,7 +81,8 @@ class TenantController extends Controller
                             ->pluck('tenant_id');
 
         //Find tenants that's pending
-        $tenants = Tenant::whereNotIn('tenant.id', $tenantPaid)
+        $tenants = Tenant::myTenant()
+                        ->whereNotIn('tenant.id', $tenantPaid)
                         ->where('rent_due', '<=', Carbon::now()->addDays(10)->day) //upcoming rent in next 10 days
                         ->select('tenant.*')
                         ->orderBy('rent_due')
