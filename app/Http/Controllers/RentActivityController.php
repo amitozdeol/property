@@ -23,7 +23,6 @@ class RentActivityController extends Controller
         $last3month = CarbonPeriod::create(Carbon::now()->subMonth(2), '1 month', 'now');
         $incomes = RentActivity::select('rent_month', DB::raw('sum("value")'))
                             ->where('rent_month', '>=', Carbon::now()->startOfMonth()->subMonths(3))
-                            ->where('user_id', Auth::guard('api')->id())
                             ->groupBy('rent_month')
                             ->get();
 
@@ -31,7 +30,7 @@ class RentActivityController extends Controller
         foreach ($last3month as $value) {
             $d = $value->format('Y-m-01 00:00:00');
             $has_date = $incomes->contains(function ($value, $key) use($d){
-                            return $value->rent_month == $d;
+                            return isset($value->rent_month) && $value->rent_month == $d;
                         });
             if(!$has_date){
                 $incomes->push(['rent_month' => $d, 'sum' => 0]);

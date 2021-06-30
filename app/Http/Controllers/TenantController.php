@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Model\Tenant;
 use App\Model\Property;
+use App\Model\RentActivity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class TenantController extends Controller
@@ -20,10 +22,8 @@ class TenantController extends Controller
         $order       = $request->query('order') == 'null' ? 'desc' : $request->query('order');
         $search_text = $request->query('search_text') == 'null' ? null : $request->query('search_text');
 
-        $tenants = Tenant::select('tenant.*', 'property_unit.unit', 'property.name as property_name')
-                        ->join('property_unit', 'tenant.property_unit_id', '=', 'property_unit.id')
-                        ->join('property', 'property.id', '=', 'property_unit.property_id')
-                        ->where('property.user_id', Auth::guard('api')->id())
+        $tenants = Tenant::myTenant()
+                        ->select('tenant.*', 'property_unit.unit', 'property.name as property_name')
                         ->when($search_text, function($q) use($search_text){
                             return $q->where(function($q1) use($search_text){
                                         $q1->where('tenant.name', 'ilike', '%'.$search_text.'%')
@@ -67,14 +67,28 @@ class TenantController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Return a list of tenant that has upcoming rent or pending rent
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function rentPending()
     {
-        //
+        //Find tenants that alreayd paid the rent
+        $tenantPaid = RentActivity::select('tenant_id')
+                            ->where('rent_month', Carbon::now()->startOfMonth())
+                            ->where('fully_paid', true)
+                            ->get()
+                            ->pluck('tenant_id');
+
+        //Find tenants that's pending
+        $tenants = Tenant::myTenant()
+                        ->whereNotIn('tenant.id', $tenantPaid)
+                        ->where('rent_due', '<=', Carbon::now()->addDays(10)->day) //upcoming rent in next 10 days
+                        ->select('tenant.*')
+                        ->orderBy('rent_due')
+                        ->get();
+        return $tenants;
+
     }
 
     /**

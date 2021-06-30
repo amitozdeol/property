@@ -3,6 +3,11 @@
 
     <div v-else-if="this.properties.length">
         <section>
+            <div class="notification is-warning">
+                <button class="delete"></button>
+                Primar lorem ipsum dolor sit amet, consectetur
+                adipiscing elit lorem ipsum dolor. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur.
+            </div>
             <div class="columns is-multiline">
                 <div class="column">
                     <div class="box has-background-success p-4">
@@ -127,7 +132,8 @@
         data(){
             return {
                 properties: null,
-                latest_income: null
+                latest_income: null,
+                rent_pending: null
             }
         },
         async beforeCreate(){
@@ -135,6 +141,8 @@
             this.properties = res.data;
             res = await axios.get('/rent/latest');
             this.latest_income = res.data;
+            res = await axios.get('/tenant/rent/pending');
+            this.rent_pending = res.data;
             this.is_loading = false;
         }
     }

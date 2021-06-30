@@ -4,6 +4,7 @@ namespace App\Model;
 
 use App\Model\Property;
 use App\Model\PropertyUnit;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Tenant extends Model
@@ -14,4 +15,17 @@ class Tenant extends Model
      * @var string
      */
     protected $table = 'tenant';
+
+    /**
+     * Scope a query to only include tenants for current logged in user.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeMyTenant($query)
+    {
+        return $query->join('property_unit', 'tenant.property_unit_id', '=', 'property_unit.id')
+                    ->join('property', 'property.id', '=', 'property_unit.property_id')
+                    ->where('property.user_id', Auth::guard('api')->id());
+    }
 }

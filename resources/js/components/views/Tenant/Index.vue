@@ -81,7 +81,7 @@
             }
         },
         mounted() {
-            this.search_text = this.$route.query.search_text;
+            this.search_text = this.$route.query.search_text ?? null;
             this.loadAsyncData()
         },
         methods: {

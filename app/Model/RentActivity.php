@@ -17,6 +17,22 @@ class RentActivity extends Model
      */
     protected $table = 'rent_activity';
 
+    protected $casts = [
+        'fully_paid' => 'boolean',
+    ];
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope('users', function (Builder $builder) {
+            $builder->where('user_id', Auth::guard('api')->id());
+        });
+    }
+
     /**
      * Get the tenant
      */

@@ -26,6 +26,7 @@ Route::middleware('auth:api')->group(function () {
     Route::prefix('tenant')->group(function () {
         Route::get('/', [TenantController::class, 'index']);
         Route::post('/store', [TenantController::class, 'store']);
+        Route::get('/rent/pending', [TenantController::class, 'rentPending']);
     });
     Route::prefix('rent')->group(function () {
         Route::get('/latest', [RentActivityController::class, 'latest']);

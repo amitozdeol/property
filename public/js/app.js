@@ -2065,6 +2065,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2072,7 +2077,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       properties: null,
-      latest_income: null
+      latest_income: null,
+      rent_pending: null
     };
   },
   beforeCreate: function beforeCreate() {
@@ -2096,9 +2102,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 6:
               res = _context.sent;
               _this.latest_income = res.data;
+              _context.next = 10;
+              return _axios__WEBPACK_IMPORTED_MODULE_1__.default.get('/tenant/rent/pending');
+
+            case 10:
+              res = _context.sent;
+              _this.rent_pending = res.data;
               _this.is_loading = false;
 
-            case 9:
+            case 13:
             case "end":
               return _context.stop();
           }
@@ -2889,7 +2901,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   mounted: function mounted() {
-    this.search_text = this.$route.query.search_text;
+    var _this$$route$query$se;
+
+    this.search_text = (_this$$route$query$se = this.$route.query.search_text) !== null && _this$$route$query$se !== void 0 ? _this$$route$query$se : null;
     this.loadAsyncData();
   },
   methods: {
@@ -10888,6 +10902,19 @@ var render = function() {
     : this.properties.length
     ? _c("div", [
         _c("section", [
+          _c("div", { staticClass: "notification is-warning" }, [
+            _c("button", { staticClass: "delete" }),
+            _vm._v(
+              "\n            Primar lorem ipsum dolor sit amet, consectetur\n            adipiscing elit lorem ipsum dolor. "
+            ),
+            _c("strong", [_vm._v("Pellentesque risus mi")]),
+            _vm._v(
+              ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum "
+            ),
+            _c("a", [_vm._v("felis venenatis")]),
+            _vm._v(" efficitur.\n        ")
+          ]),
+          _vm._v(" "),
           _c("div", { staticClass: "columns is-multiline" }, [
             _c("div", { staticClass: "column" }, [
               _c("div", { staticClass: "box has-background-success p-4" }, [
