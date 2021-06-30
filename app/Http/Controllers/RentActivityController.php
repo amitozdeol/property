@@ -25,9 +25,20 @@ class RentActivityController extends Controller
                             ->where('rent_month', '>=', Carbon::now()->startOfMonth()->subMonths(3))
                             ->where('user_id', Auth::guard('api')->id())
                             ->groupBy('rent_month')
-                            ->orderBy('rent_month', 'desc')
                             ->get();
-        return $incomes;
+
+        //Add default values when it doesn't exist
+        foreach ($last3month as $value) {
+            $d = $value->format('Y-m-01 00:00:00');
+            $has_date = $incomes->contains(function ($value, $key) use($d){
+                            return $value->rent_month == $d;
+                        });
+            if(!$has_date){
+                $incomes->push(['rent_month' => $d, 'sum' => 0]);
+            }
+        }
+
+        return $incomes->sortByDesc('rent_month')->values();
     }
 
     /**
