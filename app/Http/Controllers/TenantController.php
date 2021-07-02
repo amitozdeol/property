@@ -74,7 +74,7 @@ class TenantController extends Controller
      */
     public function rentPending()
     {
-        //Find tenants that alreayd paid the rent
+        //Find tenants that already paid the rent
         $tenantPaid = RentActivity::select('tenant_id')
                             ->where('rent_month', Carbon::now()->startOfMonth())
                             ->where('fully_paid', true)
