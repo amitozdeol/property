@@ -1,16 +1,23 @@
 <template>
     <Loader v-if="is_loading" />
 
-    <div v-else-if="this.properties.length">
+    <div v-else-if="this.has_property">
         <section>
-            <div class="notification is-warning">
+            <div class="notification is-warning" v-for="rp in rent_pending" :key="rp.id">
                 <button class="delete"></button>
-                Primar lorem ipsum dolor sit amet, consectetur
-                adipiscing elit lorem ipsum dolor. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur.
+                <div class="columns is-justify-content-space-between is-align-items-center">
+                    <div v-if="rp.rent_activity.length == 0">
+                        <strong>{{rp.name}}</strong>: ${{rp.rent}} rent due in {{daysDiff(rp.rent_due)}} days
+                    </div>
+                    <div v-else>
+                        <strong>{{rp.name}}</strong>: Past {{rp.rent_activity.length}} months of rent is due
+                    </div>
+                    <b-button label="Update" type="is-warning" size="is-small" class="has-background-warning-dark has-text-weight-bold has-text-white mr-2"/>
+                </div>
             </div>
             <div class="columns is-multiline">
                 <div class="column">
-                    <div class="box has-background-success p-4">
+                    <div class="box has-background-success p-4" :class="{'box-loading button is-loading' : (latest_income.length == 0)}">
                         <div class="heading">{{latest_income[0] && latest_income[0].rent_month | formatDate(false)}}: Income</div>
                         <div class="title">${{latest_income[0] && latest_income[0].sum || 0}}</div>
                         <div class="level level-left">
@@ -131,23 +138,50 @@
         mixins: [loadingMixin],
         data(){
             return {
-                properties: null,
-                latest_income: null,
+                has_property: null,
+                latest_income: [],
                 rent_pending: null
             }
         },
         async beforeCreate(){
-            let res = await axios.get('/property');
-            this.properties = res.data;
-            res = await axios.get('/rent/latest');
-            this.latest_income = res.data;
+            let res = await axios.get('/property/exist');
+            this.has_property = res.data;
             res = await axios.get('/tenant/rent/pending');
             this.rent_pending = res.data;
             this.is_loading = false;
+
+            res = await axios.get('/rent/latest');
+            this.latest_income = res.data;
+        },
+        methods:{
+            /**
+             * Find difference between two dates
+             */
+            daysDiff(rent_day){
+                var now = new Date();
+                var rent_date = new Date();
+                rent_date.setDate(rent_day)
+
+                // Time difference
+                var Difference_In_Time = rent_date.getTime() - now.getTime();
+
+                // Day different
+                var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+                return Difference_In_Days;
+            }
         }
     }
 </script>
 
 <style>
-
+    .box-loading{
+        min-height: 150px;
+    }
+    .box-loading::before{
+        content: "";
+        position: absolute;
+        top: 0; bottom: 0; left: 0; right: 0;
+        border-radius: 6px;
+        background-color: rgba(10, 10, 10, 0.86);
+    }
 </style>

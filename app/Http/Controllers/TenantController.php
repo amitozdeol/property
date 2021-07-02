@@ -83,9 +83,10 @@ class TenantController extends Controller
 
         //Find tenants that's pending
         $tenants = Tenant::myTenant()
+                        ->with('rent_activity')
                         ->whereNotIn('tenant.id', $tenantPaid)
                         ->where('rent_due', '<=', Carbon::now()->addDays(10)->day) //upcoming rent in next 10 days
-                        ->select('tenant.*')
+                        ->select('tenant.*', 'property_unit.rent as rent')
                         ->orderBy('rent_due')
                         ->get();
         return $tenants;

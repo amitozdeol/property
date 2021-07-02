@@ -19,6 +19,7 @@ use App\Http\Controllers\RentActivityController;
 
 Route::middleware('auth:api')->group(function () {
     Route::prefix('property')->group(function () {
+        Route::get('/exist', [PropertyController::class, 'isExist']);
         Route::get('/', [PropertyController::class, 'index']);
         Route::get('/{id}', [PropertyController::class, 'show']);
         Route::post('/store', [PropertyController::class, 'store']);

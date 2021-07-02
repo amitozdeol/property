@@ -21,6 +21,7 @@ class CreateRentActivityTable extends Migration
             $table->decimal('value', $precision = 8, $scale = 2);
             $table->decimal('remaining', $precision = 8, $scale = 2);
             $table->integer('user_id'); //This is just for fast access of data per user.
+            $table->boolean('active')->comment('Only the rows that have active = 1 will be used for quering purposes. All the other ones are just historical data.');
             $table->timestamps();
         });
     }

@@ -14,6 +14,16 @@ class PropertyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function isExist()
+    {
+        return Property::exists();
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         return Property::orderBy('updated_at', 'desc')->get();

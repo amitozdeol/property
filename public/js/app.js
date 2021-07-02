@@ -2070,14 +2070,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mixins: [_mixins_loading__WEBPACK_IMPORTED_MODULE_2__.default],
   data: function data() {
     return {
-      properties: null,
-      latest_income: null,
+      has_property: null,
+      latest_income: [],
       rent_pending: null
     };
   },
@@ -2091,24 +2098,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return _axios__WEBPACK_IMPORTED_MODULE_1__.default.get('/property');
+              return _axios__WEBPACK_IMPORTED_MODULE_1__.default.get('/property/exist');
 
             case 2:
               res = _context.sent;
-              _this.properties = res.data;
+              _this.has_property = res.data;
               _context.next = 6;
-              return _axios__WEBPACK_IMPORTED_MODULE_1__.default.get('/rent/latest');
+              return _axios__WEBPACK_IMPORTED_MODULE_1__.default.get('/tenant/rent/pending');
 
             case 6:
               res = _context.sent;
-              _this.latest_income = res.data;
-              _context.next = 10;
-              return _axios__WEBPACK_IMPORTED_MODULE_1__.default.get('/tenant/rent/pending');
-
-            case 10:
-              res = _context.sent;
               _this.rent_pending = res.data;
               _this.is_loading = false;
+              _context.next = 11;
+              return _axios__WEBPACK_IMPORTED_MODULE_1__.default.get('/rent/latest');
+
+            case 11:
+              res = _context.sent;
+              _this.latest_income = res.data;
 
             case 13:
             case "end":
@@ -2117,6 +2124,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       }, _callee);
     }))();
+  },
+  methods: {
+    /**
+     * Find difference between two dates
+     */
+    daysDiff: function daysDiff(rent_day) {
+      var now = new Date();
+      var rent_date = new Date();
+      rent_date.setDate(rent_day); // Time difference
+
+      var Difference_In_Time = rent_date.getTime() - now.getTime(); // Day different
+
+      var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+      return Difference_In_Days;
+    }
   }
 });
 
@@ -2820,6 +2842,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -8877,6 +8900,30 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".p-1 {\n  padding: 1em;\n}\n.sidebar-p
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/views/Dashboard/Index.vue?vue&type=style&index=0&lang=css&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/views/Dashboard/Index.vue?vue&type=style&index=0&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.box-loading{\n    min-height: 150px;\n}\n.box-loading::before{\n    content: \"\";\n    position: absolute;\n    top: 0; bottom: 0; left: 0; right: 0;\n    border-radius: 6px;\n    background-color: rgba(10, 10, 10, 0.86);\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/runtime/api.js":
 /*!*****************************************************!*\
   !*** ./node_modules/css-loader/dist/runtime/api.js ***!
@@ -10048,15 +10095,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Index_vue_vue_type_template_id_562da10a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Index.vue?vue&type=template&id=562da10a& */ "./resources/js/components/views/Dashboard/Index.vue?vue&type=template&id=562da10a&");
 /* harmony import */ var _Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Index.vue?vue&type=script&lang=js& */ "./resources/js/components/views/Dashboard/Index.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _Index_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Index.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/views/Dashboard/Index.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
+;
 
 
 /* normalize component */
-;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
   _Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
   _Index_vue_vue_type_template_id_562da10a___WEBPACK_IMPORTED_MODULE_0__.render,
   _Index_vue_vue_type_template_id_562da10a___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
@@ -10639,6 +10688,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/views/Dashboard/Index.vue?vue&type=style&index=0&lang=css&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/views/Dashboard/Index.vue?vue&type=style&index=0&lang=css& ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-style-loader/index.js!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Index.vue?vue&type=style&index=0&lang=css& */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/views/Dashboard/Index.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/App.vue?vue&type=template&id=332fccf4&":
 /*!***************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/App.vue?vue&type=template&id=332fccf4& ***!
@@ -10899,224 +10965,290 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _vm.is_loading
     ? _c("Loader")
-    : this.properties.length
+    : this.has_property
     ? _c("div", [
-        _c("section", [
-          _c("div", { staticClass: "notification is-warning" }, [
-            _c("button", { staticClass: "delete" }),
-            _vm._v(
-              "\n            Primar lorem ipsum dolor sit amet, consectetur\n            adipiscing elit lorem ipsum dolor. "
-            ),
-            _c("strong", [_vm._v("Pellentesque risus mi")]),
-            _vm._v(
-              ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum "
-            ),
-            _c("a", [_vm._v("felis venenatis")]),
-            _vm._v(" efficitur.\n        ")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "columns is-multiline" }, [
-            _c("div", { staticClass: "column" }, [
-              _c("div", { staticClass: "box has-background-success p-4" }, [
-                _c("div", { staticClass: "heading" }, [
-                  _vm._v(
-                    _vm._s(
-                      _vm._f("formatDate")(
-                        _vm.latest_income[0] && _vm.latest_income[0].rent_month,
-                        false
-                      )
-                    ) + ": Income"
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "title" }, [
-                  _vm._v(
-                    "$" +
-                      _vm._s(
-                        (_vm.latest_income[0] && _vm.latest_income[0].sum) || 0
-                      )
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "level level-left" }, [
-                  _vm.latest_income[1]
-                    ? _c("div", { staticClass: "level-item level-left" }, [
-                        _c("div", {}, [
-                          _c("div", { staticClass: "heading" }, [
-                            _vm._v(
-                              _vm._s(
-                                _vm._f("formatDate")(
-                                  _vm.latest_income[1].rent_month,
-                                  false
-                                )
-                              )
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "title is-5" }, [
-                            _vm._v("$" + _vm._s(_vm.latest_income[1].sum))
-                          ])
-                        ])
-                      ])
-                    : _vm._e(),
+        _c(
+          "section",
+          [
+            _vm._l(_vm.rent_pending, function(rp) {
+              return _c(
+                "div",
+                { key: rp.id, staticClass: "notification is-warning" },
+                [
+                  _c("button", { staticClass: "delete" }),
                   _vm._v(" "),
-                  _vm.latest_income[2]
-                    ? _c("div", { staticClass: "level-item level-left" }, [
-                        _c("div", {}, [
-                          _c("div", { staticClass: "heading" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "columns is-justify-content-space-between is-align-items-center"
+                    },
+                    [
+                      rp.rent_activity.length == 0
+                        ? _c("div", [
+                            _c("strong", [_vm._v(_vm._s(rp.name))]),
                             _vm._v(
-                              _vm._s(
-                                _vm._f("formatDate")(
-                                  _vm.latest_income[2].rent_month,
-                                  false
-                                )
-                              )
+                              ": $" +
+                                _vm._s(rp.rent) +
+                                " rent due in " +
+                                _vm._s(_vm.daysDiff(rp.rent_due)) +
+                                " days\n                "
+                            )
+                          ])
+                        : _c("div", [
+                            _c("strong", [_vm._v(_vm._s(rp.name))]),
+                            _vm._v(
+                              ": Past " +
+                                _vm._s(rp.rent_activity.length) +
+                                " months of rent is due\n                "
                             )
                           ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "title is-5" }, [
-                            _vm._v("$" + _vm._s(_vm.latest_income[2].sum))
-                          ])
-                        ])
-                      ])
-                    : _vm._e()
-                ])
-              ])
-            ]),
+                      _vm._v(" "),
+                      _c("b-button", {
+                        staticClass:
+                          "has-background-warning-dark has-text-weight-bold has-text-white mr-2",
+                        attrs: {
+                          label: "Update",
+                          type: "is-warning",
+                          size: "is-small"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ]
+              )
+            }),
             _vm._v(" "),
-            _c("div", { staticClass: "column" }, [
-              _c("div", { staticClass: "box" }, [
-                _c("div", { staticClass: "heading" }, [
-                  _vm._v("Revenue / Expenses")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "title" }, [_vm._v("55% / 45%")]),
-                _vm._v(" "),
-                _c("div", { staticClass: "level" }, [
-                  _c("div", { staticClass: "level-item" }, [
-                    _c("div", {}, [
-                      _c("div", { staticClass: "heading" }, [
-                        _vm._v("Rev Prod $")
-                      ]),
+            _c("div", { staticClass: "columns is-multiline" }, [
+              _c("div", { staticClass: "column" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "box has-background-success p-4",
+                    class: {
+                      "box-loading button is-loading":
+                        _vm.latest_income.length == 0
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "heading" }, [
+                      _vm._v(
+                        _vm._s(
+                          _vm._f("formatDate")(
+                            _vm.latest_income[0] &&
+                              _vm.latest_income[0].rent_month,
+                            false
+                          )
+                        ) + ": Income"
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "title" }, [
+                      _vm._v(
+                        "$" +
+                          _vm._s(
+                            (_vm.latest_income[0] &&
+                              _vm.latest_income[0].sum) ||
+                              0
+                          )
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "level level-left" }, [
+                      _vm.latest_income[1]
+                        ? _c("div", { staticClass: "level-item level-left" }, [
+                            _c("div", {}, [
+                              _c("div", { staticClass: "heading" }, [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm._f("formatDate")(
+                                      _vm.latest_income[1].rent_month,
+                                      false
+                                    )
+                                  )
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "title is-5" }, [
+                                _vm._v("$" + _vm._s(_vm.latest_income[1].sum))
+                              ])
+                            ])
+                          ])
+                        : _vm._e(),
                       _vm._v(" "),
-                      _c("div", { staticClass: "title is-5" }, [_vm._v("30%")])
+                      _vm.latest_income[2]
+                        ? _c("div", { staticClass: "level-item level-left" }, [
+                            _c("div", {}, [
+                              _c("div", { staticClass: "heading" }, [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm._f("formatDate")(
+                                      _vm.latest_income[2].rent_month,
+                                      false
+                                    )
+                                  )
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "title is-5" }, [
+                                _vm._v("$" + _vm._s(_vm.latest_income[2].sum))
+                              ])
+                            ])
+                          ])
+                        : _vm._e()
                     ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "column" }, [
+                _c("div", { staticClass: "box" }, [
+                  _c("div", { staticClass: "heading" }, [
+                    _vm._v("Revenue / Expenses")
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "level-item" }, [
-                    _c("div", {}, [
-                      _c("div", { staticClass: "heading" }, [
-                        _vm._v("Rev Serv $")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "title is-5" }, [_vm._v("25%")])
-                    ])
-                  ]),
+                  _c("div", { staticClass: "title" }, [_vm._v("55% / 45%")]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "level-item" }, [
-                    _c("div", {}, [
-                      _c("div", { staticClass: "heading" }, [_vm._v("Exp %")]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "title is-5" }, [_vm._v("45%")])
+                  _c("div", { staticClass: "level" }, [
+                    _c("div", { staticClass: "level-item" }, [
+                      _c("div", {}, [
+                        _c("div", { staticClass: "heading" }, [
+                          _vm._v("Rev Prod $")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "title is-5" }, [
+                          _vm._v("30%")
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "level-item" }, [
+                      _c("div", {}, [
+                        _c("div", { staticClass: "heading" }, [
+                          _vm._v("Rev Serv $")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "title is-5" }, [
+                          _vm._v("25%")
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "level-item" }, [
+                      _c("div", {}, [
+                        _c("div", { staticClass: "heading" }, [
+                          _vm._v("Exp %")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "title is-5" }, [
+                          _vm._v("45%")
+                        ])
+                      ])
                     ])
                   ])
                 ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "column" }, [
-              _c("div", { staticClass: "box" }, [
-                _c("div", { staticClass: "heading" }, [
-                  _vm._v("Feedback Activity")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "title" }, [_vm._v("78% ↑")]),
-                _vm._v(" "),
-                _c("div", { staticClass: "level" }, [
-                  _c("div", { staticClass: "level-item" }, [
-                    _c("div", {}, [
-                      _c("div", { staticClass: "heading" }, [
-                        _vm._v("Positive")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "title is-5" }, [_vm._v("1560")])
-                    ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "column" }, [
+                _c("div", { staticClass: "box" }, [
+                  _c("div", { staticClass: "heading" }, [
+                    _vm._v("Feedback Activity")
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "level-item" }, [
-                    _c("div", {}, [
-                      _c("div", { staticClass: "heading" }, [
-                        _vm._v("Negative")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "title is-5" }, [_vm._v("368")])
-                    ])
-                  ]),
+                  _c("div", { staticClass: "title" }, [_vm._v("78% ↑")]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "level-item" }, [
-                    _c("div", {}, [
-                      _c("div", { staticClass: "heading" }, [
-                        _vm._v("Pos/Neg %")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "title is-5" }, [
-                        _vm._v("77% / 23%")
+                  _c("div", { staticClass: "level" }, [
+                    _c("div", { staticClass: "level-item" }, [
+                      _c("div", {}, [
+                        _c("div", { staticClass: "heading" }, [
+                          _vm._v("Positive")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "title is-5" }, [
+                          _vm._v("1560")
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "level-item" }, [
+                      _c("div", {}, [
+                        _c("div", { staticClass: "heading" }, [
+                          _vm._v("Negative")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "title is-5" }, [
+                          _vm._v("368")
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "level-item" }, [
+                      _c("div", {}, [
+                        _c("div", { staticClass: "heading" }, [
+                          _vm._v("Pos/Neg %")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "title is-5" }, [
+                          _vm._v("77% / 23%")
+                        ])
                       ])
                     ])
                   ])
                 ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "column" }, [
-              _c("div", { staticClass: "box" }, [
-                _c("div", { staticClass: "heading" }, [
-                  _vm._v("Orders / Returns")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "title" }, [_vm._v("75% / 25%")]),
-                _vm._v(" "),
-                _c("div", { staticClass: "level" }, [
-                  _c("div", { staticClass: "level-item" }, [
-                    _c("div", {}, [
-                      _c("div", { staticClass: "heading" }, [
-                        _vm._v("Orders $")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "title is-5" }, [
-                        _vm._v("425,000")
-                      ])
-                    ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "column" }, [
+                _c("div", { staticClass: "box" }, [
+                  _c("div", { staticClass: "heading" }, [
+                    _vm._v("Orders / Returns")
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "level-item" }, [
-                    _c("div", {}, [
-                      _c("div", { staticClass: "heading" }, [
-                        _vm._v("Returns $")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "title is-5" }, [
-                        _vm._v("106,250")
-                      ])
-                    ])
-                  ]),
+                  _c("div", { staticClass: "title" }, [_vm._v("75% / 25%")]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "level-item" }, [
-                    _c("div", {}, [
-                      _c("div", { staticClass: "heading" }, [
-                        _vm._v("Success %")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "title is-5" }, [
-                        _vm._v("+ 28,5%")
+                  _c("div", { staticClass: "level" }, [
+                    _c("div", { staticClass: "level-item" }, [
+                      _c("div", {}, [
+                        _c("div", { staticClass: "heading" }, [
+                          _vm._v("Orders $")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "title is-5" }, [
+                          _vm._v("425,000")
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "level-item" }, [
+                      _c("div", {}, [
+                        _c("div", { staticClass: "heading" }, [
+                          _vm._v("Returns $")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "title is-5" }, [
+                          _vm._v("106,250")
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "level-item" }, [
+                      _c("div", {}, [
+                        _c("div", { staticClass: "heading" }, [
+                          _vm._v("Success %")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "title is-5" }, [
+                          _vm._v("+ 28,5%")
+                        ])
                       ])
                     ])
                   ])
                 ])
               ])
             ])
-          ])
-        ])
+          ],
+          2
+        )
       ])
     : _c("div", [
         _c("section", { staticClass: "hero is-light" }, [
@@ -12422,7 +12554,9 @@ var render = function() {
                           _vm._v(" "),
                           _c("li", [_vm._v(_vm._s(props.row.email))]),
                           _vm._v(" "),
-                          _c("li", [_vm._v(_vm._s(props.row.phone))])
+                          _c("li", [_vm._v(_vm._s(props.row.phone))]),
+                          _vm._v(" "),
+                          _c("li", [_vm._v(_vm._s(props.row.rent_due))])
                         ])
                       ]
                     }
@@ -12677,6 +12811,27 @@ if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(/*! !../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
 var update = add("00fccf98", content, false, {});
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/views/Dashboard/Index.vue?vue&type=style&index=0&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/views/Dashboard/Index.vue?vue&type=style&index=0&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Index.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/views/Dashboard/Index.vue?vue&type=style&index=0&lang=css&");
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.id, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(/*! !../../../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
+var update = add("88fef706", content, false, {});
 // Hot Module Replacement
 if(false) {}
 

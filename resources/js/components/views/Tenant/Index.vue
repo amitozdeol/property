@@ -37,6 +37,7 @@
                     <li>{{ props.row.name }}</li>
                     <li>{{ props.row.email }}</li>
                     <li>{{ props.row.phone }}</li>
+                    <li>{{ props.row.rent_due }}</li>
                 </ul>
             </b-table-column>
             <b-table-column field="lease_start" label="Lease start" sortable v-slot="props">

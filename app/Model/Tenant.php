@@ -2,12 +2,12 @@
 
 namespace App\Model;
 
-use App\Model\Property;
 use App\Model\PropertyUnit;
+use App\Model\RentActivity;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Tenant extends Model
 {
@@ -41,5 +41,23 @@ class Tenant extends Model
         return $query->join('property_unit', 'tenant.property_unit_id', '=', 'property_unit.id')
                     ->join('property', 'property.id', '=', 'property_unit.property_id')
                     ->where('property.user_id', Auth::guard('api')->id());
+    }
+
+    /**
+     * Get the unit for the tenant
+     */
+    public function unit()
+    {
+        return $this->belongsTo(PropertyUnit::class, 'property_unit_id', 'id');
+    }
+
+    /**
+     * Get the rent activity for the tenant. Show any pending rent or upcoming rent
+     */
+    public function rent_activity()
+    {
+        return $this->hasMany(RentActivity::class, 'tenant_id', 'id')
+                    ->where('fully_paid', false)
+                    ->where('active', true);
     }
 }
