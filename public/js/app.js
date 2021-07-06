@@ -2009,74 +2009,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -3017,7 +2949,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var buefy__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! buefy */ "./node_modules/buefy/dist/esm/sidebar.js");
 /* harmony import */ var buefy__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! buefy */ "./node_modules/buefy/dist/esm/menu.js");
 /* harmony import */ var buefy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! buefy */ "./node_modules/buefy/dist/esm/field.js");
@@ -3028,20 +2960,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var buefy__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! buefy */ "./node_modules/buefy/dist/esm/input.js");
 /* harmony import */ var buefy__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! buefy */ "./node_modules/buefy/dist/esm/modal.js");
 /* harmony import */ var buefy__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! buefy */ "./node_modules/buefy/dist/esm/table.js");
+/* harmony import */ var buefy__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! buefy */ "./node_modules/buefy/dist/esm/icon.js");
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./routes */ "./resources/js/routes.js");
 
 
 
-[buefy__WEBPACK_IMPORTED_MODULE_1__.default, buefy__WEBPACK_IMPORTED_MODULE_2__.default, buefy__WEBPACK_IMPORTED_MODULE_3__.default, buefy__WEBPACK_IMPORTED_MODULE_4__.default, buefy__WEBPACK_IMPORTED_MODULE_5__.default, buefy__WEBPACK_IMPORTED_MODULE_6__.default, buefy__WEBPACK_IMPORTED_MODULE_7__.default, buefy__WEBPACK_IMPORTED_MODULE_8__.default, buefy__WEBPACK_IMPORTED_MODULE_9__.default, buefy__WEBPACK_IMPORTED_MODULE_10__.default].forEach(function (x) {
-  return vue__WEBPACK_IMPORTED_MODULE_11__.default.use(x);
+[buefy__WEBPACK_IMPORTED_MODULE_1__.default, buefy__WEBPACK_IMPORTED_MODULE_2__.default, buefy__WEBPACK_IMPORTED_MODULE_3__.default, buefy__WEBPACK_IMPORTED_MODULE_4__.default, buefy__WEBPACK_IMPORTED_MODULE_5__.default, buefy__WEBPACK_IMPORTED_MODULE_6__.default, buefy__WEBPACK_IMPORTED_MODULE_7__.default, buefy__WEBPACK_IMPORTED_MODULE_8__.default, buefy__WEBPACK_IMPORTED_MODULE_9__.default, buefy__WEBPACK_IMPORTED_MODULE_10__.default, buefy__WEBPACK_IMPORTED_MODULE_11__.default].forEach(function (x) {
+  return vue__WEBPACK_IMPORTED_MODULE_12__.default.use(x);
 });
-vue__WEBPACK_IMPORTED_MODULE_11__.default.component('app', __webpack_require__(/*! ./components/App.vue */ "./resources/js/components/App.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_12__.default.component('app', __webpack_require__(/*! ./components/App.vue */ "./resources/js/components/App.vue").default);
 /**
  * Format date to human readable time
  * @param hasDay {Boolean} Show day or not in the returned date
  */
 
-vue__WEBPACK_IMPORTED_MODULE_11__.default.filter('formatDate', function (value) {
+vue__WEBPACK_IMPORTED_MODULE_12__.default.filter('formatDate', function (value) {
   var hasDay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
   if (value) {
@@ -3059,12 +2992,12 @@ vue__WEBPACK_IMPORTED_MODULE_11__.default.filter('formatDate', function (value) 
   }
 }); //capitalize text
 
-vue__WEBPACK_IMPORTED_MODULE_11__.default.filter('capitalize', function (value) {
+vue__WEBPACK_IMPORTED_MODULE_12__.default.filter('capitalize', function (value) {
   if (!value) return '';
   value = value.toString();
   return value.charAt(0).toUpperCase() + value.slice(1);
 });
-var app = new vue__WEBPACK_IMPORTED_MODULE_11__.default({
+var app = new vue__WEBPACK_IMPORTED_MODULE_12__.default({
   el: '#app',
   router: _routes__WEBPACK_IMPORTED_MODULE_0__.default
 });
@@ -6237,6 +6170,39 @@ var isDefined = function isDefined(d) {
 };
 
 
+
+
+/***/ }),
+
+/***/ "./node_modules/buefy/dist/esm/icon.js":
+/*!*********************************************!*\
+  !*** ./node_modules/buefy/dist/esm/icon.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BIcon": () => (/* reexport safe */ _chunk_87d126e7_js__WEBPACK_IMPORTED_MODULE_0__.I),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _chunk_87d126e7_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chunk-87d126e7.js */ "./node_modules/buefy/dist/esm/chunk-87d126e7.js");
+/* harmony import */ var _chunk_cca88db8_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chunk-cca88db8.js */ "./node_modules/buefy/dist/esm/chunk-cca88db8.js");
+
+
+
+
+
+
+
+var Plugin = {
+  install: function install(Vue) {
+    (0,_chunk_cca88db8_js__WEBPACK_IMPORTED_MODULE_1__.r)(Vue, _chunk_87d126e7_js__WEBPACK_IMPORTED_MODULE_0__.I);
+  }
+};
+(0,_chunk_cca88db8_js__WEBPACK_IMPORTED_MODULE_1__.u)(Plugin);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Plugin);
 
 
 /***/ }),
@@ -10967,61 +10933,12 @@ var render = function() {
     ? _c("Loader")
     : this.has_property
     ? _c("div", [
-        _c(
-          "section",
-          [
-            _vm._l(_vm.rent_pending, function(rp) {
-              return _c(
-                "div",
-                { key: rp.id, staticClass: "notification is-warning" },
-                [
-                  _c("button", { staticClass: "delete" }),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "columns is-justify-content-space-between is-align-items-center"
-                    },
-                    [
-                      rp.rent_activity.length == 0
-                        ? _c("div", [
-                            _c("strong", [_vm._v(_vm._s(rp.name))]),
-                            _vm._v(
-                              ": $" +
-                                _vm._s(rp.rent) +
-                                " rent due in " +
-                                _vm._s(_vm.daysDiff(rp.rent_due)) +
-                                " days\n                "
-                            )
-                          ])
-                        : _c("div", [
-                            _c("strong", [_vm._v(_vm._s(rp.name))]),
-                            _vm._v(
-                              ": Past " +
-                                _vm._s(rp.rent_activity.length) +
-                                " months of rent is due\n                "
-                            )
-                          ]),
-                      _vm._v(" "),
-                      _c("b-button", {
-                        staticClass:
-                          "has-background-warning-dark has-text-weight-bold has-text-white mr-2",
-                        attrs: {
-                          label: "Update",
-                          type: "is-warning",
-                          size: "is-small"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                ]
-              )
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "columns is-multiline" }, [
-              _c("div", { staticClass: "column" }, [
+        _c("section", [
+          _c("div", { staticClass: "columns is-multiline" }, [
+            _c(
+              "div",
+              { staticClass: "column is-full-mobile is-one-third-tablet" },
+              [
                 _c(
                   "div",
                   {
@@ -11100,155 +11017,90 @@ var render = function() {
                     ])
                   ]
                 )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "column" }, [
-                _c("div", { staticClass: "box" }, [
-                  _c("div", { staticClass: "heading" }, [
-                    _vm._v("Revenue / Expenses")
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "column is-full-mobile is-two-third-tablet" },
+              [
+                _c("div", { staticClass: "panel" }, [
+                  _c("div", { staticClass: "panel-heading is-size-6" }, [
+                    _vm._v("Upcoming/Pending Rent")
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "title" }, [_vm._v("55% / 45%")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "level" }, [
-                    _c("div", { staticClass: "level-item" }, [
-                      _c("div", {}, [
-                        _c("div", { staticClass: "heading" }, [
-                          _vm._v("Rev Prod $")
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "title is-5" }, [
-                          _vm._v("30%")
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "level-item" }, [
-                      _c("div", {}, [
-                        _c("div", { staticClass: "heading" }, [
-                          _vm._v("Rev Serv $")
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "title is-5" }, [
-                          _vm._v("25%")
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "level-item" }, [
-                      _c("div", {}, [
-                        _c("div", { staticClass: "heading" }, [
-                          _vm._v("Exp %")
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "title is-5" }, [
-                          _vm._v("45%")
-                        ])
-                      ])
-                    ])
-                  ])
+                  _c(
+                    "ul",
+                    { staticClass: "has-background-white" },
+                    _vm._l(_vm.rent_pending, function(rp) {
+                      return _c(
+                        "li",
+                        {
+                          key: rp.id,
+                          staticClass:
+                            "panel-block is-flex is-justify-content-space-between"
+                        },
+                        [
+                          _c("div", [
+                            _c(
+                              "strong",
+                              [
+                                _c("b-icon", {
+                                  attrs: {
+                                    icon: "alert",
+                                    size: "is-small",
+                                    type:
+                                      _vm.daysDiff(rp.rent_due) > 0
+                                        ? "is-warning"
+                                        : "is-danger"
+                                  }
+                                }),
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(rp.name) +
+                                    "\n                                "
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            rp.rent_activity.length == 0
+                              ? _c("div", [
+                                  _vm._v(
+                                    "\n                                    $" +
+                                      _vm._s(rp.rent) +
+                                      " rent due in " +
+                                      _vm._s(_vm.daysDiff(rp.rent_due)) +
+                                      " days\n                                "
+                                  )
+                                ])
+                              : _c("div", [
+                                  _vm._v(
+                                    "\n                                    Past " +
+                                      _vm._s(rp.rent_activity.length) +
+                                      " months of rent is due\n                                "
+                                  )
+                                ])
+                          ]),
+                          _vm._v(" "),
+                          _c("b-button", {
+                            attrs: {
+                              label: "Update",
+                              type: "is-link",
+                              size: "is-small"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    }),
+                    0
+                  )
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "column" }, [
-                _c("div", { staticClass: "box" }, [
-                  _c("div", { staticClass: "heading" }, [
-                    _vm._v("Feedback Activity")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "title" }, [_vm._v("78% ↑")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "level" }, [
-                    _c("div", { staticClass: "level-item" }, [
-                      _c("div", {}, [
-                        _c("div", { staticClass: "heading" }, [
-                          _vm._v("Positive")
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "title is-5" }, [
-                          _vm._v("1560")
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "level-item" }, [
-                      _c("div", {}, [
-                        _c("div", { staticClass: "heading" }, [
-                          _vm._v("Negative")
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "title is-5" }, [
-                          _vm._v("368")
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "level-item" }, [
-                      _c("div", {}, [
-                        _c("div", { staticClass: "heading" }, [
-                          _vm._v("Pos/Neg %")
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "title is-5" }, [
-                          _vm._v("77% / 23%")
-                        ])
-                      ])
-                    ])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "column" }, [
-                _c("div", { staticClass: "box" }, [
-                  _c("div", { staticClass: "heading" }, [
-                    _vm._v("Orders / Returns")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "title" }, [_vm._v("75% / 25%")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "level" }, [
-                    _c("div", { staticClass: "level-item" }, [
-                      _c("div", {}, [
-                        _c("div", { staticClass: "heading" }, [
-                          _vm._v("Orders $")
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "title is-5" }, [
-                          _vm._v("425,000")
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "level-item" }, [
-                      _c("div", {}, [
-                        _c("div", { staticClass: "heading" }, [
-                          _vm._v("Returns $")
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "title is-5" }, [
-                          _vm._v("106,250")
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "level-item" }, [
-                      _c("div", {}, [
-                        _c("div", { staticClass: "heading" }, [
-                          _vm._v("Success %")
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "title is-5" }, [
-                          _vm._v("+ 28,5%")
-                        ])
-                      ])
-                    ])
-                  ])
-                ])
-              ])
-            ])
-          ],
-          2
-        )
+              ]
+            )
+          ])
+        ])
       ])
     : _c("div", [
         _c("section", { staticClass: "hero is-light" }, [

@@ -3,20 +3,8 @@
 
     <div v-else-if="this.has_property">
         <section>
-            <div class="notification is-warning" v-for="rp in rent_pending" :key="rp.id">
-                <button class="delete"></button>
-                <div class="columns is-justify-content-space-between is-align-items-center">
-                    <div v-if="rp.rent_activity.length == 0">
-                        <strong>{{rp.name}}</strong>: ${{rp.rent}} rent due in {{daysDiff(rp.rent_due)}} days
-                    </div>
-                    <div v-else>
-                        <strong>{{rp.name}}</strong>: Past {{rp.rent_activity.length}} months of rent is due
-                    </div>
-                    <b-button label="Update" type="is-warning" size="is-small" class="has-background-warning-dark has-text-weight-bold has-text-white mr-2"/>
-                </div>
-            </div>
             <div class="columns is-multiline">
-                <div class="column">
+                <div class="column is-full-mobile is-one-third-tablet">
                     <div class="box has-background-success p-4" :class="{'box-loading button is-loading' : (latest_income.length == 0)}">
                         <div class="heading">{{latest_income[0] && latest_income[0].rent_month | formatDate(false)}}: Income</div>
                         <div class="title">${{latest_income[0] && latest_income[0].sum || 0}}</div>
@@ -36,82 +24,26 @@
                         </div>
                     </div>
                 </div>
-                <div class="column">
-                    <div class="box">
-                        <div class="heading">Revenue / Expenses</div>
-                        <div class="title">55% / 45%</div>
-                        <div class="level">
-                            <div class="level-item">
-                                <div class="">
-                                    <div class="heading">Rev Prod $</div>
-                                    <div class="title is-5">30%</div>
+                <div class="column is-full-mobile is-two-third-tablet">
+                    <div class="panel">
+                        <div class="panel-heading is-size-6">Upcoming/Pending Rent</div>
+                        <ul class="has-background-white">
+                            <li class="panel-block is-flex is-justify-content-space-between" v-for="rp in rent_pending" :key="rp.id">
+                                <div>
+                                    <strong>
+                                        <b-icon icon="alert" size="is-small" :type="daysDiff(rp.rent_due) > 0 ? 'is-warning' : 'is-danger'"></b-icon>
+                                        {{rp.name}}
+                                    </strong>
+                                    <div v-if="rp.rent_activity.length == 0">
+                                        ${{rp.rent}} rent due in {{daysDiff(rp.rent_due)}} days
+                                    </div>
+                                    <div v-else>
+                                        Past {{rp.rent_activity.length}} months of rent is due
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="level-item">
-                                <div class="">
-                                    <div class="heading">Rev Serv $</div>
-                                    <div class="title is-5">25%</div>
-                                </div>
-                            </div>
-                            <div class="level-item">
-                                <div class="">
-                                    <div class="heading">Exp %</div>
-                                    <div class="title is-5">45%</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="box">
-                        <div class="heading">Feedback Activity</div>
-                        <div class="title">78% ↑</div>
-                        <div class="level">
-                            <div class="level-item">
-                                <div class="">
-                                    <div class="heading">Positive</div>
-                                    <div class="title is-5">1560</div>
-                                </div>
-                            </div>
-                            <div class="level-item">
-                                <div class="">
-                                    <div class="heading">Negative</div>
-                                    <div class="title is-5">368</div>
-                                </div>
-                            </div>
-                            <div class="level-item">
-                                <div class="">
-                                    <div class="heading">Pos/Neg %</div>
-                                    <div class="title is-5">77% / 23%</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="box">
-                        <div class="heading">Orders / Returns</div>
-                        <div class="title">75% / 25%</div>
-                        <div class="level">
-                            <div class="level-item">
-                                <div class="">
-                                    <div class="heading">Orders $</div>
-                                    <div class="title is-5">425,000</div>
-                                </div>
-                            </div>
-                            <div class="level-item">
-                                <div class="">
-                                    <div class="heading">Returns $</div>
-                                    <div class="title is-5">106,250</div>
-                                </div>
-                            </div>
-                            <div class="level-item">
-                                <div class="">
-                                    <div class="heading">Success %</div>
-                                    <div class="title is-5">+ 28,5%</div>
-                                </div>
-                            </div>
-                        </div>
+                                <b-button label="Update" type="is-link" size="is-small"/>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
