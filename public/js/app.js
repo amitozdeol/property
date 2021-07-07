@@ -2177,6 +2177,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       fully_paid: false
     };
   },
+  computed: {
+    //Convert rent due day to a propert date
+    rentDue: function rentDue() {
+      var rent_date = new Date();
+      rent_date.setDate(this.data.rent_due);
+      return rent_date;
+    }
+  },
   methods: {
     add: function add() {
       var _this = this;
@@ -11460,31 +11468,37 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("section", { staticClass: "modal-card-body columns mb-0" }, [
-        _c("div", { staticClass: "column is-mobile is-two-third-tablet" }, [
-          _c("ul", [
+        _c("div", { staticClass: "column is-mobile is-half" }, [
+          _c("ul", { staticClass: "is-size-7" }, [
             _c("li", [
-              _vm._v("Name: " + _vm._s(_vm._f("capitalize")(_vm.data.name)))
+              _vm._v("Name: "),
+              _c("strong", [
+                _vm._v(_vm._s(_vm._f("capitalize")(_vm.data.name)))
+              ])
             ]),
             _vm._v(" "),
-            _c("li", [_vm._v("Email: " + _vm._s(_vm.data.email))]),
-            _vm._v(" "),
             _c("li", [
-              _vm._v(
-                "Rent due: " +
-                  _vm._s(_vm.data.rent_due) +
-                  "rd day of this month"
-              )
+              _vm._v("Email: "),
+              _c("strong", [_vm._v(_vm._s(_vm.data.email))])
             ]),
             _vm._v(" "),
-            _c("li", [_vm._v("Rent: $" + _vm._s(_vm.data.rent))])
+            _c("li", [
+              _vm._v("Rent due: "),
+              _c("strong", [_vm._v(_vm._s(_vm._f("formatDate")(_vm.rentDue)))])
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _vm._v("Rent: "),
+              _c("strong", [_vm._v("$" + _vm._s(_vm.data.rent))])
+            ])
           ])
         ]),
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "column is-mobile is-one-third-tablet" },
+          { staticClass: "column is-mobile is-half" },
           [
-            _c("label", { staticClass: "b-checkbox checkbox mb-3" }, [
+            _c("label", { staticClass: "b-checkbox checkbox mb-4" }, [
               _c("input", {
                 directives: [
                   {
@@ -11546,7 +11560,8 @@ var render = function() {
                 attrs: {
                   label: "Rent",
                   type: { "is-danger": _vm.error.rent },
-                  message: _vm.error.rent
+                  message: _vm.error.rent,
+                  "label-position": "on-border"
                 }
               },
               [
@@ -11557,7 +11572,7 @@ var render = function() {
                     min: "1",
                     max: _vm.data.rent,
                     step: "0.01",
-                    disabled: _vm.fully_paid
+                    disabled: _vm.fully_paid == "Yes"
                   },
                   model: {
                     value: _vm.rent,

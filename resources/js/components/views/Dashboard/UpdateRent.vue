@@ -6,22 +6,22 @@
                 <button type="button" class="delete" @click="$emit('close')" />
             </header>
             <section class="modal-card-body columns mb-0">
-                <div class="column is-mobile is-two-third-tablet">
-                    <ul>
-                        <li>Name: {{data.name |capitalize}}</li>
-                        <li>Email: {{data.email}}</li>
-                        <li>Rent due: {{data.rent_due}}rd day of this month</li>
-                        <li>Rent: ${{data.rent}}</li>
+                <div class="column is-mobile is-half">
+                    <ul class="is-size-7">
+                        <li>Name: <strong>{{data.name |capitalize}}</strong></li>
+                        <li>Email: <strong>{{data.email}}</strong></li>
+                        <li>Rent due: <strong>{{rentDue | formatDate}}</strong></li>
+                        <li>Rent: <strong>${{data.rent}}</strong></li>
                     </ul>
                 </div>
-                <div class="column is-mobile is-one-third-tablet">
-                    <label class="b-checkbox checkbox mb-3">
+                <div class="column is-mobile is-half">
+                    <label class="b-checkbox checkbox mb-4">
                         <input type="checkbox" autocomplete="on" true-value="Yes" false-value="No" v-model="fully_paid" @change="fullyPaid()">
                         <span class="check"></span>
                         <span class="control-label"> Fully Paid </span>
                     </label>
-                    <b-field label="Rent" :type="{'is-danger': (error.rent)}" :message="error.rent">
-                        <b-input placeholder="$500" type="number" v-model.number="rent" min="1" :max="data.rent" step="0.01" :disabled="fully_paid">
+                    <b-field label="Rent" :type="{'is-danger': (error.rent)}" :message="error.rent" label-position="on-border">
+                        <b-input placeholder="$500" type="number" v-model.number="rent" min="1" :max="data.rent" step="0.01" :disabled="fully_paid == 'Yes'">
                         </b-input>
                     </b-field>
                 </div>
@@ -45,6 +45,14 @@
                 error: {rent: null},
                 rent: null, //user input rent
                 fully_paid: false
+            }
+        },
+        computed:{
+            //Convert rent due day to a propert date
+            rentDue(){
+                var rent_date = new Date();
+                rent_date.setDate(this.data.rent_due);
+                return rent_date;
             }
         },
         methods:{
