@@ -44,13 +44,30 @@
                                         Past {{rp.rent_activity.length}} months of rent is due
                                     </div>
                                 </div>
-                                <b-button label="Update" type="is-link" size="is-small"/>
+                                <b-button label="Update" type="is-link" size="is-small" @click="openUpdateRent(rp)" />
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- Open UpdateRent.vue file in a modal to update the rent activity  -->
+        <b-modal
+            v-model="open_update_rent_modal"
+            has-modal-card
+            trap-focus
+            :destroy-on-hide="false"
+            aria-role="dialog"
+            aria-label="Update rent"
+            :width="800"
+            aria-modal>
+            <template #default="props">
+                <update-rent v-bind="{data: rent_activity_data}"
+
+                        @close="props.close"></update-rent>
+            </template>
+        </b-modal>
     </div>
     <div v-else>
         <section class="hero is-light">
@@ -68,14 +85,20 @@
 <script>
     import axios from './../../../axios';
     import loadingMixin from './../../mixins/loading';
+    import UpdateRent from './UpdateRent.vue';
 
     export default {
+        components: {
+            UpdateRent
+        },
         mixins: [loadingMixin],
         data(){
             return {
                 has_property: null,
                 latest_income: [],
-                rent_pending: []
+                rent_pending: [],
+                open_update_rent_modal: false,
+                rent_activity_data: null
             }
         },
         async beforeCreate(){
@@ -103,6 +126,10 @@
                 // Day different
                 var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
                 return Difference_In_Days;
+            },
+            openUpdateRent(rp){
+                this.rent_activity_data = rp;
+                this.open_update_rent_modal = true
             }
         }
     }
@@ -120,7 +147,7 @@
         background-color: rgba(10, 10, 10, 0.86);
     }
     .max-h-150{
-        max-height: 200px;
+        max-height: 150px;
         overflow-y: scroll;
     }
 </style>

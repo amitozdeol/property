@@ -1939,6 +1939,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../../axios */ "./resources/js/axios.js");
 /* harmony import */ var _mixins_loading__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../mixins/loading */ "./resources/js/components/mixins/loading.js");
+/* harmony import */ var _UpdateRent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./UpdateRent.vue */ "./resources/js/components/views/Dashboard/UpdateRent.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2012,15 +2013,38 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    UpdateRent: _UpdateRent_vue__WEBPACK_IMPORTED_MODULE_3__.default
+  },
   mixins: [_mixins_loading__WEBPACK_IMPORTED_MODULE_2__.default],
   data: function data() {
     return {
       has_property: null,
       latest_income: [],
-      rent_pending: []
+      rent_pending: [],
+      open_update_rent_modal: false,
+      rent_activity_data: null
     };
   },
   beforeCreate: function beforeCreate() {
@@ -2073,6 +2097,124 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
       return Difference_In_Days;
+    },
+    openUpdateRent: function openUpdateRent(rp) {
+      this.rent_activity_data = rp;
+      this.open_update_rent_modal = true;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/views/Dashboard/UpdateRent.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/views/Dashboard/UpdateRent.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../../axios */ "./resources/js/axios.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['data'],
+  data: function data() {
+    return {
+      is_loading: false,
+      error: {
+        rent: null
+      },
+      rent: null,
+      //user input rent
+      fully_paid: false
+    };
+  },
+  methods: {
+    add: function add() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var _err$response, _err$response$data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _this.is_loading = true;
+
+                try {
+                  // let data = {...this.fields};
+                  // data.unit_id = this.unit_id;
+                  // const res = await axios.post('/tenant/store', data);
+                  _this.$emit('update', data);
+
+                  _this.$emit('close');
+                } catch (err) {
+                  _this.error = (_err$response = err.response) === null || _err$response === void 0 ? void 0 : (_err$response$data = _err$response.data) === null || _err$response$data === void 0 ? void 0 : _err$response$data.errors;
+                }
+
+                _this.is_loading = false;
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    fullyPaid: function fullyPaid() {
+      if (this.fully_paid) {
+        this.rent = this.data.rent;
+      }
     }
   }
 });
@@ -8886,7 +9028,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.box-loading[data-v-562da10a]{\n    min-height: 150px;\n}\n.box-loading[data-v-562da10a]::before{\n    content: \"\";\n    position: absolute;\n    top: 0; bottom: 0; left: 0; right: 0;\n    border-radius: 6px;\n    background-color: rgba(10, 10, 10, 0.86);\n}\n.max-h-150[data-v-562da10a]{\n    max-height: 200px;\n    overflow-y: scroll;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.box-loading[data-v-562da10a]{\n    min-height: 150px;\n}\n.box-loading[data-v-562da10a]::before{\n    content: \"\";\n    position: absolute;\n    top: 0; bottom: 0; left: 0; right: 0;\n    border-radius: 6px;\n    background-color: rgba(10, 10, 10, 0.86);\n}\n.max-h-150[data-v-562da10a]{\n    max-height: 150px;\n    overflow-y: scroll;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -10092,6 +10234,45 @@ component.options.__file = "resources/js/components/views/Dashboard/Index.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/views/Dashboard/UpdateRent.vue":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/views/Dashboard/UpdateRent.vue ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _UpdateRent_vue_vue_type_template_id_2f8e02c9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateRent.vue?vue&type=template&id=2f8e02c9& */ "./resources/js/components/views/Dashboard/UpdateRent.vue?vue&type=template&id=2f8e02c9&");
+/* harmony import */ var _UpdateRent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateRent.vue?vue&type=script&lang=js& */ "./resources/js/components/views/Dashboard/UpdateRent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _UpdateRent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _UpdateRent_vue_vue_type_template_id_2f8e02c9___WEBPACK_IMPORTED_MODULE_0__.render,
+  _UpdateRent_vue_vue_type_template_id_2f8e02c9___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/views/Dashboard/UpdateRent.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/views/Property/AddProperty.vue":
 /*!****************************************************************!*\
   !*** ./resources/js/components/views/Property/AddProperty.vue ***!
@@ -10374,6 +10555,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/views/Dashboard/UpdateRent.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/views/Dashboard/UpdateRent.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateRent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./UpdateRent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/views/Dashboard/UpdateRent.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateRent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/views/Property/AddProperty.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************!*\
   !*** ./resources/js/components/views/Property/AddProperty.vue?vue&type=script&lang=js& ***!
@@ -10534,6 +10731,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_562da10a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_562da10a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Index.vue?vue&type=template&id=562da10a&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/views/Dashboard/Index.vue?vue&type=template&id=562da10a&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/views/Dashboard/UpdateRent.vue?vue&type=template&id=2f8e02c9&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/views/Dashboard/UpdateRent.vue?vue&type=template&id=2f8e02c9& ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateRent_vue_vue_type_template_id_2f8e02c9___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateRent_vue_vue_type_template_id_2f8e02c9___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateRent_vue_vue_type_template_id_2f8e02c9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./UpdateRent.vue?vue&type=template&id=2f8e02c9& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/views/Dashboard/UpdateRent.vue?vue&type=template&id=2f8e02c9&");
 
 
 /***/ }),
@@ -10935,184 +11149,246 @@ var render = function() {
   return _vm.is_loading
     ? _c("Loader")
     : this.has_property
-    ? _c("div", [
-        _c("section", [
-          _c("div", { staticClass: "columns is-multiline" }, [
-            _c(
-              "div",
-              { staticClass: "column is-full-mobile is-one-third-tablet" },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass: "box has-background-success p-4",
-                    class: {
-                      "box-loading button is-loading":
-                        _vm.latest_income.length == 0
-                    }
-                  },
-                  [
-                    _c("div", { staticClass: "heading" }, [
-                      _vm._v(
-                        _vm._s(
-                          _vm._f("formatDate")(
-                            _vm.latest_income[0] &&
-                              _vm.latest_income[0].rent_month,
-                            false
-                          )
-                        ) + ": Income"
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "title" }, [
-                      _vm._v(
-                        "$" +
-                          _vm._s(
-                            (_vm.latest_income[0] &&
-                              _vm.latest_income[0].sum) ||
-                              0
-                          )
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "level level-left" }, [
-                      _vm.latest_income[1]
-                        ? _c("div", { staticClass: "level-item level-left" }, [
-                            _c("div", {}, [
-                              _c("div", { staticClass: "heading" }, [
-                                _vm._v(
-                                  _vm._s(
-                                    _vm._f("formatDate")(
-                                      _vm.latest_income[1].rent_month,
-                                      false
-                                    )
-                                  )
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "title is-5" }, [
-                                _vm._v("$" + _vm._s(_vm.latest_income[1].sum))
-                              ])
-                            ])
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.latest_income[2]
-                        ? _c("div", { staticClass: "level-item level-left" }, [
-                            _c("div", {}, [
-                              _c("div", { staticClass: "heading" }, [
-                                _vm._v(
-                                  _vm._s(
-                                    _vm._f("formatDate")(
-                                      _vm.latest_income[2].rent_month,
-                                      false
-                                    )
-                                  )
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "title is-5" }, [
-                                _vm._v("$" + _vm._s(_vm.latest_income[2].sum))
-                              ])
-                            ])
-                          ])
-                        : _vm._e()
-                    ])
-                  ]
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "column is-full-mobile is-two-third-tablet" },
-              [
-                _c("div", { staticClass: "panel" }, [
-                  _c("div", { staticClass: "panel-heading is-size-6" }, [
-                    _vm._v("Upcoming/Pending Rent")
-                  ]),
-                  _vm._v(" "),
+    ? _c(
+        "div",
+        [
+          _c("section", [
+            _c("div", { staticClass: "columns is-multiline" }, [
+              _c(
+                "div",
+                { staticClass: "column is-full-mobile is-one-third-tablet" },
+                [
                   _c(
-                    "ul",
-                    { staticClass: "max-h-150 has-background-white is-size-7" },
+                    "div",
+                    {
+                      staticClass: "box has-background-success p-4",
+                      class: {
+                        "box-loading button is-loading":
+                          _vm.latest_income.length == 0
+                      }
+                    },
                     [
-                      _vm.rent_pending.length == 0
-                        ? _c("li", { staticClass: "panel-block" }, [
-                            _vm._v(
-                              "\n                            No rent is due for the next 10 days\n                        "
+                      _c("div", { staticClass: "heading" }, [
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("formatDate")(
+                              _vm.latest_income[0] &&
+                                _vm.latest_income[0].rent_month,
+                              false
                             )
-                          ])
-                        : _vm._l(_vm.rent_pending, function(rp) {
-                            return _c(
-                              "li",
-                              {
-                                key: rp.id,
-                                staticClass:
-                                  "panel-block is-flex is-justify-content-space-between"
-                              },
+                          ) + ": Income"
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "title" }, [
+                        _vm._v(
+                          "$" +
+                            _vm._s(
+                              (_vm.latest_income[0] &&
+                                _vm.latest_income[0].sum) ||
+                                0
+                            )
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "level level-left" }, [
+                        _vm.latest_income[1]
+                          ? _c(
+                              "div",
+                              { staticClass: "level-item level-left" },
                               [
-                                _c("div", [
-                                  _c(
-                                    "strong",
-                                    [
-                                      _c("b-icon", {
-                                        attrs: {
-                                          icon: "alert",
-                                          size: "is-small",
-                                          type:
-                                            _vm.daysDiff(rp.rent_due) > 0
-                                              ? "is-warning"
-                                              : "is-danger"
-                                        }
-                                      }),
-                                      _vm._v(
-                                        "\n                                    " +
-                                          _vm._s(rp.name) +
-                                          "\n                                "
+                                _c("div", {}, [
+                                  _c("div", { staticClass: "heading" }, [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("formatDate")(
+                                          _vm.latest_income[1].rent_month,
+                                          false
+                                        )
                                       )
-                                    ],
-                                    1
-                                  ),
+                                    )
+                                  ]),
                                   _vm._v(" "),
-                                  rp.rent_activity.length == 0
-                                    ? _c("div", [
-                                        _vm._v(
-                                          "\n                                    $" +
-                                            _vm._s(rp.rent) +
-                                            " rent due in " +
-                                            _vm._s(_vm.daysDiff(rp.rent_due)) +
-                                            " days\n                                "
-                                        )
-                                      ])
-                                    : _c("div", [
-                                        _vm._v(
-                                          "\n                                    Past " +
-                                            _vm._s(rp.rent_activity.length) +
-                                            " months of rent is due\n                                "
-                                        )
-                                      ])
-                                ]),
-                                _vm._v(" "),
-                                _c("b-button", {
-                                  attrs: {
-                                    label: "Update",
-                                    type: "is-link",
-                                    size: "is-small"
-                                  }
-                                })
-                              ],
-                              1
+                                  _c("div", { staticClass: "title is-5" }, [
+                                    _vm._v(
+                                      "$" + _vm._s(_vm.latest_income[1].sum)
+                                    )
+                                  ])
+                                ])
+                              ]
                             )
-                          })
-                    ],
-                    2
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.latest_income[2]
+                          ? _c(
+                              "div",
+                              { staticClass: "level-item level-left" },
+                              [
+                                _c("div", {}, [
+                                  _c("div", { staticClass: "heading" }, [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("formatDate")(
+                                          _vm.latest_income[2].rent_month,
+                                          false
+                                        )
+                                      )
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "title is-5" }, [
+                                    _vm._v(
+                                      "$" + _vm._s(_vm.latest_income[2].sum)
+                                    )
+                                  ])
+                                ])
+                              ]
+                            )
+                          : _vm._e()
+                      ])
+                    ]
                   )
-                ])
-              ]
-            )
-          ])
-        ])
-      ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "column is-full-mobile is-two-third-tablet" },
+                [
+                  _c("div", { staticClass: "panel" }, [
+                    _c("div", { staticClass: "panel-heading is-size-6" }, [
+                      _vm._v("Upcoming/Pending Rent")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "ul",
+                      {
+                        staticClass: "max-h-150 has-background-white is-size-7"
+                      },
+                      [
+                        _vm.rent_pending.length == 0
+                          ? _c("li", { staticClass: "panel-block" }, [
+                              _vm._v(
+                                "\n                            No rent is due for the next 10 days\n                        "
+                              )
+                            ])
+                          : _vm._l(_vm.rent_pending, function(rp) {
+                              return _c(
+                                "li",
+                                {
+                                  key: rp.id,
+                                  staticClass:
+                                    "panel-block is-flex is-justify-content-space-between"
+                                },
+                                [
+                                  _c("div", [
+                                    _c(
+                                      "strong",
+                                      [
+                                        _c("b-icon", {
+                                          attrs: {
+                                            icon: "alert",
+                                            size: "is-small",
+                                            type:
+                                              _vm.daysDiff(rp.rent_due) > 0
+                                                ? "is-warning"
+                                                : "is-danger"
+                                          }
+                                        }),
+                                        _vm._v(
+                                          "\n                                    " +
+                                            _vm._s(rp.name) +
+                                            "\n                                "
+                                        )
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    rp.rent_activity.length == 0
+                                      ? _c("div", [
+                                          _vm._v(
+                                            "\n                                    $" +
+                                              _vm._s(rp.rent) +
+                                              " rent due in " +
+                                              _vm._s(
+                                                _vm.daysDiff(rp.rent_due)
+                                              ) +
+                                              " days\n                                "
+                                          )
+                                        ])
+                                      : _c("div", [
+                                          _vm._v(
+                                            "\n                                    Past " +
+                                              _vm._s(rp.rent_activity.length) +
+                                              " months of rent is due\n                                "
+                                          )
+                                        ])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("b-button", {
+                                    attrs: {
+                                      label: "Update",
+                                      type: "is-link",
+                                      size: "is-small"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.openUpdateRent(rp)
+                                      }
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            })
+                      ],
+                      2
+                    )
+                  ])
+                ]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("b-modal", {
+            attrs: {
+              "has-modal-card": "",
+              "trap-focus": "",
+              "destroy-on-hide": false,
+              "aria-role": "dialog",
+              "aria-label": "Update rent",
+              width: 800,
+              "aria-modal": ""
+            },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(props) {
+                  return [
+                    _c(
+                      "update-rent",
+                      _vm._b(
+                        { on: { close: props.close } },
+                        "update-rent",
+                        { data: _vm.rent_activity_data },
+                        false
+                      )
+                    )
+                  ]
+                }
+              }
+            ]),
+            model: {
+              value: _vm.open_update_rent_modal,
+              callback: function($$v) {
+                _vm.open_update_rent_modal = $$v
+              },
+              expression: "open_update_rent_modal"
+            }
+          })
+        ],
+        1
+      )
     : _c("div", [
         _c("section", { staticClass: "hero is-light" }, [
           _c(
@@ -11143,6 +11419,193 @@ var render = function() {
           )
         ])
       ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/views/Dashboard/UpdateRent.vue?vue&type=template&id=2f8e02c9&":
+/*!**************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/views/Dashboard/UpdateRent.vue?vue&type=template&id=2f8e02c9& ***!
+  \**************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("form", { attrs: { action: "" } }, [
+    _c("div", { staticClass: "modal-card", staticStyle: { width: "auto" } }, [
+      _c("header", { staticClass: "modal-card-head" }, [
+        _c("p", { staticClass: "modal-card-title" }, [_vm._v("Update Rent")]),
+        _vm._v(" "),
+        _c("button", {
+          staticClass: "delete",
+          attrs: { type: "button" },
+          on: {
+            click: function($event) {
+              return _vm.$emit("close")
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("section", { staticClass: "modal-card-body columns mb-0" }, [
+        _c("div", { staticClass: "column is-mobile is-two-third-tablet" }, [
+          _c("ul", [
+            _c("li", [
+              _vm._v("Name: " + _vm._s(_vm._f("capitalize")(_vm.data.name)))
+            ]),
+            _vm._v(" "),
+            _c("li", [_vm._v("Email: " + _vm._s(_vm.data.email))]),
+            _vm._v(" "),
+            _c("li", [
+              _vm._v(
+                "Rent due: " +
+                  _vm._s(_vm.data.rent_due) +
+                  "rd day of this month"
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", [_vm._v("Rent: $" + _vm._s(_vm.data.rent))])
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "column is-mobile is-one-third-tablet" },
+          [
+            _c("label", { staticClass: "b-checkbox checkbox mb-3" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.fully_paid,
+                    expression: "fully_paid"
+                  }
+                ],
+                attrs: {
+                  type: "checkbox",
+                  autocomplete: "on",
+                  "true-value": "Yes",
+                  "false-value": "No"
+                },
+                domProps: {
+                  checked: Array.isArray(_vm.fully_paid)
+                    ? _vm._i(_vm.fully_paid, null) > -1
+                    : _vm._q(_vm.fully_paid, "Yes")
+                },
+                on: {
+                  change: [
+                    function($event) {
+                      var $$a = _vm.fully_paid,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? "Yes" : "No"
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 && (_vm.fully_paid = $$a.concat([$$v]))
+                        } else {
+                          $$i > -1 &&
+                            (_vm.fully_paid = $$a
+                              .slice(0, $$i)
+                              .concat($$a.slice($$i + 1)))
+                        }
+                      } else {
+                        _vm.fully_paid = $$c
+                      }
+                    },
+                    function($event) {
+                      return _vm.fullyPaid()
+                    }
+                  ]
+                }
+              }),
+              _vm._v(" "),
+              _c("span", { staticClass: "check" }),
+              _vm._v(" "),
+              _c("span", { staticClass: "control-label" }, [
+                _vm._v(" Fully Paid ")
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              {
+                attrs: {
+                  label: "Rent",
+                  type: { "is-danger": _vm.error.rent },
+                  message: _vm.error.rent
+                }
+              },
+              [
+                _c("b-input", {
+                  attrs: {
+                    placeholder: "$500",
+                    type: "number",
+                    min: "1",
+                    max: _vm.data.rent,
+                    step: "0.01",
+                    disabled: _vm.fully_paid
+                  },
+                  model: {
+                    value: _vm.rent,
+                    callback: function($$v) {
+                      _vm.rent = _vm._n($$v)
+                    },
+                    expression: "rent"
+                  }
+                })
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "footer",
+        { staticClass: "modal-card-foot" },
+        [
+          _c("b-button", {
+            attrs: { label: "Close" },
+            on: {
+              click: function($event) {
+                return _vm.$emit("close")
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("b-button", {
+            attrs: {
+              label: "Save",
+              type: "is-success",
+              disabled: _vm.is_loading,
+              loading: _vm.is_loading
+            },
+            on: {
+              click: function($event) {
+                return _vm.add()
+              }
+            }
+          })
+        ],
+        1
+      )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
