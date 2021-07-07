@@ -50,19 +50,22 @@ class RentActivityController extends Controller
     {
         $vd = $request->validate([
             'rent_month' => 'required|date', //should be a format of yyyy/mm/dd
-            'value' => 'required|numeric|between:1,99999.99',
-            'remaining' => 'sometimes|numeric|between:1,99999.99',
+            'value' => 'required|numeric|between:1,99999.99'
         ]);
+        $actual_rent = $tenant->unit->rent;
+        $fully_paid = $actual_rent == $vd['value'];
 
         $rent = new RentActivity();
         $rent->tenant_id = $tenant->id;
-        $rent->rent_month = $vd['rent_month'];
-        $rent->fully_paid = !isset($vd['remaining']);
+        $rent->rent_month = Carbon::create($vd['rent_month'])->startOfMonth();
+        $rent->fully_paid = $fully_paid;
         $rent->value = $vd['value'];
-        $rent->remaining = $vd['remaining'] ?? 0;
-        $tenant->save();
+        $rent->remaining = $tenant->unit->rent - $vd['value'];
+        $rent->user_id = Auth::guard('api')->id();
+        $rent->active = !$fully_paid;
+        $rent->save();
 
-        return response()->json($tenant, 201);
+        return response()->json($rent, 201);
     }
 
     /**

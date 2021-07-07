@@ -31,6 +31,6 @@ Route::middleware('auth:api')->group(function () {
     });
     Route::prefix('rent')->group(function () {
         Route::get('/latest', [RentActivityController::class, 'latest']);
-        Route::post('/{tenant_id}', [RentActivityController::class, 'store']);
+        Route::post('/{tenant}', [RentActivityController::class, 'store']);
     });
 });

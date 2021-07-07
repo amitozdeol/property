@@ -2163,6 +2163,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['data'],
@@ -2172,57 +2178,71 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       error: {
         rent: null
       },
-      rent: null,
-      //user input rent
-      fully_paid: false
+      fully_paid: false,
+      rent: null //user input rent
+
     };
   },
   computed: {
-    //Convert rent due day to a propert date
+    //Convert rent due day to a propert date YYYY-MM-DD
     rentDue: function rentDue() {
+      var now = new Date();
       var rent_date = new Date();
-      rent_date.setDate(this.data.rent_due);
+      rent_date.setDate(this.data.rent_due); // next month
+
+      if (this.data.rent_due < now.getDate()) {
+        rent_date.setMonth(rent_date.getMonth() + 1);
+      }
+
       return rent_date;
     }
   },
   methods: {
-    add: function add() {
+    submit: function submit() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var _err$response, _err$response$data;
+        var res, _err$response, _err$response$data;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _this.is_loading = true;
+                _context.prev = 1;
+                _context.next = 4;
+                return _axios__WEBPACK_IMPORTED_MODULE_1__.default.post("/rent/".concat(_this.data.id), {
+                  rent_month: _this.rentDue,
+                  value: _this.rent
+                });
 
-                try {
-                  // let data = {...this.fields};
-                  // data.unit_id = this.unit_id;
-                  // const res = await axios.post('/tenant/store', data);
-                  _this.$emit('update', data);
+              case 4:
+                res = _context.sent;
 
-                  _this.$emit('close');
-                } catch (err) {
-                  _this.error = (_err$response = err.response) === null || _err$response === void 0 ? void 0 : (_err$response$data = _err$response.data) === null || _err$response$data === void 0 ? void 0 : _err$response$data.errors;
-                }
+                // this.$emit('update', data);
+                _this.$emit('close');
 
+                _context.next = 11;
+                break;
+
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context["catch"](1);
+                _this.error = (_err$response = _context.t0.response) === null || _err$response === void 0 ? void 0 : (_err$response$data = _err$response.data) === null || _err$response$data === void 0 ? void 0 : _err$response$data.errors;
+
+              case 11:
                 _this.is_loading = false;
 
-              case 3:
+              case 12:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee);
+        }, _callee, null, [[1, 8]]);
       }))();
     },
     fullyPaid: function fullyPaid() {
-      if (this.fully_paid) {
-        this.rent = this.data.rent;
-      }
+      this.rent = this.fully_paid ? this.data.rent : null;
     }
   }
 });
@@ -11498,7 +11518,39 @@ var render = function() {
           "div",
           { staticClass: "column is-mobile is-half" },
           [
-            _c("label", { staticClass: "b-checkbox checkbox mb-4" }, [
+            _c(
+              "b-field",
+              {
+                attrs: {
+                  label: "Rent",
+                  type: { "is-danger": _vm.error.rent },
+                  message: _vm.error.rent,
+                  "label-position": "on-border"
+                }
+              },
+              [
+                _c("b-input", {
+                  attrs: {
+                    placeholder: "$500",
+                    type: "number",
+                    min: "1",
+                    max: _vm.data.rent,
+                    step: "0.01",
+                    disabled: _vm.fully_paid == "Yes"
+                  },
+                  model: {
+                    value: _vm.rent,
+                    callback: function($$v) {
+                      _vm.rent = _vm._n($$v)
+                    },
+                    expression: "rent"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("label", { staticClass: "b-checkbox checkbox" }, [
               _c("input", {
                 directives: [
                   {
@@ -11552,39 +11604,7 @@ var render = function() {
               _c("span", { staticClass: "control-label" }, [
                 _vm._v(" Fully Paid ")
               ])
-            ]),
-            _vm._v(" "),
-            _c(
-              "b-field",
-              {
-                attrs: {
-                  label: "Rent",
-                  type: { "is-danger": _vm.error.rent },
-                  message: _vm.error.rent,
-                  "label-position": "on-border"
-                }
-              },
-              [
-                _c("b-input", {
-                  attrs: {
-                    placeholder: "$500",
-                    type: "number",
-                    min: "1",
-                    max: _vm.data.rent,
-                    step: "0.01",
-                    disabled: _vm.fully_paid == "Yes"
-                  },
-                  model: {
-                    value: _vm.rent,
-                    callback: function($$v) {
-                      _vm.rent = _vm._n($$v)
-                    },
-                    expression: "rent"
-                  }
-                })
-              ],
-              1
-            )
+            ])
           ],
           1
         )
@@ -11612,7 +11632,7 @@ var render = function() {
             },
             on: {
               click: function($event) {
-                return _vm.add()
+                return _vm.submit()
               }
             }
           })
