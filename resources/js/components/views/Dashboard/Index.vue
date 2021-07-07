@@ -27,8 +27,11 @@
                 <div class="column is-full-mobile is-two-third-tablet">
                     <div class="panel">
                         <div class="panel-heading is-size-6">Upcoming/Pending Rent</div>
-                        <ul class="has-background-white">
-                            <li class="panel-block is-flex is-justify-content-space-between" v-for="rp in rent_pending" :key="rp.id">
+                        <ul class="max-h-150 has-background-white is-size-7">
+                            <li v-if="rent_pending.length == 0" class="panel-block">
+                                No rent is due for the next 10 days
+                            </li>
+                            <li v-else class="panel-block is-flex is-justify-content-space-between" v-for="rp in rent_pending" :key="rp.id">
                                 <div>
                                     <strong>
                                         <b-icon icon="alert" size="is-small" :type="daysDiff(rp.rent_due) > 0 ? 'is-warning' : 'is-danger'"></b-icon>
@@ -72,7 +75,7 @@
             return {
                 has_property: null,
                 latest_income: [],
-                rent_pending: null
+                rent_pending: []
             }
         },
         async beforeCreate(){
@@ -105,7 +108,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     .box-loading{
         min-height: 150px;
     }
@@ -115,5 +118,9 @@
         top: 0; bottom: 0; left: 0; right: 0;
         border-radius: 6px;
         background-color: rgba(10, 10, 10, 0.86);
+    }
+    .max-h-150{
+        max-height: 200px;
+        overflow-y: scroll;
     }
 </style>
