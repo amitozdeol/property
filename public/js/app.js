@@ -11490,6 +11490,13 @@ var render = function() {
       _c("section", { staticClass: "modal-card-body columns mb-0" }, [
         _c("div", { staticClass: "column is-mobile is-half" }, [
           _c("ul", { staticClass: "is-size-7" }, [
+            _c("li", { staticClass: "is-size-6" }, [
+              _vm._v("Rent: "),
+              _c("strong", { staticClass: "has-text-primary" }, [
+                _vm._v("$" + _vm._s(_vm.data.rent))
+              ])
+            ]),
+            _vm._v(" "),
             _c("li", [
               _vm._v("Name: "),
               _c("strong", [
@@ -11505,11 +11512,6 @@ var render = function() {
             _c("li", [
               _vm._v("Rent due: "),
               _c("strong", [_vm._v(_vm._s(_vm._f("formatDate")(_vm.rentDue)))])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _vm._v("Rent: "),
-              _c("strong", [_vm._v("$" + _vm._s(_vm.data.rent))])
             ])
           ])
         ]),
@@ -11612,7 +11614,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "footer",
-        { staticClass: "modal-card-foot" },
+        { staticClass: "modal-card-foot is-justify-content-end" },
         [
           _c("b-button", {
             attrs: { label: "Close" },

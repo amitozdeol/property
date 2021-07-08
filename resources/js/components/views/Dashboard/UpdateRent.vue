@@ -8,10 +8,10 @@
             <section class="modal-card-body columns mb-0">
                 <div class="column is-mobile is-half">
                     <ul class="is-size-7">
+                        <li class="is-size-6">Rent: <strong class="has-text-primary">${{data.rent}}</strong></li>
                         <li>Name: <strong>{{data.name |capitalize}}</strong></li>
                         <li>Email: <strong>{{data.email}}</strong></li>
                         <li>Rent due: <strong>{{rentDue | formatDate}}</strong></li>
-                        <li>Rent: <strong>${{data.rent}}</strong></li>
                     </ul>
                 </div>
                 <div class="column is-mobile is-half">
@@ -32,7 +32,7 @@
                     </label>
                 </div>
             </section>
-            <footer class="modal-card-foot">
+            <footer class="modal-card-foot is-justify-content-end">
                 <b-button label="Close" @click="$emit('close')" />
                 <b-button label="Save" type="is-success" @click="submit()" :disabled="is_loading" :loading="is_loading"/>
             </footer>
