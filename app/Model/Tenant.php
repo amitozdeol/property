@@ -58,6 +58,7 @@ class Tenant extends Model
     {
         return $this->hasMany(RentActivity::class, 'tenant_id', 'id')
                     ->where('fully_paid', false)
-                    ->where('active', true);
+                    ->where('active', true)
+                    ->orderByDesc('rent_month');
     }
 }

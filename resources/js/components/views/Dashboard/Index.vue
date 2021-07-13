@@ -25,13 +25,13 @@
                     </div>
                 </div>
                 <div class="column is-full-mobile is-two-third-tablet">
-                    <div class="panel" :class="{'box-loading button is-loading' : (rent_pending == null)}">
+                    <div class="panel is-block" :class="{'box-loading button is-loading' : (rent.pending_activity == null)}">
                         <div class="panel-heading is-size-6">Upcoming/Pending Rent</div>
                         <ul class="max-h-150 has-background-white is-size-7">
-                            <li v-if="rent_pending && rent_pending.length == 0" class="panel-block">
+                            <li v-if="rent.pending_activity && rent.pending_activity.length == 0" class="panel-block">
                                 No rent is due for the next 10 days
                             </li>
-                            <li v-else class="panel-block is-flex is-justify-content-space-between" v-for="rp in rent_pending" :key="rp.id">
+                            <li v-else class="panel-block is-flex is-justify-content-space-between" v-for="rp in rent.pending_activity" :key="rp.id">
                                 <div>
                                     <strong>
                                         <b-icon icon="alert" size="is-small" :type="daysDiff(rp.rent_due) > 0 ? 'is-warning' : 'is-danger'"></b-icon>
@@ -54,7 +54,7 @@
 
         <!-- Open UpdateRent.vue file in a modal to update the rent activity  -->
         <b-modal
-            v-model="open_update_rent_modal"
+            v-model="rent.open_update_modal"
             has-modal-card
             trap-focus
             :destroy-on-hide="false"
@@ -63,7 +63,7 @@
             :width="800"
             aria-modal>
             <template #default="props">
-                <update-rent v-bind="{data: rent_activity_data}"
+                <update-rent v-bind="{data: rent.current_activity}"
                         v-on:reload="getPending()"
                         @close="props.close"></update-rent>
             </template>
@@ -96,9 +96,11 @@
             return {
                 has_property: null,
                 latest_income: [],
-                rent_pending: [],
-                open_update_rent_modal: false,
-                rent_activity_data: null
+                rent: {
+                    pending_activity: null,
+                    open_update_modal: false,
+                    current_activity: null //Use this to show data inside modal
+                }
             }
         },
         async beforeCreate(){
@@ -116,9 +118,8 @@
              * Get pending rent activity
              */
             async getPending(){
-                this.rent_pending = null;
                 const res = await axios.get('/tenant/rent/pending');
-                this.rent_pending = res.data;
+                this.rent.pending_activity = res.data;
             },
 
             /**
@@ -137,8 +138,8 @@
                 return Difference_In_Days;
             },
             openUpdateRent(rp){
-                this.rent_activity_data = rp;
-                this.open_update_rent_modal = true
+                this.rent.current_activity = rp;
+                this.rent.open_update_modal = true
             }
         }
     }

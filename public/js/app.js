@@ -2042,9 +2042,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       has_property: null,
       latest_income: [],
-      rent_pending: [],
-      open_update_rent_modal: false,
-      rent_activity_data: null
+      rent: {
+        pending_activity: null,
+        open_update_modal: false,
+        current_activity: null //Use this to show data inside modal
+
+      }
     };
   },
   beforeCreate: function beforeCreate() {
@@ -2094,15 +2097,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _this2.rent_pending = null;
-                _context2.next = 3;
+                _context2.next = 2;
                 return _axios__WEBPACK_IMPORTED_MODULE_1__.default.get('/tenant/rent/pending');
 
-              case 3:
+              case 2:
                 res = _context2.sent;
-                _this2.rent_pending = res.data;
+                _this2.rent.pending_activity = res.data;
 
-              case 5:
+              case 4:
               case "end":
                 return _context2.stop();
             }
@@ -2125,8 +2127,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return Difference_In_Days;
     },
     openUpdateRent: function openUpdateRent(rp) {
-      this.rent_activity_data = rp;
-      this.open_update_rent_modal = true;
+      this.rent.current_activity = rp;
+      this.rent.open_update_modal = true;
     }
   }
 });
@@ -2153,6 +2155,35 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -11313,10 +11344,10 @@ var render = function() {
                   _c(
                     "div",
                     {
-                      staticClass: "panel",
+                      staticClass: "panel is-block",
                       class: {
                         "box-loading button is-loading":
-                          _vm.rent_pending == null
+                          _vm.rent.pending_activity == null
                       }
                     },
                     [
@@ -11331,13 +11362,14 @@ var render = function() {
                             "max-h-150 has-background-white is-size-7"
                         },
                         [
-                          _vm.rent_pending && _vm.rent_pending.length == 0
+                          _vm.rent.pending_activity &&
+                          _vm.rent.pending_activity.length == 0
                             ? _c("li", { staticClass: "panel-block" }, [
                                 _vm._v(
                                   "\n                            No rent is due for the next 10 days\n                        "
                                 )
                               ])
-                            : _vm._l(_vm.rent_pending, function(rp) {
+                            : _vm._l(_vm.rent.pending_activity, function(rp) {
                                 return _c(
                                   "li",
                                   {
@@ -11445,7 +11477,7 @@ var render = function() {
                           }
                         },
                         "update-rent",
-                        { data: _vm.rent_activity_data },
+                        { data: _vm.rent.current_activity },
                         false
                       )
                     )
@@ -11454,11 +11486,11 @@ var render = function() {
               }
             ]),
             model: {
-              value: _vm.open_update_rent_modal,
+              value: _vm.rent.open_update_modal,
               callback: function($$v) {
-                _vm.open_update_rent_modal = $$v
+                _vm.$set(_vm.rent, "open_update_modal", $$v)
               },
-              expression: "open_update_rent_modal"
+              expression: "rent.open_update_modal"
             }
           })
         ],
@@ -11534,130 +11566,271 @@ var render = function() {
         })
       ]),
       _vm._v(" "),
-      _c("section", { staticClass: "modal-card-body columns mb-0" }, [
-        _c("div", { staticClass: "column is-mobile is-half" }, [
-          _c("ul", { staticClass: "is-size-7" }, [
-            _c("li", { staticClass: "is-size-6" }, [
-              _vm._v("Rent remaining: "),
-              _c("strong", { staticClass: "has-text-primary" }, [
-                _vm._v("$" + _vm._s(_vm.data.rent))
+      _vm.data.rent_activity.length == 0
+        ? _c("section", { staticClass: "modal-card-body columns mb-0" }, [
+            _c("div", { staticClass: "column is-mobile is-half" }, [
+              _c("ul", { staticClass: "is-size-7" }, [
+                _c("li", { staticClass: "is-size-6" }, [
+                  _vm._v("Rent remaining: "),
+                  _c("strong", { staticClass: "has-text-primary" }, [
+                    _vm._v("$" + _vm._s(_vm.data.rent))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _vm._v("Name: "),
+                  _c("strong", [
+                    _vm._v(_vm._s(_vm._f("capitalize")(_vm.data.name)))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _vm._v("Email: "),
+                  _c("strong", [_vm._v(_vm._s(_vm.data.email))])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _vm._v("Due due: "),
+                  _c("strong", [
+                    _vm._v(_vm._s(_vm._f("formatDate")(_vm.rentDue)))
+                  ])
+                ])
               ])
             ]),
             _vm._v(" "),
-            _c("li", [
-              _vm._v("Name: "),
-              _c("strong", [
-                _vm._v(_vm._s(_vm._f("capitalize")(_vm.data.name)))
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _vm._v("Email: "),
-              _c("strong", [_vm._v(_vm._s(_vm.data.email))])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _vm._v("Due due: "),
-              _c("strong", [_vm._v(_vm._s(_vm._f("formatDate")(_vm.rentDue)))])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "column is-mobile is-half" },
-          [
             _c(
-              "b-field",
-              {
-                attrs: {
-                  label: "Rent",
-                  type: { "is-danger": _vm.error.rent },
-                  message: _vm.error.rent,
-                  "label-position": "on-border"
-                }
-              },
+              "div",
+              { staticClass: "column is-mobile is-half" },
               [
-                _c("b-input", {
-                  attrs: {
-                    placeholder: "$500",
-                    type: "number",
-                    min: "1",
-                    max: _vm.data.rent,
-                    step: "0.01",
-                    disabled: _vm.fully_paid == "Yes"
+                _c(
+                  "b-field",
+                  {
+                    attrs: {
+                      label: "Rent",
+                      type: { "is-danger": _vm.error.rent },
+                      message: _vm.error.rent,
+                      "label-position": "on-border"
+                    }
                   },
-                  model: {
-                    value: _vm.rent,
-                    callback: function($$v) {
-                      _vm.rent = _vm._n($$v)
+                  [
+                    _c("b-input", {
+                      attrs: {
+                        placeholder: "$500",
+                        type: "number",
+                        min: "1",
+                        max: _vm.data.rent,
+                        step: "0.01",
+                        disabled: _vm.fully_paid == "Yes"
+                      },
+                      model: {
+                        value: _vm.rent,
+                        callback: function($$v) {
+                          _vm.rent = _vm._n($$v)
+                        },
+                        expression: "rent"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("label", { staticClass: "b-checkbox checkbox" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.fully_paid,
+                        expression: "fully_paid"
+                      }
+                    ],
+                    attrs: {
+                      type: "checkbox",
+                      autocomplete: "on",
+                      "true-value": "Yes",
+                      "false-value": "No"
                     },
-                    expression: "rent"
-                  }
-                })
+                    domProps: {
+                      checked: Array.isArray(_vm.fully_paid)
+                        ? _vm._i(_vm.fully_paid, null) > -1
+                        : _vm._q(_vm.fully_paid, "Yes")
+                    },
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$a = _vm.fully_paid,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? "Yes" : "No"
+                          if (Array.isArray($$a)) {
+                            var $$v = null,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 && (_vm.fully_paid = $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                (_vm.fully_paid = $$a
+                                  .slice(0, $$i)
+                                  .concat($$a.slice($$i + 1)))
+                            }
+                          } else {
+                            _vm.fully_paid = $$c
+                          }
+                        },
+                        function($event) {
+                          return _vm.fullyPaid()
+                        }
+                      ]
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "check" }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "control-label" }, [
+                    _vm._v(" Fully Paid ")
+                  ])
+                ])
               ],
               1
-            ),
-            _vm._v(" "),
-            _c("label", { staticClass: "b-checkbox checkbox" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.fully_paid,
-                    expression: "fully_paid"
-                  }
-                ],
-                attrs: {
-                  type: "checkbox",
-                  autocomplete: "on",
-                  "true-value": "Yes",
-                  "false-value": "No"
-                },
-                domProps: {
-                  checked: Array.isArray(_vm.fully_paid)
-                    ? _vm._i(_vm.fully_paid, null) > -1
-                    : _vm._q(_vm.fully_paid, "Yes")
-                },
-                on: {
-                  change: [
-                    function($event) {
-                      var $$a = _vm.fully_paid,
-                        $$el = $event.target,
-                        $$c = $$el.checked ? "Yes" : "No"
-                      if (Array.isArray($$a)) {
-                        var $$v = null,
-                          $$i = _vm._i($$a, $$v)
-                        if ($$el.checked) {
-                          $$i < 0 && (_vm.fully_paid = $$a.concat([$$v]))
-                        } else {
-                          $$i > -1 &&
-                            (_vm.fully_paid = $$a
-                              .slice(0, $$i)
-                              .concat($$a.slice($$i + 1)))
+            )
+          ])
+        : _c(
+            "section",
+            { staticClass: "modal-card-body mb-0" },
+            _vm._l(_vm.data.rent_activity, function(activity) {
+              return _c("div", { key: activity.id, staticClass: "columns" }, [
+                _c("div", { staticClass: "column is-mobile is-half" }, [
+                  _c("ul", { staticClass: "is-size-7" }, [
+                    _c("li", { staticClass: "is-size-6" }, [
+                      _vm._v("Rent remaining: "),
+                      _c("strong", { staticClass: "has-text-primary" }, [
+                        _vm._v("$" + _vm._s(activity.remaining))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("li", [
+                      _vm._v("Name: "),
+                      _c("strong", [
+                        _vm._v(_vm._s(_vm._f("capitalize")(_vm.data.name)))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("li", [
+                      _vm._v("Email: "),
+                      _c("strong", [_vm._v(_vm._s(_vm.data.email))])
+                    ]),
+                    _vm._v(" "),
+                    _c("li", [
+                      _vm._v("Due due: "),
+                      _c("strong", [
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("formatDate")(activity.rent_month, false)
+                          )
+                        )
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "column is-mobile is-half" },
+                  [
+                    _c(
+                      "b-field",
+                      {
+                        attrs: {
+                          label: "Rent",
+                          type: { "is-danger": _vm.error.rent },
+                          message: _vm.error.rent,
+                          "label-position": "on-border"
                         }
-                      } else {
-                        _vm.fully_paid = $$c
-                      }
-                    },
-                    function($event) {
-                      return _vm.fullyPaid()
-                    }
-                  ]
-                }
-              }),
-              _vm._v(" "),
-              _c("span", { staticClass: "check" }),
-              _vm._v(" "),
-              _c("span", { staticClass: "control-label" }, [
-                _vm._v(" Fully Paid ")
+                      },
+                      [
+                        _c("b-input", {
+                          attrs: {
+                            placeholder: "$500",
+                            type: "number",
+                            min: "1",
+                            max: _vm.data.rent,
+                            step: "0.01",
+                            disabled: _vm.fully_paid == "Yes"
+                          },
+                          model: {
+                            value: _vm.rent,
+                            callback: function($$v) {
+                              _vm.rent = _vm._n($$v)
+                            },
+                            expression: "rent"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("label", { staticClass: "b-checkbox checkbox" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fully_paid,
+                            expression: "fully_paid"
+                          }
+                        ],
+                        attrs: {
+                          type: "checkbox",
+                          autocomplete: "on",
+                          "true-value": "Yes",
+                          "false-value": "No"
+                        },
+                        domProps: {
+                          checked: Array.isArray(_vm.fully_paid)
+                            ? _vm._i(_vm.fully_paid, null) > -1
+                            : _vm._q(_vm.fully_paid, "Yes")
+                        },
+                        on: {
+                          change: [
+                            function($event) {
+                              var $$a = _vm.fully_paid,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? "Yes" : "No"
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    (_vm.fully_paid = $$a.concat([$$v]))
+                                } else {
+                                  $$i > -1 &&
+                                    (_vm.fully_paid = $$a
+                                      .slice(0, $$i)
+                                      .concat($$a.slice($$i + 1)))
+                                }
+                              } else {
+                                _vm.fully_paid = $$c
+                              }
+                            },
+                            function($event) {
+                              return _vm.fullyPaid()
+                            }
+                          ]
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "check" }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "control-label" }, [
+                        _vm._v(" Fully Paid ")
+                      ])
+                    ])
+                  ],
+                  1
+                )
               ])
-            ])
-          ],
-          1
-        )
-      ]),
+            }),
+            0
+          ),
       _vm._v(" "),
       _c(
         "footer",

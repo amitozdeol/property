@@ -5,7 +5,7 @@
                 <p class="modal-card-title">Update Rent</p>
                 <button type="button" class="delete" @click="$emit('close')" />
             </header>
-            <section class="modal-card-body columns mb-0">
+            <section v-if="data.rent_activity.length == 0" class="modal-card-body columns mb-0">
                 <div class="column is-mobile is-half">
                     <ul class="is-size-7">
                         <li class="is-size-6">Rent remaining: <strong class="has-text-primary">${{data.rent}}</strong></li>
@@ -30,6 +30,35 @@
                         <span class="check"></span>
                         <span class="control-label"> Fully Paid </span>
                     </label>
+                </div>
+            </section>
+            <section v-else class="modal-card-body mb-0">
+                <div v-for="activity in data.rent_activity" :key="activity.id" class="columns">
+                    <div class="column is-mobile is-half">
+                        <ul class="is-size-7">
+                            <li class="is-size-6">Rent remaining: <strong class="has-text-primary">${{activity.remaining}}</strong></li>
+                            <li>Name: <strong>{{data.name |capitalize}}</strong></li>
+                            <li>Email: <strong>{{data.email}}</strong></li>
+                            <li>Due due: <strong>{{activity.rent_month | formatDate(false)}}</strong></li>
+                        </ul>
+                    </div>
+                    <div class="column is-mobile is-half">
+                        <b-field label="Rent" :type="{'is-danger': (error.rent)}" :message="error.rent" label-position="on-border">
+                            <b-input placeholder="$500"
+                                    type="number"
+                                    v-model.number="rent"
+                                    min="1"
+                                    :max="data.rent"
+                                    step="0.01"
+                                    :disabled="fully_paid == 'Yes'">
+                            </b-input>
+                        </b-field>
+                        <label class="b-checkbox checkbox">
+                            <input type="checkbox" autocomplete="on" true-value="Yes" false-value="No" v-model="fully_paid" @change="fullyPaid()">
+                            <span class="check"></span>
+                            <span class="control-label"> Fully Paid </span>
+                        </label>
+                    </div>
                 </div>
             </section>
             <footer class="modal-card-foot is-justify-content-end">
