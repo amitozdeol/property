@@ -5,24 +5,24 @@
 
         <div class="columns">
             <div class="column">
-                <b-field label="Name" :type="error.name ? 'is-danger': 'is-white'" :message="error.name || ''">
+                <b-field label="Name" :type="{'is-danger': error.name}" :message="error.name || ''">
                     <b-input placeholder="Name" v-model="input.name" type="text" max="200" required></b-input>
                 </b-field>
 
-                <b-field label="Address" :type="error.address ? 'is-danger': 'is-white'" :message="error.address || ''">
+                <b-field label="Address" :type="{'is-danger': error.address}" :message="error.address || ''">
                     <b-input placeholder="Ex: 123 Street name" v-model="input.address" type="text" min="5" max="200"
                         required></b-input>
                 </b-field>
-                <b-field label="City" :type="error.city ? 'is-danger': 'is-white'" :message="error.city || ''">
+                <b-field label="City" :type="{'is-danger': error.city}" :message="error.city || ''">
                     <b-input placeholder="Ex: Colorado" v-model="input.city" type="text" required></b-input>
                 </b-field>
             </div>
             <div class="column">
-                <b-field label="State" :type="error.state ? 'is-danger': 'is-white'" :message="error.state || ''">
+                <b-field label="State" :type="{'is-danger': error.state}" :message="error.state || ''">
                     <b-input placeholder="Ex: NY" v-model="input.state" type="text" required></b-input>
                 </b-field>
 
-                <b-field label="Zip" :type="error.zip ? 'is-danger': 'is-white'" :message="error.zip">
+                <b-field label="Zip" :type="{'is-danger': error.zip}" :message="error.zip">
                     <b-input placeholder="Ex: 12345" type="number" v-model.number="input.zip" min="1" max="999999"
                         required></b-input>
                 </b-field>

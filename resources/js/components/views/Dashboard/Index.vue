@@ -25,10 +25,10 @@
                     </div>
                 </div>
                 <div class="column is-full-mobile is-two-third-tablet">
-                    <div class="panel">
+                    <div class="panel" :class="{'box-loading button is-loading' : (rent_pending == null)}">
                         <div class="panel-heading is-size-6">Upcoming/Pending Rent</div>
                         <ul class="max-h-150 has-background-white is-size-7">
-                            <li v-if="rent_pending.length == 0" class="panel-block">
+                            <li v-if="rent_pending && rent_pending.length == 0" class="panel-block">
                                 No rent is due for the next 10 days
                             </li>
                             <li v-else class="panel-block is-flex is-justify-content-space-between" v-for="rp in rent_pending" :key="rp.id">
@@ -64,7 +64,7 @@
             aria-modal>
             <template #default="props">
                 <update-rent v-bind="{data: rent_activity_data}"
-
+                        v-on:reload="getPending()"
                         @close="props.close"></update-rent>
             </template>
         </b-modal>
@@ -104,14 +104,23 @@
         async beforeCreate(){
             let res = await axios.get('/property/exist');
             this.has_property = res.data;
-            res = await axios.get('/tenant/rent/pending');
-            this.rent_pending = res.data;
             this.is_loading = false;
+
+            this.getPending();
 
             res = await axios.get('/rent/latest');
             this.latest_income = res.data;
         },
         methods:{
+            /**
+             * Get pending rent activity
+             */
+            async getPending(){
+                this.rent_pending = null;
+                const res = await axios.get('/tenant/rent/pending');
+                this.rent_pending = res.data;
+            },
+
             /**
              * Find difference between two dates
              */

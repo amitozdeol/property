@@ -21,7 +21,7 @@
                             </div>
                             <details class="mt-1 has-text-grey">
                                 <summary>More details</summary>
-                                <ul>
+                                <ul class="mt-1">
                                     <li>Deposit: ${{unit.deposit}}</li>
                                 </ul>
                             </details>

@@ -2062,21 +2062,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 2:
               res = _context.sent;
               _this.has_property = res.data;
-              _context.next = 6;
-              return _axios__WEBPACK_IMPORTED_MODULE_1__.default.get('/tenant/rent/pending');
-
-            case 6:
-              res = _context.sent;
-              _this.rent_pending = res.data;
               _this.is_loading = false;
-              _context.next = 11;
+
+              _this.getPending();
+
+              _context.next = 8;
               return _axios__WEBPACK_IMPORTED_MODULE_1__.default.get('/rent/latest');
 
-            case 11:
+            case 8:
               res = _context.sent;
               _this.latest_income = res.data;
 
-            case 13:
+            case 10:
             case "end":
               return _context.stop();
           }
@@ -2085,6 +2082,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }))();
   },
   methods: {
+    /**
+     * Get pending rent activity
+     */
+    getPending: function getPending() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.rent_pending = null;
+                _context2.next = 3;
+                return _axios__WEBPACK_IMPORTED_MODULE_1__.default.get('/tenant/rent/pending');
+
+              case 3:
+                res = _context2.sent;
+                _this2.rent_pending = res.data;
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+
     /**
      * Find difference between two dates
      */
@@ -2219,26 +2245,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 4:
                 res = _context.sent;
 
-                // this.$emit('update', data);
+                _this.$emit('reload');
+
                 _this.$emit('close');
 
-                _context.next = 11;
+                _context.next = 12;
                 break;
 
-              case 8:
-                _context.prev = 8;
+              case 9:
+                _context.prev = 9;
                 _context.t0 = _context["catch"](1);
                 _this.error = (_err$response = _context.t0.response) === null || _err$response === void 0 ? void 0 : (_err$response$data = _err$response.data) === null || _err$response$data === void 0 ? void 0 : _err$response$data.errors;
 
-              case 11:
+              case 12:
                 _this.is_loading = false;
 
-              case 12:
+              case 13:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 8]]);
+        }, _callee, null, [[1, 9]]);
       }))();
     },
     fullyPaid: function fullyPaid() {
@@ -11283,96 +11310,109 @@ var render = function() {
                 "div",
                 { staticClass: "column is-full-mobile is-two-third-tablet" },
                 [
-                  _c("div", { staticClass: "panel" }, [
-                    _c("div", { staticClass: "panel-heading is-size-6" }, [
-                      _vm._v("Upcoming/Pending Rent")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "ul",
-                      {
-                        staticClass: "max-h-150 has-background-white is-size-7"
-                      },
-                      [
-                        _vm.rent_pending.length == 0
-                          ? _c("li", { staticClass: "panel-block" }, [
-                              _vm._v(
-                                "\n                            No rent is due for the next 10 days\n                        "
-                              )
-                            ])
-                          : _vm._l(_vm.rent_pending, function(rp) {
-                              return _c(
-                                "li",
-                                {
-                                  key: rp.id,
-                                  staticClass:
-                                    "panel-block is-flex is-justify-content-space-between"
-                                },
-                                [
-                                  _c("div", [
-                                    _c(
-                                      "strong",
-                                      [
-                                        _c("b-icon", {
-                                          attrs: {
-                                            icon: "alert",
-                                            size: "is-small",
-                                            type:
-                                              _vm.daysDiff(rp.rent_due) > 0
-                                                ? "is-warning"
-                                                : "is-danger"
-                                          }
-                                        }),
-                                        _vm._v(
-                                          "\n                                    " +
-                                            _vm._s(rp.name) +
-                                            "\n                                "
-                                        )
-                                      ],
-                                      1
-                                    ),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "panel",
+                      class: {
+                        "box-loading button is-loading":
+                          _vm.rent_pending == null
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "panel-heading is-size-6" }, [
+                        _vm._v("Upcoming/Pending Rent")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "ul",
+                        {
+                          staticClass:
+                            "max-h-150 has-background-white is-size-7"
+                        },
+                        [
+                          _vm.rent_pending && _vm.rent_pending.length == 0
+                            ? _c("li", { staticClass: "panel-block" }, [
+                                _vm._v(
+                                  "\n                            No rent is due for the next 10 days\n                        "
+                                )
+                              ])
+                            : _vm._l(_vm.rent_pending, function(rp) {
+                                return _c(
+                                  "li",
+                                  {
+                                    key: rp.id,
+                                    staticClass:
+                                      "panel-block is-flex is-justify-content-space-between"
+                                  },
+                                  [
+                                    _c("div", [
+                                      _c(
+                                        "strong",
+                                        [
+                                          _c("b-icon", {
+                                            attrs: {
+                                              icon: "alert",
+                                              size: "is-small",
+                                              type:
+                                                _vm.daysDiff(rp.rent_due) > 0
+                                                  ? "is-warning"
+                                                  : "is-danger"
+                                            }
+                                          }),
+                                          _vm._v(
+                                            "\n                                    " +
+                                              _vm._s(rp.name) +
+                                              "\n                                "
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      rp.rent_activity.length == 0
+                                        ? _c("div", [
+                                            _vm._v(
+                                              "\n                                    $" +
+                                                _vm._s(rp.rent) +
+                                                " rent due in " +
+                                                _vm._s(
+                                                  _vm.daysDiff(rp.rent_due)
+                                                ) +
+                                                " days\n                                "
+                                            )
+                                          ])
+                                        : _c("div", [
+                                            _vm._v(
+                                              "\n                                    Past " +
+                                                _vm._s(
+                                                  rp.rent_activity.length
+                                                ) +
+                                                " months of rent is due\n                                "
+                                            )
+                                          ])
+                                    ]),
                                     _vm._v(" "),
-                                    rp.rent_activity.length == 0
-                                      ? _c("div", [
-                                          _vm._v(
-                                            "\n                                    $" +
-                                              _vm._s(rp.rent) +
-                                              " rent due in " +
-                                              _vm._s(
-                                                _vm.daysDiff(rp.rent_due)
-                                              ) +
-                                              " days\n                                "
-                                          )
-                                        ])
-                                      : _c("div", [
-                                          _vm._v(
-                                            "\n                                    Past " +
-                                              _vm._s(rp.rent_activity.length) +
-                                              " months of rent is due\n                                "
-                                          )
-                                        ])
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("b-button", {
-                                    attrs: {
-                                      label: "Update",
-                                      type: "is-link",
-                                      size: "is-small"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.openUpdateRent(rp)
+                                    _c("b-button", {
+                                      attrs: {
+                                        label: "Update",
+                                        type: "is-link",
+                                        size: "is-small"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.openUpdateRent(rp)
+                                        }
                                       }
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            })
-                      ],
-                      2
-                    )
-                  ])
+                                    })
+                                  ],
+                                  1
+                                )
+                              })
+                        ],
+                        2
+                      )
+                    ]
+                  )
                 ]
               )
             ])
@@ -11396,7 +11436,14 @@ var render = function() {
                     _c(
                       "update-rent",
                       _vm._b(
-                        { on: { close: props.close } },
+                        {
+                          on: {
+                            reload: function($event) {
+                              return _vm.getPending()
+                            },
+                            close: props.close
+                          }
+                        },
                         "update-rent",
                         { data: _vm.rent_activity_data },
                         false
@@ -11491,7 +11538,7 @@ var render = function() {
         _c("div", { staticClass: "column is-mobile is-half" }, [
           _c("ul", { staticClass: "is-size-7" }, [
             _c("li", { staticClass: "is-size-6" }, [
-              _vm._v("Rent: "),
+              _vm._v("Rent remaining: "),
               _c("strong", { staticClass: "has-text-primary" }, [
                 _vm._v("$" + _vm._s(_vm.data.rent))
               ])
@@ -11510,7 +11557,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("li", [
-              _vm._v("Rent due: "),
+              _vm._v("Due due: "),
               _c("strong", [_vm._v(_vm._s(_vm._f("formatDate")(_vm.rentDue)))])
             ])
           ])
@@ -11692,7 +11739,7 @@ var render = function() {
               {
                 attrs: {
                   label: "Name",
-                  type: _vm.error.name ? "is-danger" : "is-white",
+                  type: { "is-danger": _vm.error.name },
                   message: _vm.error.name || ""
                 }
               },
@@ -11721,7 +11768,7 @@ var render = function() {
               {
                 attrs: {
                   label: "Address",
-                  type: _vm.error.address ? "is-danger" : "is-white",
+                  type: { "is-danger": _vm.error.address },
                   message: _vm.error.address || ""
                 }
               },
@@ -11751,7 +11798,7 @@ var render = function() {
               {
                 attrs: {
                   label: "City",
-                  type: _vm.error.city ? "is-danger" : "is-white",
+                  type: { "is-danger": _vm.error.city },
                   message: _vm.error.city || ""
                 }
               },
@@ -11786,7 +11833,7 @@ var render = function() {
               {
                 attrs: {
                   label: "State",
-                  type: _vm.error.state ? "is-danger" : "is-white",
+                  type: { "is-danger": _vm.error.state },
                   message: _vm.error.state || ""
                 }
               },
@@ -11810,7 +11857,7 @@ var render = function() {
               {
                 attrs: {
                   label: "Zip",
-                  type: _vm.error.zip ? "is-danger" : "is-white",
+                  type: { "is-danger": _vm.error.zip },
                   message: _vm.error.zip
                 }
               },
@@ -12389,7 +12436,7 @@ var render = function() {
                         _c("details", { staticClass: "mt-1 has-text-grey" }, [
                           _c("summary", [_vm._v("More details")]),
                           _vm._v(" "),
-                          _c("ul", [
+                          _c("ul", { staticClass: "mt-1" }, [
                             _c("li", [
                               _vm._v("Deposit: $" + _vm._s(unit.deposit))
                             ])
