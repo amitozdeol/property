@@ -2239,18 +2239,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['tenant'],
   data: function data() {
     return {
       is_loading: false,
-      error: {
-        rent: null
-      },
+      error: [{
+        rent_paid: null
+      }],
+      new_rent: null,
+      //user input rent for new month
       fully_paid: false,
-      rent: [],
-      //user input rent
       rent_activity: this.tenant.rent_activity
     };
   },
@@ -2271,12 +2272,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   methods: {
     /**
      * Submit the form
+     * This cover both bases. First when user send rent value for new month and
+     * second when user just updating previous month's value
      */
     submit: function submit() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var res, _err$response, _err$response$data;
+        var req_data, res, _err$response, _err$response$data;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
@@ -2284,35 +2287,48 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _this.is_loading = true;
                 _context.prev = 1;
-                _context.next = 4;
-                return _axios__WEBPACK_IMPORTED_MODULE_1__.default.post("/rent/".concat(_this.tenant.id), _this.rent_activity);
+                req_data = _this.rent_activity;
 
-              case 4:
+                if (req_data.length == 0) {
+                  req_data = [{
+                    rent_month: _this.rentDue,
+                    rent_paid: _this.new_rent
+                  }];
+                }
+
+                console.log(req_data);
+                _context.next = 7;
+                return _axios__WEBPACK_IMPORTED_MODULE_1__.default.post("/rent/".concat(_this.tenant.id), req_data);
+
+              case 7:
                 res = _context.sent;
 
                 _this.$emit('reload');
 
                 _this.$emit('close');
 
-                _context.next = 12;
+                _context.next = 15;
                 break;
 
-              case 9:
-                _context.prev = 9;
+              case 12:
+                _context.prev = 12;
                 _context.t0 = _context["catch"](1);
                 _this.error = (_err$response = _context.t0.response) === null || _err$response === void 0 ? void 0 : (_err$response$data = _err$response.data) === null || _err$response$data === void 0 ? void 0 : _err$response$data.errors;
 
-              case 12:
+              case 15:
                 _this.is_loading = false;
 
-              case 13:
+              case 16:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 9]]);
+        }, _callee, null, [[1, 12]]);
       }))();
     }
+  },
+  destroyed: function destroyed() {
+    this.rent_activity = [];
   }
 });
 
@@ -11465,7 +11481,7 @@ var render = function() {
             attrs: {
               "has-modal-card": "",
               "trap-focus": "",
-              "destroy-on-hide": false,
+              "destroy-on-hide": "",
               "aria-role": "dialog",
               "aria-label": "Update rent",
               width: 800,
@@ -11618,8 +11634,8 @@ var render = function() {
                   {
                     attrs: {
                       label: "Rent",
-                      type: { "is-danger": _vm.error.rent },
-                      message: _vm.error.rent,
+                      type: { "is-danger": _vm.error[0].rent_paid },
+                      message: _vm.error[0].rent_paid,
                       "label-position": "on-border"
                     }
                   },
@@ -11634,11 +11650,11 @@ var render = function() {
                         disabled: _vm.fully_paid == "Yes"
                       },
                       model: {
-                        value: _vm.rent,
+                        value: _vm.new_rent,
                         callback: function($$v) {
-                          _vm.rent = _vm._n($$v)
+                          _vm.new_rent = _vm._n($$v)
                         },
-                        expression: "rent"
+                        expression: "new_rent"
                       }
                     })
                   ],
@@ -11688,7 +11704,9 @@ var render = function() {
                           }
                         },
                         function($event) {
-                          return _vm.fullyPaid()
+                          _vm.fully_paid == "Yes"
+                            ? (_vm.new_rent = _vm.tenant.rent)
+                            : null
                         }
                       ]
                     }

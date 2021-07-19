@@ -15,10 +15,10 @@
                     </ul>
                 </div>
                 <div class="column is-mobile is-half">
-                    <b-field label="Rent" :type="{'is-danger': (error.rent)}" :message="error.rent" label-position="on-border">
+                    <b-field label="Rent" :type="{'is-danger': (error[0].rent_paid)}" :message="error[0].rent_paid" label-position="on-border">
                         <b-input placeholder="$500"
                                 type="number"
-                                v-model.number="rent"
+                                v-model.number="new_rent"
                                 min="1"
                                 :max="tenant.rent"
                                 step="0.01"
@@ -31,7 +31,7 @@
                             true-value="Yes"
                             false-value="No"
                             v-model="fully_paid"
-                            @change="fullyPaid()">
+                            @change="fully_paid == 'Yes' ? new_rent = tenant.rent : null">
                         <span class="check"></span>
                         <span class="control-label"> Fully Paid </span>
                     </label>
@@ -39,6 +39,7 @@
             </section>
             <section v-else class="modal-card-body mb-0">
                 <div v-for="(activity, index) in tenant.rent_activity" :key="activity.id" class="columns">
+                    <!-- For multiple rent activity -->
                     <div class="column is-mobile is-half">
                         <ul class="is-size-7">
                             <li class="is-size-6">Rent remaining: <strong class="has-text-primary">${{activity.remaining}}</strong></li>
@@ -90,9 +91,9 @@
         data(){
             return {
                 is_loading: false,
-                error: {rent: null},
+                error: [{rent_paid: null}],
+                new_rent: null, //user input rent for new month
                 fully_paid: false,
-                rent: [], //user input rent
                 rent_activity: this.tenant.rent_activity
             }
         },
@@ -113,11 +114,21 @@
         methods:{
             /**
              * Submit the form
+             * This cover both bases. First when user send rent value for new month and
+             * second when user just updating previous month's value
              */
             async submit(){
                 this.is_loading = true;
                 try {
-                    const res = await axios.post(`/rent/${this.tenant.id}`, this.rent_activity);
+                    let req_data = this.rent_activity;
+                    if(req_data.length == 0){
+                        req_data = [{
+                            rent_month: this.rentDue,
+                            rent_paid: this.new_rent
+                        }];
+                    }
+                    console.log(req_data);
+                    const res = await axios.post(`/rent/${this.tenant.id}`, req_data);
                     this.$emit('reload');
                     this.$emit('close');
                 } catch (err) {
@@ -125,6 +136,9 @@
                 }
                 this.is_loading = false;
             },
+        },
+        destroyed(){
+            this.rent_activity = [];
         }
     }
 </script>

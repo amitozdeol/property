@@ -57,7 +57,7 @@
             v-model="rent.open_update_modal"
             has-modal-card
             trap-focus
-            :destroy-on-hide="false"
+            destroy-on-hide
             aria-role="dialog"
             aria-label="Update rent"
             :width="800"

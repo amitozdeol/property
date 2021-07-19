@@ -66,7 +66,7 @@ class RentActivityController extends Controller
                 }
 
                 //actual rent remaining is the remaining rent
-                if($old_activity){
+                if(isset($old_activity)){
                     $actual_rent = $old_activity->remaining;
                 }
 
@@ -85,7 +85,7 @@ class RentActivityController extends Controller
                 $updates[] = $rent;
 
                 // Inactivate the old activity
-                if($old_activity){
+                if(isset($old_activity)){
                     $old_activity->active = false;
                     $old_activity->save();
                 }
