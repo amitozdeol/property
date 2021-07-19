@@ -48,7 +48,10 @@
                         </ul>
                     </div>
                     <div class="column is-mobile is-half">
-                        <b-field label="Rent" :type="{'is-danger': (error.rent)}" :message="error.rent" label-position="on-border">
+                        <b-field label="Rent"
+                                :type="{'is-danger': (error[index] ? error[index].rent_paid : false)}"
+                                :message="error[index] ? error[index].rent_paid: ''"
+                                label-position="on-border">
                             <b-input placeholder="$500"
                                     type="number"
                                     min="1"

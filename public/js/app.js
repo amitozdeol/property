@@ -2236,6 +2236,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['tenant'],
@@ -11757,8 +11760,14 @@ var render = function() {
                       {
                         attrs: {
                           label: "Rent",
-                          type: { "is-danger": _vm.error.rent },
-                          message: _vm.error.rent,
+                          type: {
+                            "is-danger": _vm.error[index]
+                              ? _vm.error[index].rent_paid
+                              : false
+                          },
+                          message: _vm.error[index]
+                            ? _vm.error[index].rent_paid
+                            : "",
                           "label-position": "on-border"
                         }
                       },
