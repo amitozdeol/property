@@ -2269,14 +2269,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
-    update: function update(activity_id, value) {
-      console.log(activity_id, value);
-      console.log(this.$refs);
-    },
-    fullyPaid: function fullyPaid() {
-      this.rent = this.fully_paid ? this.tenant.rent : null;
-    },
-
     /**
      * Submit the form
      */
@@ -11779,12 +11771,19 @@ var render = function() {
                             min: "1",
                             max: activity.remaining,
                             step: "0.01",
-                            disabled: _vm.fully_paid == "Yes"
+                            disabled:
+                              _vm.rent_activity[index].fully_paid == "Yes"
                           },
-                          on: {
-                            input: function($event) {
-                              _vm.rent_activity[index].rent_paid = $event
-                            }
+                          model: {
+                            value: _vm.rent_activity[index].rent_paid,
+                            callback: function($$v) {
+                              _vm.$set(
+                                _vm.rent_activity[index],
+                                "rent_paid",
+                                $$v
+                              )
+                            },
+                            expression: "rent_activity[index].rent_paid"
                           }
                         })
                       ],
@@ -11797,8 +11796,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.fully_paid,
-                            expression: "fully_paid"
+                            value: _vm.rent_activity[index].fully_paid,
+                            expression: "rent_activity[index].fully_paid"
                           }
                         ],
                         attrs: {
@@ -11808,14 +11807,19 @@ var render = function() {
                           "false-value": "No"
                         },
                         domProps: {
-                          checked: Array.isArray(_vm.fully_paid)
-                            ? _vm._i(_vm.fully_paid, null) > -1
-                            : _vm._q(_vm.fully_paid, "Yes")
+                          checked: Array.isArray(
+                            _vm.rent_activity[index].fully_paid
+                          )
+                            ? _vm._i(
+                                _vm.rent_activity[index].fully_paid,
+                                null
+                              ) > -1
+                            : _vm._q(_vm.rent_activity[index].fully_paid, "Yes")
                         },
                         on: {
                           change: [
                             function($event) {
-                              var $$a = _vm.fully_paid,
+                              var $$a = _vm.rent_activity[index].fully_paid,
                                 $$el = $event.target,
                                 $$c = $$el.checked ? "Yes" : "No"
                               if (Array.isArray($$a)) {
@@ -11823,22 +11827,34 @@ var render = function() {
                                   $$i = _vm._i($$a, $$v)
                                 if ($$el.checked) {
                                   $$i < 0 &&
-                                    (_vm.fully_paid = $$a.concat([$$v]))
+                                    _vm.$set(
+                                      _vm.rent_activity[index],
+                                      "fully_paid",
+                                      $$a.concat([$$v])
+                                    )
                                 } else {
                                   $$i > -1 &&
-                                    (_vm.fully_paid = $$a
-                                      .slice(0, $$i)
-                                      .concat($$a.slice($$i + 1)))
+                                    _vm.$set(
+                                      _vm.rent_activity[index],
+                                      "fully_paid",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
                                 }
                               } else {
-                                _vm.fully_paid = $$c
+                                _vm.$set(
+                                  _vm.rent_activity[index],
+                                  "fully_paid",
+                                  $$c
+                                )
                               }
                             },
                             function($event) {
-                              return _vm.update(
-                                activity.id,
-                                $event.target.value
-                              )
+                              _vm.rent_activity[index].fully_paid == "Yes"
+                                ? (_vm.rent_activity[index].rent_paid =
+                                    activity.remaining)
+                                : ""
                             }
                           ]
                         }

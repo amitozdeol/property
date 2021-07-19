@@ -57,8 +57,8 @@
                                     min="1"
                                     :max="activity.remaining"
                                     step="0.01"
-                                    @input="rent_activity[index].rent_paid = $event"
-                                    :disabled="fully_paid == 'Yes'">
+                                    v-model="rent_activity[index].rent_paid"
+                                    :disabled="rent_activity[index].fully_paid == 'Yes'">
                             </b-input>
                         </b-field>
                         <label class="b-checkbox checkbox">
@@ -66,8 +66,8 @@
                                 autocomplete="on"
                                 true-value="Yes"
                                 false-value="No"
-                                v-model="fully_paid"
-                                @change="update(activity.id, $event.target.value)">
+                                v-model="rent_activity[index].fully_paid"
+                                @change="rent_activity[index].fully_paid == 'Yes' ? rent_activity[index].rent_paid = activity.remaining : ''">
                             <span class="check"></span>
                             <span class="control-label"> Fully Paid </span>
                         </label>
@@ -111,14 +111,6 @@
             }
         },
         methods:{
-            update(activity_id, value){
-                console.log(activity_id, value);
-                console.log(this.$refs);
-            },
-            fullyPaid(){
-                this.rent = this.fully_paid ? this.tenant.rent : null;
-            },
-
             /**
              * Submit the form
              */
