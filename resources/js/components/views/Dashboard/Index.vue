@@ -63,7 +63,7 @@
             :width="800"
             aria-modal>
             <template #default="props">
-                <update-rent v-bind="{data: rent.current_activity}"
+                <update-rent v-bind="{tenant: rent.current_activity}"
                         v-on:reload="getPending()"
                         @close="props.close"></update-rent>
             </template>

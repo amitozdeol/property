@@ -2226,9 +2226,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['data'],
+  props: ['tenant'],
   data: function data() {
     return {
       is_loading: false,
@@ -2236,8 +2246,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         rent: null
       },
       fully_paid: false,
-      rent: null //user input rent
-
+      rent: [],
+      //user input rent
+      rent_activity: this.tenant.rent_activity
     };
   },
   computed: {
@@ -2245,9 +2256,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     rentDue: function rentDue() {
       var now = new Date();
       var rent_date = new Date();
-      rent_date.setDate(this.data.rent_due); // next month
+      rent_date.setDate(this.tenant.rent_due); // next month
 
-      if (this.data.rent_due < now.getDate()) {
+      if (this.tenant.rent_due < now.getDate()) {
         rent_date.setMonth(rent_date.getMonth() + 1);
       }
 
@@ -2255,6 +2266,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
+    update: function update(activity_id, value) {
+      console.log(activity_id, value);
+      console.log(this.$refs);
+    },
+    fullyPaid: function fullyPaid() {
+      this.rent = this.fully_paid ? this.tenant.rent : null;
+    },
+
+    /**
+     * Submit the form
+     */
     submit: function submit() {
       var _this = this;
 
@@ -2268,10 +2290,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.is_loading = true;
                 _context.prev = 1;
                 _context.next = 4;
-                return _axios__WEBPACK_IMPORTED_MODULE_1__.default.post("/rent/".concat(_this.data.id), {
-                  rent_month: _this.rentDue,
-                  value: _this.rent
-                });
+                return _axios__WEBPACK_IMPORTED_MODULE_1__.default.post("/rent/".concat(_this.tenant.id), _this.rent_activity);
 
               case 4:
                 res = _context.sent;
@@ -2298,9 +2317,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee, null, [[1, 9]]);
       }))();
-    },
-    fullyPaid: function fullyPaid() {
-      this.rent = this.fully_paid ? this.data.rent : null;
     }
   }
 });
@@ -11477,7 +11493,7 @@ var render = function() {
                           }
                         },
                         "update-rent",
-                        { data: _vm.rent.current_activity },
+                        { tenant: _vm.rent.current_activity },
                         false
                       )
                     )
@@ -11566,27 +11582,27 @@ var render = function() {
         })
       ]),
       _vm._v(" "),
-      _vm.data.rent_activity.length == 0
+      _vm.tenant.rent_activity.length == 0
         ? _c("section", { staticClass: "modal-card-body columns mb-0" }, [
             _c("div", { staticClass: "column is-mobile is-half" }, [
               _c("ul", { staticClass: "is-size-7" }, [
                 _c("li", { staticClass: "is-size-6" }, [
                   _vm._v("Rent remaining: "),
                   _c("strong", { staticClass: "has-text-primary" }, [
-                    _vm._v("$" + _vm._s(_vm.data.rent))
+                    _vm._v("$" + _vm._s(_vm.tenant.rent))
                   ])
                 ]),
                 _vm._v(" "),
                 _c("li", [
                   _vm._v("Name: "),
                   _c("strong", [
-                    _vm._v(_vm._s(_vm._f("capitalize")(_vm.data.name)))
+                    _vm._v(_vm._s(_vm._f("capitalize")(_vm.tenant.name)))
                   ])
                 ]),
                 _vm._v(" "),
                 _c("li", [
                   _vm._v("Email: "),
-                  _c("strong", [_vm._v(_vm._s(_vm.data.email))])
+                  _c("strong", [_vm._v(_vm._s(_vm.tenant.email))])
                 ]),
                 _vm._v(" "),
                 _c("li", [
@@ -11618,7 +11634,7 @@ var render = function() {
                         placeholder: "$500",
                         type: "number",
                         min: "1",
-                        max: _vm.data.rent,
+                        max: _vm.tenant.rent,
                         step: "0.01",
                         disabled: _vm.fully_paid == "Yes"
                       },
@@ -11696,7 +11712,7 @@ var render = function() {
         : _c(
             "section",
             { staticClass: "modal-card-body mb-0" },
-            _vm._l(_vm.data.rent_activity, function(activity) {
+            _vm._l(_vm.tenant.rent_activity, function(activity, index) {
               return _c("div", { key: activity.id, staticClass: "columns" }, [
                 _c("div", { staticClass: "column is-mobile is-half" }, [
                   _c("ul", { staticClass: "is-size-7" }, [
@@ -11710,13 +11726,13 @@ var render = function() {
                     _c("li", [
                       _vm._v("Name: "),
                       _c("strong", [
-                        _vm._v(_vm._s(_vm._f("capitalize")(_vm.data.name)))
+                        _vm._v(_vm._s(_vm._f("capitalize")(_vm.tenant.name)))
                       ])
                     ]),
                     _vm._v(" "),
                     _c("li", [
                       _vm._v("Email: "),
-                      _c("strong", [_vm._v(_vm._s(_vm.data.email))])
+                      _c("strong", [_vm._v(_vm._s(_vm.tenant.email))])
                     ]),
                     _vm._v(" "),
                     _c("li", [
@@ -11752,16 +11768,14 @@ var render = function() {
                             placeholder: "$500",
                             type: "number",
                             min: "1",
-                            max: _vm.data.rent,
+                            max: activity.remaining,
                             step: "0.01",
                             disabled: _vm.fully_paid == "Yes"
                           },
-                          model: {
-                            value: _vm.rent,
-                            callback: function($$v) {
-                              _vm.rent = _vm._n($$v)
-                            },
-                            expression: "rent"
+                          on: {
+                            input: function($event) {
+                              _vm.rent_activity[index].rent_paid = $event
+                            }
                           }
                         })
                       ],
@@ -11812,7 +11826,10 @@ var render = function() {
                               }
                             },
                             function($event) {
-                              return _vm.fullyPaid()
+                              return _vm.update(
+                                activity.id,
+                                $event.target.value
+                              )
                             }
                           ]
                         }

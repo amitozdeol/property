@@ -49,23 +49,49 @@ class RentActivityController extends Controller
     public function store(Request $request, Tenant $tenant)
     {
         $vd = $request->validate([
-            'rent_month' => 'required|date', //should be a format of yyyy/mm/dd
-            'value' => 'required|numeric|between:1,99999.99'
+            '*' => 'required|array',
+            '*.id' => 'sometimes|integer', //rent activity id exist if updating old activity
+            '*.rent_month' => 'required|date', //Should be a format of yyyy/mm/dd
+            '*.rent_paid' => 'sometimes|numeric|between:1,99999.99'
         ]);
         $actual_rent = $tenant->unit->rent;
-        $fully_paid = $actual_rent == $vd['value'];
+        $updates = [];
 
-        $rent = new RentActivity();
-        $rent->tenant_id = $tenant->id;
-        $rent->rent_month = Carbon::create($vd['rent_month'])->startOfMonth();
-        $rent->fully_paid = $fully_paid;
-        $rent->value = $vd['value'];
-        $rent->remaining = $tenant->unit->rent - $vd['value'];
-        $rent->user_id = Auth::guard('api')->id();
-        $rent->active = !$fully_paid;
-        $rent->save();
+        foreach ($vd as $activity) {
+            //if user provided new rent value
+            if(isset($activity['rent_paid'])){
 
-        return response()->json($rent, 201);
+                if(isset($activity['id'])){
+                    $old_activity = RentActivity::find($activity['id']);
+                }
+
+                //actual rent remaining is the remaining rent
+                if($old_activity){
+                    $actual_rent = $old_activity->remaining;
+                }
+
+                $fully_paid = $actual_rent == $activity['rent_paid'];
+
+                $rent = new RentActivity();
+                $rent->tenant_id = $tenant->id;
+                $rent->rent_month = Carbon::create($activity['rent_month'])->startOfMonth();
+                $rent->fully_paid = $fully_paid;
+                $rent->value = $activity['rent_paid'];
+                $rent->remaining = $actual_rent - $activity['rent_paid'];
+                $rent->user_id = Auth::guard('api')->id();
+                $rent->active = !$fully_paid;
+                $rent->save();
+
+                $updates[] = $rent;
+
+                // Inactivate the old activity
+                if($old_activity){
+                    $old_activity->active = false;
+                    $old_activity->save();
+                }
+            }
+        }
+        return response()->json($updates, 201);
     }
 
     /**
