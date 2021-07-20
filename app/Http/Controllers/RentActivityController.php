@@ -69,17 +69,16 @@ class RentActivityController extends Controller
                 if(isset($old_activity)){
                     $actual_rent = $old_activity->remaining;
                 }
-
-                $fully_paid = $actual_rent == $activity['rent_paid'];
+                $remaining = max($actual_rent - $activity['rent_paid'], 0);
 
                 $rent = new RentActivity();
                 $rent->tenant_id = $tenant->id;
                 $rent->rent_month = Carbon::create($activity['rent_month'])->startOfMonth();
-                $rent->fully_paid = $fully_paid;
+                $rent->fully_paid = ($remaining == 0);
                 $rent->value = $activity['rent_paid'];
-                $rent->remaining = $actual_rent - $activity['rent_paid'];
+                $rent->remaining = $remaining;
                 $rent->user_id = Auth::guard('api')->id();
-                $rent->active = !$fully_paid;
+                $rent->active = ($remaining > 0);
                 $rent->save();
 
                 $updates[] = $rent;
