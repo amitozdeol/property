@@ -1940,6 +1940,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../../axios */ "./resources/js/axios.js");
 /* harmony import */ var _mixins_loading__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../mixins/loading */ "./resources/js/components/mixins/loading.js");
 /* harmony import */ var _UpdateRent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./UpdateRent.vue */ "./resources/js/components/views/Dashboard/UpdateRent.vue");
+/* harmony import */ var _RentActivityChart_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./RentActivityChart.vue */ "./resources/js/components/views/Dashboard/RentActivityChart.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2030,12 +2031,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    UpdateRent: _UpdateRent_vue__WEBPACK_IMPORTED_MODULE_3__.default
+    UpdateRent: _UpdateRent_vue__WEBPACK_IMPORTED_MODULE_3__.default,
+    RentActivityChart: _RentActivityChart_vue__WEBPACK_IMPORTED_MODULE_4__.default
   },
   mixins: [_mixins_loading__WEBPACK_IMPORTED_MODULE_2__.default],
   data: function data() {
@@ -2050,7 +2057,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     };
   },
-  beforeCreate: function beforeCreate() {
+  mounted: function mounted() {
     var _this = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -2069,14 +2076,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               _this.getPending();
 
-              _context.next = 8;
-              return _axios__WEBPACK_IMPORTED_MODULE_1__.default.get('/rent/latest');
+              _this.getLatestSum();
 
-            case 8:
-              res = _context.sent;
-              _this.latest_income = res.data;
-
-            case 10:
+            case 7:
             case "end":
               return _context.stop();
           }
@@ -2114,22 +2116,130 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
 
     /**
+     * Get sum of latest rent income for past 3 months
+     */
+    getLatestSum: function getLatestSum() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return _axios__WEBPACK_IMPORTED_MODULE_1__.default.get('/rent/latestSum');
+
+              case 2:
+                res = _context3.sent;
+                _this3.latest_income = res.data;
+
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+
+    /**
      * Find difference between two dates
      */
     daysDiff: function daysDiff(rent_day) {
       var now = new Date();
       var rent_date = new Date();
-      rent_date.setDate(rent_day); // Time difference
+      rent_date.setDate(rent_day); // next month
 
-      var Difference_In_Time = rent_date.getTime() - now.getTime(); // Day different
+      if (rent_day < now.getDate()) {
+        rent_date.setMonth(rent_date.getMonth() + 1);
+      }
 
+      var Difference_In_Time = rent_date.getTime() - now.getTime();
       var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
       return Difference_In_Days;
     },
+
+    /**
+     * Opens the modal
+     */
     openUpdateRent: function openUpdateRent(rp) {
       this.rent.current_activity = rp;
       this.rent.open_update_modal = true;
     }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/views/Dashboard/RentActivityChart.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/views/Dashboard/RentActivityChart.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../../axios */ "./resources/js/axios.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      data: null
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var res, options, chart;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _axios__WEBPACK_IMPORTED_MODULE_1__.default.get('/rent/activity');
+
+            case 2:
+              res = _context.sent;
+              _this.rent.pending_activity = res.data;
+              options = {
+                chart: {
+                  type: 'line'
+                },
+                series: [{
+                  name: 'sales',
+                  data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
+                }],
+                xaxis: {
+                  categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+                }
+              };
+              chart = new ApexCharts(_this.$refs.rent_activity, options);
+              chart.render();
+
+            case 7:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
   }
 });
 
@@ -10347,6 +10457,45 @@ component.options.__file = "resources/js/components/views/Dashboard/Index.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/views/Dashboard/RentActivityChart.vue":
+/*!***********************************************************************!*\
+  !*** ./resources/js/components/views/Dashboard/RentActivityChart.vue ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _RentActivityChart_vue_vue_type_template_id_1794327f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RentActivityChart.vue?vue&type=template&id=1794327f& */ "./resources/js/components/views/Dashboard/RentActivityChart.vue?vue&type=template&id=1794327f&");
+/* harmony import */ var _RentActivityChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RentActivityChart.vue?vue&type=script&lang=js& */ "./resources/js/components/views/Dashboard/RentActivityChart.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _RentActivityChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _RentActivityChart_vue_vue_type_template_id_1794327f___WEBPACK_IMPORTED_MODULE_0__.render,
+  _RentActivityChart_vue_vue_type_template_id_1794327f___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/views/Dashboard/RentActivityChart.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/views/Dashboard/UpdateRent.vue":
 /*!****************************************************************!*\
   !*** ./resources/js/components/views/Dashboard/UpdateRent.vue ***!
@@ -10668,6 +10817,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/views/Dashboard/RentActivityChart.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/views/Dashboard/RentActivityChart.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RentActivityChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./RentActivityChart.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/views/Dashboard/RentActivityChart.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RentActivityChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/views/Dashboard/UpdateRent.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************!*\
   !*** ./resources/js/components/views/Dashboard/UpdateRent.vue?vue&type=script&lang=js& ***!
@@ -10844,6 +11009,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_562da10a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_562da10a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Index.vue?vue&type=template&id=562da10a&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/views/Dashboard/Index.vue?vue&type=template&id=562da10a&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/views/Dashboard/RentActivityChart.vue?vue&type=template&id=1794327f&":
+/*!******************************************************************************************************!*\
+  !*** ./resources/js/components/views/Dashboard/RentActivityChart.vue?vue&type=template&id=1794327f& ***!
+  \******************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RentActivityChart_vue_vue_type_template_id_1794327f___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RentActivityChart_vue_vue_type_template_id_1794327f___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RentActivityChart_vue_vue_type_template_id_1794327f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./RentActivityChart.vue?vue&type=template&id=1794327f& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/views/Dashboard/RentActivityChart.vue?vue&type=template&id=1794327f&");
 
 
 /***/ }),
@@ -11474,7 +11656,9 @@ var render = function() {
                   )
                 ]
               )
-            ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "box" }, [_c("RentActivityChart")], 1)
           ]),
           _vm._v(" "),
           _c("b-modal", {
@@ -11553,6 +11737,31 @@ var render = function() {
           )
         ])
       ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/views/Dashboard/RentActivityChart.vue?vue&type=template&id=1794327f&":
+/*!*********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/views/Dashboard/RentActivityChart.vue?vue&type=template&id=1794327f& ***!
+  \*********************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { ref: "rent_activity" })
 }
 var staticRenderFns = []
 render._withStripped = true

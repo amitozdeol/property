@@ -13,12 +13,33 @@ use Illuminate\Support\Facades\Auth;
 
 class RentActivityController extends Controller
 {
+
     /**
-     * Display latest income
+     * Get the latest activity for the rent
      *
      * @return \Illuminate\Http\Response
      */
-    public function latest()
+    public function activity()
+    {
+        $activities = RentActivity::select('tenant_id', 'rent_month', 'fully_paid', 'value', 'remaining', 'created_at')
+                            ->where('rent_month', '>=', Carbon::now()->startOfMonth()->subMonths(3))
+                            ->get();
+
+        $tenants = Tenant::select('id', 'name')->whereIn('id', $activities->pluck('tenant_id'))->get()->keyBy('id');
+
+        $activities = $activities->map(function($a) use($tenants){
+                                    $a->name = $tenants[$a->tenant_id]->name;
+                                    return $a;
+                                });
+        return $activities;
+    }
+
+    /**
+     * Display sum of latest income
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function latestSum()
     {
         $last3month = CarbonPeriod::create(Carbon::now()->subMonth(2), '1 month', 'now');
         $incomes = RentActivity::select('rent_month', DB::raw('sum("value")'))

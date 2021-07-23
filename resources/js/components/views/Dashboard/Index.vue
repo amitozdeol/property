@@ -50,6 +50,10 @@
                     </div>
                 </div>
             </div>
+
+            <div class="box">
+                <RentActivityChart />
+            </div>
         </section>
 
         <!-- Open UpdateRent.vue file in a modal to update the rent activity  -->
@@ -86,10 +90,12 @@
     import axios from './../../../axios';
     import loadingMixin from './../../mixins/loading';
     import UpdateRent from './UpdateRent.vue';
+    import RentActivityChart from './RentActivityChart.vue';
 
     export default {
         components: {
-            UpdateRent
+            UpdateRent,
+            RentActivityChart
         },
         mixins: [loadingMixin],
         data(){
@@ -103,15 +109,13 @@
                 }
             }
         },
-        async beforeCreate(){
+        async mounted(){
             let res = await axios.get('/property/exist');
             this.has_property = res.data;
             this.is_loading = false;
 
             this.getPending();
-
-            res = await axios.get('/rent/latest');
-            this.latest_income = res.data;
+            this.getLatestSum();
         },
         methods:{
             /**
@@ -123,6 +127,14 @@
             },
 
             /**
+             * Get sum of latest rent income for past 3 months
+             */
+            async getLatestSum(){
+                const res = await axios.get('/rent/latestSum');
+                this.latest_income = res.data;
+            },
+
+            /**
              * Find difference between two dates
              */
             daysDiff(rent_day){
@@ -130,13 +142,18 @@
                 var rent_date = new Date();
                 rent_date.setDate(rent_day)
 
-                // Time difference
+                // next month
+                if (rent_day < now.getDate()) {
+                    rent_date.setMonth(rent_date.getMonth()+1);
+                }
                 var Difference_In_Time = rent_date.getTime() - now.getTime();
-
-                // Day different
                 var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
                 return Difference_In_Days;
             },
+
+            /**
+             * Opens the modal
+             */
             openUpdateRent(rp){
                 this.rent.current_activity = rp;
                 this.rent.open_update_modal = true
