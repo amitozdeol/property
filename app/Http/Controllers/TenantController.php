@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Tenant;
 use App\Model\Property;
+use Carbon\CarbonPeriod;
 use App\Model\RentActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -74,18 +75,26 @@ class TenantController extends Controller
      */
     public function rentPending()
     {
+        $now = Carbon::now();
+
         //Find tenants that already paid the rent
         $tenantPaid = RentActivity::select('tenant_id')
-                            ->where('rent_month', Carbon::now()->startOfMonth())
+                            ->where('rent_month', $now->startOfMonth())
                             ->where('fully_paid', true)
                             ->get()
                             ->pluck('tenant_id');
 
         //Find tenants that's pending
+        $datesIterator = CarbonPeriod::create('now', '1 day', Carbon::now()->addDays(10));
+        $next10Days = [];
+        foreach ($datesIterator as $value) {
+            $next10Days[] = intval($value->format('d'));
+        }
+
         $tenants = Tenant::myTenant()
                         ->with('rent_activity:id,tenant_id,rent_month,value,remaining')
                         ->whereNotIn('tenant.id', $tenantPaid)
-                        ->where('rent_due', '<=', Carbon::now()->addDays(10)->day) //upcoming rent in next 10 days
+                        ->whereIn('rent_due', $next10Days) //upcoming rent in next 10 days
                         ->select('tenant.*', 'property_unit.rent as rent')
                         ->orderBy('rent_due')
                         ->get();
