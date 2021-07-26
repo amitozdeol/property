@@ -8,28 +8,40 @@
 export default {
     data(){
         return {
-            data: null
+            chart: null
         }
     },
-    async mounted(){
-        const res = await axios.get('/rent/activity');
-        this.rent.pending_activity = res.data;
+    mounted(){
         var options = {
             chart: {
                 type: 'line'
             },
-            series: [{
-                name: 'sales',
-                data: [30,40,35,50,49,60,70,91,125]
-            }],
-            xaxis: {
-                categories: [1991,1992,1993,1994,1995,1996,1997, 1998,1999]
-            }
+            series: [],
+            noData: {
+                text: "Loading...",
+                align: 'center',
+                verticalAlign: 'middle',
+                offsetX: 0,
+                offsetY: 0,
+            },
+        };
+
+        this.chart = new ApexCharts(this.$refs.rent_activity, options);
+        this.chart.render();
+        this.getData();
+    },
+    methods: {
+        /**
+         * get chart data and re-render it
+         */
+        async getData(){
+            const res = await axios.get('/rent/activity');
+
+            this.chart.updateSeries([{
+                name: 'Sales',
+                data: res.data.map(e => { return {x: e.created_at, y: e.value}})
+            }]);
         }
-
-        var chart = new ApexCharts(this.$refs.rent_activity, options);
-
-        chart.render();
     }
 }
 </script>

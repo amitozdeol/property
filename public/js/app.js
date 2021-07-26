@@ -2200,46 +2200,64 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      data: null
+      chart: null
     };
   },
   mounted: function mounted() {
-    var _this = this;
+    var options = {
+      chart: {
+        type: 'line'
+      },
+      series: [],
+      noData: {
+        text: "Loading...",
+        align: 'center',
+        verticalAlign: 'middle',
+        offsetX: 0,
+        offsetY: 0
+      }
+    };
+    this.chart = new ApexCharts(this.$refs.rent_activity, options);
+    this.chart.render();
+    this.getData();
+  },
+  methods: {
+    /**
+     * get chart data and re-render it
+     */
+    getData: function getData() {
+      var _this = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      var res, options, chart;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return _axios__WEBPACK_IMPORTED_MODULE_1__.default.get('/rent/activity');
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _axios__WEBPACK_IMPORTED_MODULE_1__.default.get('/rent/activity');
 
-            case 2:
-              res = _context.sent;
-              _this.rent.pending_activity = res.data;
-              options = {
-                chart: {
-                  type: 'line'
-                },
-                series: [{
-                  name: 'sales',
-                  data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
-                }],
-                xaxis: {
-                  categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
-                }
-              };
-              chart = new ApexCharts(_this.$refs.rent_activity, options);
-              chart.render();
+              case 2:
+                res = _context.sent;
 
-            case 7:
-            case "end":
-              return _context.stop();
+                _this.chart.updateSeries([{
+                  name: 'Sales',
+                  data: res.data.map(function (e) {
+                    return {
+                      x: e.created_at,
+                      y: e.value
+                    };
+                  })
+                }]);
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
           }
-        }
-      }, _callee);
-    }))();
+        }, _callee);
+      }))();
+    }
   }
 });
 
