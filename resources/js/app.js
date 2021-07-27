@@ -8,15 +8,29 @@ Vue.component('app', require('./components/App.vue').default);
 
 /**
  * Format date to human readable time
- * @param hasDay {Boolean} Show day or not in the returned date
+ * @param format {string} Show datetime in specific format
  */
-Vue.filter('formatDate', function(value, hasDay = true) {
+Vue.filter('formatDate', function(value, format="dd-MMM-YYYY") {
     if (value) {
         let d = new Date(value);
         let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
         let mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(d);
         let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
-        return hasDay ? `${da}-${mo}-${ye}` : `${mo}-${ye}`;
+        switch (format) {
+            case 'dd-MMM-YYYY HH:mm':
+                return `${da}-${mo}-${ye} ${d.getHours()}:${d.getMinutes()}`;
+            case 'MMM-YYYY':
+                return `${mo}-${ye}`;
+            case 'dd-MMM-YYYY':
+            default:
+                return `${da}-${mo}-${ye}`;
+        }
+        if (hasHour) {
+            return `${da}-${mo}-${ye} ${d.getHours()}:${d.getMinutes()}`;
+        }else if(hasDay){
+        }else{
+            return `${mo}-${ye}`;
+        }
     }
 });
 

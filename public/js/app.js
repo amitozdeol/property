@@ -2204,9 +2204,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   mounted: function mounted() {
+    var _this = this;
+
     var options = {
       chart: {
-        type: 'line'
+        type: 'bar'
+      },
+      title: {
+        text: 'Latest rent activity'
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            position: 'top'
+          }
+        }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      tooltip: {
+        x: {
+          show: false
+        },
+        y: {
+          formatter: function formatter(value, _ref) {
+            var series = _ref.series,
+                seriesIndex = _ref.seriesIndex,
+                dataPointIndex = _ref.dataPointIndex,
+                w = _ref.w;
+            var raw_date = w.config.series[seriesIndex].data[dataPointIndex].raw_date;
+            return "$".concat(value, ", ").concat(_this.$options.filters.formatDate(raw_date, 'dd-MMM-YYYY HH:mm'));
+          }
+        }
       },
       series: [],
       noData: {
@@ -2223,13 +2253,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     /**
-     * get chart data and re-render it
+     * Get chart data, format it and re-render the chart
      */
     getData: function getData() {
-      var _this = this;
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var res;
+        var res, chart_data, tenant_names;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -2239,18 +2269,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
                 res = _context.sent;
+                chart_data = [];
+                tenant_names = Object.keys(res.data);
+                Object.values(res.data).forEach(function (d, index) {
+                  chart_data.push({
+                    name: tenant_names[index],
+                    data: d.map(function (e) {
+                      return {
+                        x: _this2.$options.filters.formatDate(e.created_at),
+                        y: e.value,
+                        raw_date: e.created_at
+                      };
+                    })
+                  });
+                });
 
-                _this.chart.updateSeries([{
-                  name: 'Sales',
-                  data: res.data.map(function (e) {
-                    return {
-                      x: e.created_at,
-                      y: e.value
-                    };
-                  })
-                }]);
+                _this2.chart.updateSeries(chart_data);
 
-              case 4:
+              case 7:
               case "end":
                 return _context.stop();
             }
@@ -3357,11 +3393,11 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_12__.default.component('app', __webpack_require__(/*! ./components/App.vue */ "./resources/js/components/App.vue").default);
 /**
  * Format date to human readable time
- * @param hasDay {Boolean} Show day or not in the returned date
+ * @param format {string} Show datetime in specific format
  */
 
 vue__WEBPACK_IMPORTED_MODULE_12__.default.filter('formatDate', function (value) {
-  var hasDay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+  var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "dd-MMM-YYYY";
 
   if (value) {
     var d = new Date(value);
@@ -3374,7 +3410,24 @@ vue__WEBPACK_IMPORTED_MODULE_12__.default.filter('formatDate', function (value) 
     var da = new Intl.DateTimeFormat('en', {
       day: '2-digit'
     }).format(d);
-    return hasDay ? "".concat(da, "-").concat(mo, "-").concat(ye) : "".concat(mo, "-").concat(ye);
+
+    switch (format) {
+      case 'dd-MMM-YYYY HH:mm':
+        return "".concat(da, "-").concat(mo, "-").concat(ye, " ").concat(d.getHours(), ":").concat(d.getMinutes());
+
+      case 'MMM-YYYY':
+        return "".concat(mo, "-").concat(ye);
+
+      case 'dd-MMM-YYYY':
+      default:
+        return "".concat(da, "-").concat(mo, "-").concat(ye);
+    }
+
+    if (hasHour) {
+      return "".concat(da, "-").concat(mo, "-").concat(ye, " ").concat(d.getHours(), ":").concat(d.getMinutes());
+    } else if (hasDay) {} else {
+      return "".concat(mo, "-").concat(ye);
+    }
   }
 }); //capitalize text
 
@@ -11487,7 +11540,7 @@ var render = function() {
                             _vm._f("formatDate")(
                               _vm.latest_income[0] &&
                                 _vm.latest_income[0].rent_month,
-                              false
+                              "MMM-YYYY"
                             )
                           ) + ": Income"
                         )
@@ -11516,7 +11569,7 @@ var render = function() {
                                       _vm._s(
                                         _vm._f("formatDate")(
                                           _vm.latest_income[1].rent_month,
-                                          false
+                                          "MMM-YYYY"
                                         )
                                       )
                                     )
@@ -11543,7 +11596,7 @@ var render = function() {
                                       _vm._s(
                                         _vm._f("formatDate")(
                                           _vm.latest_income[2].rent_month,
-                                          false
+                                          "MMM-YYYY"
                                         )
                                       )
                                     )
@@ -11676,7 +11729,12 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "box" }, [_c("RentActivityChart")], 1)
+            _c(
+              "div",
+              { staticClass: "box px-sm-0" },
+              [_c("RentActivityChart")],
+              1
+            )
           ]),
           _vm._v(" "),
           _c("b-modal", {
@@ -11980,7 +12038,10 @@ var render = function() {
                       _c("strong", [
                         _vm._v(
                           _vm._s(
-                            _vm._f("formatDate")(activity.rent_month, false)
+                            _vm._f("formatDate")(
+                              activity.rent_month,
+                              "MMM-YYYY"
+                            )
                           )
                         )
                       ])

@@ -15527,3 +15527,10 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   margin-bottom: 2rem !important;
   padding-bottom: 1rem;
 }
+
+@media screen and (max-width: 768px) {
+  .px-sm-0 {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

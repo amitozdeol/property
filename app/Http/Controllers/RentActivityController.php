@@ -23,14 +23,18 @@ class RentActivityController extends Controller
     {
         $activities = RentActivity::select('tenant_id', 'rent_month', 'fully_paid', 'value', 'remaining', 'created_at')
                             ->where('rent_month', '>=', Carbon::now()->startOfMonth()->subMonths(3))
+                            ->orderby('created_at')
                             ->get();
 
+        //Find tenant names
         $tenants = Tenant::select('id', 'name')->whereIn('id', $activities->pluck('tenant_id'))->get()->keyBy('id');
 
         $activities = $activities->map(function($a) use($tenants){
                                     $a->name = $tenants[$a->tenant_id]->name;
+                                    $a->b = $a->created_at->toW3cString();
                                     return $a;
-                                });
+                                })
+                                ->groupBy('name');
         return $activities;
     }
 

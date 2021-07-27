@@ -45,7 +45,7 @@
                             <li class="is-size-6">Rent remaining: <strong class="has-text-primary">${{activity.remaining}}</strong></li>
                             <li>Name: <strong>{{tenant.name |capitalize}}</strong></li>
                             <li>Email: <strong>{{tenant.email}}</strong></li>
-                            <li>Due due: <strong>{{activity.rent_month | formatDate(false)}}</strong></li>
+                            <li>Due due: <strong>{{activity.rent_month | formatDate('MMM-YYYY')}}</strong></li>
                         </ul>
                     </div>
                     <div class="column is-mobile is-half">
