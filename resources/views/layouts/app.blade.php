@@ -10,7 +10,7 @@
     <meta name="api-base-url" content="{{ url('/api') }}" />
     <meta name="api-base-token" content="{{ auth()->user()->api_token ?? '' }}" />
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Laravel Test') }}</title>
 
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
