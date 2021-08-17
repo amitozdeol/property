@@ -7,7 +7,15 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="api-base-url" content="{{ url('/api') }}" />
+    @php
+        //Use https when running in production
+        $api_url = url('/api');
+        $env = env('APP_ENV');
+        if($env == 'Production'){
+            $api_url = str_replace('http', 'https', $api_url);
+        }
+    @endphp
+    <meta name="api-base-url" content="{{ $api_url }}" />
     <meta name="api-base-token" content="{{ auth()->user()->api_token ?? '' }}" />
 
     <title>{{ config('app.name', 'Laravel Test') }}</title>
