@@ -2578,6 +2578,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 
@@ -2627,7 +2629,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 if (!_this.is_validated) {
-                  _context.next = 15;
+                  _context.next = 16;
                   break;
                 }
 
@@ -2649,7 +2651,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   name: 'property'
                 });
 
-                _context.next = 14;
+                _context.next = 15;
                 break;
 
               case 11:
@@ -2657,10 +2659,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.t0 = _context["catch"](2);
                 _this.error = (_err$response = _context.t0.response) === null || _err$response === void 0 ? void 0 : (_err$response$data = _err$response.data) === null || _err$response$data === void 0 ? void 0 : _err$response$data.errors;
 
-              case 14:
-                _this.is_loading = false;
+                if (typeof _this.error.units == 'undefined') {
+                  _this.error.units = {};
+                }
 
               case 15:
+                _this.is_loading = false;
+
+              case 16:
               case "end":
                 return _context.stop();
             }
@@ -12383,24 +12389,40 @@ var render = function() {
                 }
               },
               [
-                _c("b-input", {
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model.number",
+                      value: _vm.input.zip,
+                      expression: "input.zip",
+                      modifiers: { number: true }
+                    }
+                  ],
+                  staticClass: "input",
                   attrs: {
                     placeholder: "Ex: 12345",
-                    type: "number",
+                    type: "text",
+                    inputmode: "numeric",
+                    pattern: "[-+]?[0-9]*[.,]?[0-9]+",
                     min: "1",
                     max: "999999",
                     required: ""
                   },
-                  model: {
-                    value: _vm.input.zip,
-                    callback: function($$v) {
-                      _vm.$set(_vm.input, "zip", _vm._n($$v))
+                  domProps: { value: _vm.input.zip },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.input, "zip", _vm._n($event.target.value))
                     },
-                    expression: "input.zip"
+                    blur: function($event) {
+                      return _vm.$forceUpdate()
+                    }
                   }
                 })
-              ],
-              1
+              ]
             )
           ],
           1
