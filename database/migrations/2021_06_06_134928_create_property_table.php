@@ -20,7 +20,7 @@ class CreatePropertyTable extends Migration
             $table->string('address', 1000);
             $table->string('city', 20);
             $table->string('state', 20);
-            $table->integer('zip');
+            $table->string('zip', 10);
             $table->timestamps();
         });
     }

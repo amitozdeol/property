@@ -113,9 +113,10 @@
             let res = await axios.get('/property/exist');
             this.has_property = res.data;
             this.is_loading = false;
-
-            this.getPending();
-            this.getLatestSum();
+            if(this.has_property){
+                this.getPending();
+                this.getLatestSum();
+            }
         },
         methods:{
             /**

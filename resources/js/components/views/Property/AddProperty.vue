@@ -23,10 +23,10 @@
                 </b-field>
 
                 <b-field label="Zip" :type="{'is-danger': error.zip}" :message="error.zip">
-                    <input placeholder="Ex: 12345" type="text"
+                    <b-input placeholder="Ex: 12345" type="text"
                         inputmode="numeric" pattern="[-+]?[0-9]*[.,]?[0-9]+"
-                        class="input" v-model.number="input.zip" min="1" max="999999"
-                        required/>
+                        v-model="input.zip" min="1" max="999999"
+                        required></b-input>
                 </b-field>
             </div>
         </div>

@@ -42,7 +42,7 @@ class PropertyController extends Controller
             'address' => 'required',
             'city' => 'required',
             'state' => 'required',
-            'zip' => 'required|max:999999|integer',
+            'zip' => 'required|max:999999|numeric',
             'units' => 'required|array',
             'units.*.unit' => 'required|string',
             'units.*.rent' => 'required|numeric|between:1,99999.99',

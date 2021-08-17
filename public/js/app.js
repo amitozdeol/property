@@ -2074,11 +2074,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _this.has_property = res.data;
               _this.is_loading = false;
 
-              _this.getPending();
+              if (_this.has_property) {
+                _this.getPending();
 
-              _this.getLatestSum();
+                _this.getLatestSum();
+              }
 
-            case 7:
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -12389,17 +12391,7 @@ var render = function() {
                 }
               },
               [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model.number",
-                      value: _vm.input.zip,
-                      expression: "input.zip",
-                      modifiers: { number: true }
-                    }
-                  ],
-                  staticClass: "input",
+                _c("b-input", {
                   attrs: {
                     placeholder: "Ex: 12345",
                     type: "text",
@@ -12409,20 +12401,16 @@ var render = function() {
                     max: "999999",
                     required: ""
                   },
-                  domProps: { value: _vm.input.zip },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.input, "zip", _vm._n($event.target.value))
+                  model: {
+                    value: _vm.input.zip,
+                    callback: function($$v) {
+                      _vm.$set(_vm.input, "zip", $$v)
                     },
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
-                    }
+                    expression: "input.zip"
                   }
                 })
-              ]
+              ],
+              1
             )
           ],
           1
