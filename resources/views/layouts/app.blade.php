@@ -11,7 +11,7 @@
         //Use https when running in production
         $api_url = url('/api');
         $env = env('APP_ENV');
-        if($env == 'Production'){
+        if($env == 'production'){
             $api_url = str_replace('http', 'https', $api_url);
         }
     @endphp
@@ -35,7 +35,6 @@
 
 <body>
     <nav class="navbar" role="navigation" aria-label="main navigation">
-        <h1>{{env('APP_ENV')}}</h1>
         <div class="container">
             <div class="navbar-brand">
                 <a class="navbar-item has-text-white" href="/dashboard">
