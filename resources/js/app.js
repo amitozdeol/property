@@ -25,12 +25,6 @@ Vue.filter('formatDate', function(value, format="dd-MMM-YYYY") {
             default:
                 return `${da}-${mo}-${ye}`;
         }
-        if (hasHour) {
-            return `${da}-${mo}-${ye} ${d.getHours()}:${d.getMinutes()}`;
-        }else if(hasDay){
-        }else{
-            return `${mo}-${ye}`;
-        }
     }
 });
 

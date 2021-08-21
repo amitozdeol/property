@@ -3430,12 +3430,6 @@ vue__WEBPACK_IMPORTED_MODULE_12__.default.filter('formatDate', function (value) 
       default:
         return "".concat(da, "-").concat(mo, "-").concat(ye);
     }
-
-    if (hasHour) {
-      return "".concat(da, "-").concat(mo, "-").concat(ye, " ").concat(d.getHours(), ":").concat(d.getMinutes());
-    } else if (hasDay) {} else {
-      return "".concat(mo, "-").concat(ye);
-    }
   }
 }); //capitalize text
 
