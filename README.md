@@ -1,6 +1,6 @@
 ## Property management tool
 
-This application will help the tenant to help organize their property/units and tenants.
+This application will help the landlord to help organize their property/units and tenants.
 
 - Ability to keep track of all the lease for the tenants
 - Ability to notify tenants when a new rent is pending
